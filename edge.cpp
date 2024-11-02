@@ -28,6 +28,22 @@ ComputedEdge::ComputedEdge(NodePtr start, NodePtr end, allowance allow, double s
     distance = start.distance(end);
 }
 
+bool ComputedEdge::vis(int method) {
+    if (method & 1 && allow.pedestrian) {
+        return true;
+    } else if (method & 2 && allow.bicycle) {
+        return true;
+    } else if (method & 4 && allow.car) {
+        return true;
+    } else if (method & 8 && allow.bus) {
+        return true;
+    } else if (method & 16 && allow.subway) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 double ComputedEdge::getTravelTime(int method) {
     double speed = 0;  //m/s
     if (method & 1 && allow.pedestrian) {

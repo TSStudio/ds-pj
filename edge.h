@@ -148,6 +148,7 @@ public:
     allowance allow;
     ComputedEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit);
     double getTravelTime(int method);  //bit 0: pedestrian, bit 1: bicycle, bit 2: car, bit 3: bus, bit 4: subway
+    bool vis(int method);
 };
 
 #endif

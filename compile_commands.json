@@ -1,6 +1,12 @@
 [
 {
   "directory": "/home/tmysam/ds-pj",
+  "command": "/usr/bin/g++ -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -g -std=gnu++20 -o CMakeFiles/server.dir/algo.cpp.o -c /home/tmysam/ds-pj/algo.cpp",
+  "file": "/home/tmysam/ds-pj/algo.cpp",
+  "output": "CMakeFiles/server.dir/algo.cpp.o"
+},
+{
+  "directory": "/home/tmysam/ds-pj",
   "command": "/usr/bin/g++ -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -g -std=gnu++20 -o CMakeFiles/server.dir/data_loader.cpp.o -c /home/tmysam/ds-pj/data_loader.cpp",
   "file": "/home/tmysam/ds-pj/data_loader.cpp",
   "output": "CMakeFiles/server.dir/data_loader.cpp.o"
@@ -28,6 +34,24 @@
   "command": "/usr/bin/g++ -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -g -std=gnu++20 -o CMakeFiles/server.dir/quad_tree.cpp.o -c /home/tmysam/ds-pj/quad_tree.cpp",
   "file": "/home/tmysam/ds-pj/quad_tree.cpp",
   "output": "CMakeFiles/server.dir/quad_tree.cpp.o"
+},
+{
+  "directory": "/home/tmysam/ds-pj",
+  "command": "/usr/bin/g++ -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -g -std=gnu++20 -o CMakeFiles/server.dir/route_find_nearest_node.cpp.o -c /home/tmysam/ds-pj/route_find_nearest_node.cpp",
+  "file": "/home/tmysam/ds-pj/route_find_nearest_node.cpp",
+  "output": "CMakeFiles/server.dir/route_find_nearest_node.cpp.o"
+},
+{
+  "directory": "/home/tmysam/ds-pj",
+  "command": "/usr/bin/g++ -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -g -std=gnu++20 -o CMakeFiles/server.dir/route_find_path.cpp.o -c /home/tmysam/ds-pj/route_find_path.cpp",
+  "file": "/home/tmysam/ds-pj/route_find_path.cpp",
+  "output": "CMakeFiles/server.dir/route_find_path.cpp.o"
+},
+{
+  "directory": "/home/tmysam/ds-pj",
+  "command": "/usr/bin/g++ -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -g -std=gnu++20 -o CMakeFiles/server.dir/route_nodes.cpp.o -c /home/tmysam/ds-pj/route_nodes.cpp",
+  "file": "/home/tmysam/ds-pj/route_nodes.cpp",
+  "output": "CMakeFiles/server.dir/route_nodes.cpp.o"
 },
 {
   "directory": "/home/tmysam/ds-pj",
