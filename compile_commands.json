@@ -1,0 +1,50 @@
+[
+{
+  "directory": "/home/tmysam/ds-pj",
+  "command": "/usr/bin/g++ -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -g -std=gnu++20 -o CMakeFiles/server.dir/data_loader.cpp.o -c /home/tmysam/ds-pj/data_loader.cpp",
+  "file": "/home/tmysam/ds-pj/data_loader.cpp",
+  "output": "CMakeFiles/server.dir/data_loader.cpp.o"
+},
+{
+  "directory": "/home/tmysam/ds-pj",
+  "command": "/usr/bin/g++ -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -g -std=gnu++20 -o CMakeFiles/server.dir/edge.cpp.o -c /home/tmysam/ds-pj/edge.cpp",
+  "file": "/home/tmysam/ds-pj/edge.cpp",
+  "output": "CMakeFiles/server.dir/edge.cpp.o"
+},
+{
+  "directory": "/home/tmysam/ds-pj",
+  "command": "/usr/bin/g++ -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -g -std=gnu++20 -o CMakeFiles/server.dir/main.cpp.o -c /home/tmysam/ds-pj/main.cpp",
+  "file": "/home/tmysam/ds-pj/main.cpp",
+  "output": "CMakeFiles/server.dir/main.cpp.o"
+},
+{
+  "directory": "/home/tmysam/ds-pj",
+  "command": "/usr/bin/g++ -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -g -std=gnu++20 -o CMakeFiles/server.dir/node.cpp.o -c /home/tmysam/ds-pj/node.cpp",
+  "file": "/home/tmysam/ds-pj/node.cpp",
+  "output": "CMakeFiles/server.dir/node.cpp.o"
+},
+{
+  "directory": "/home/tmysam/ds-pj",
+  "command": "/usr/bin/g++ -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -g -std=gnu++20 -o CMakeFiles/server.dir/quad_tree.cpp.o -c /home/tmysam/ds-pj/quad_tree.cpp",
+  "file": "/home/tmysam/ds-pj/quad_tree.cpp",
+  "output": "CMakeFiles/server.dir/quad_tree.cpp.o"
+},
+{
+  "directory": "/home/tmysam/ds-pj",
+  "command": "/usr/bin/g++ -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -g -std=gnu++20 -o CMakeFiles/server.dir/routes.cpp.o -c /home/tmysam/ds-pj/routes.cpp",
+  "file": "/home/tmysam/ds-pj/routes.cpp",
+  "output": "CMakeFiles/server.dir/routes.cpp.o"
+},
+{
+  "directory": "/home/tmysam/ds-pj",
+  "command": "/usr/bin/g++ -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -g -std=gnu++20 -o CMakeFiles/server.dir/utils.cpp.o -c /home/tmysam/ds-pj/utils.cpp",
+  "file": "/home/tmysam/ds-pj/utils.cpp",
+  "output": "CMakeFiles/server.dir/utils.cpp.o"
+},
+{
+  "directory": "/home/tmysam/ds-pj/pugixml",
+  "command": "/usr/bin/g++  -I/home/tmysam/ds-pj/pugixml/src -g -std=gnu++20 -fPIC -o CMakeFiles/pugixml-static.dir/src/pugixml.cpp.o -c /home/tmysam/ds-pj/pugixml/src/pugixml.cpp",
+  "file": "/home/tmysam/ds-pj/pugixml/src/pugixml.cpp",
+  "output": "pugixml/CMakeFiles/pugixml-static.dir/src/pugixml.cpp.o"
+}
+]

@@ -1,0 +1,8 @@
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+.cmake/
+nlohmann_json/
+pugixml/
+data/
