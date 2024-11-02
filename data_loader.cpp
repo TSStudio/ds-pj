@@ -15,8 +15,29 @@ bool data_init(char *_filepath) {
     std::cout
         << "[DATA_INIT][FILE] File loaded successfully" << std::endl;
 
+    bool _meta = false;
+    //json open _filepath+".json"
+    std::ifstream _json_file(_filepath + std::string(".json"));
+    if (_json_file.is_open()) {
+        _meta = true;
+    }
+    if (_meta) {
+        std::cout << "[DATA_INIT][META] Meta file loaded successfully" << std::endl;
+    } else {
+        std::cout << "[DATA_INIT][META][W] Meta file not found" << std::endl;
+    }
+    uint64_t _node_count = 0, _way_count = 0;
+    json __meta = _meta ? json::parse(_json_file) : json();
+    if (_meta) {
+        _node_count = __meta.at("nodes").get<uint64_t>();
+        _way_count = __meta.at("ways").get<uint64_t>();
+        std::cout << "[DATA_INIT][META] Meta file parsed successfully" << std::endl;
+        std::cout << "[DATA_INIT][META] " << _node_count << " nodes and " << _way_count << " ways found" << std::endl;
+    }
+
+    Progress _progress1(_node_count);
     std::cout << "[DATA_INIT][NODE] Parsing nodes..." << std::endl;
-    uint64_t _node_count = 0;
+    uint64_t _node_counter = 0;
     for (pugi::xml_node _node : _doc.child("osm").children("node")) {
         uint64_t _id = _node.attribute("id").as_ullong();
         double _lat = _node.attribute("lat").as_double();
@@ -24,12 +45,15 @@ bool data_init(char *_filepath) {
         Node *_n = new Node(_id, _lat, _lon);
         nodes[_id] = _n;
         // root->insert(_n);
-        _node_count++;
+        _node_counter++;
+        _progress1.prog(_node_counter);
     }
-    std::cout << "[DATA_INIT][NODE] " << _node_count << " nodes parsed successfully" << std::endl;
+    _progress1.done();
+    std::cout << "[DATA_INIT][NODE] " << _node_counter << " nodes parsed successfully" << std::endl;
 
     std::cout << "[DATA_INIT][WAY] Parsing ways..." << std::endl;
-    uint64_t _way_count = 0, _way_err_count = 0;
+    uint64_t _way_counter = 0, _way_err_counter = 0;
+    Progress _progress2(_way_count);
     for (pugi::xml_node _way : _doc.child("osm").children("way")) {
         //Way *_w = new Way(_way.attribute("id").as_ullong(), "");
         //check if way is a road
@@ -44,7 +68,6 @@ bool data_init(char *_filepath) {
                 break;
             }
         }
-
         short _direction = 3;  // &1 = forward, &2 = backward
         for (pugi::xml_node _tag : _way.children("tag")) {
             if (strcmp(_tag.attribute("k").as_string(), "oneway") == 0) {
@@ -66,14 +89,12 @@ bool data_init(char *_filepath) {
             _speed_limit = EdgeUtil::getDefaultSpeedLimit(_highway);
         }
         allowance _allow = EdgeUtil::getAllowance(_highway);
-
         NodePtr _start, _end;
-
         for (pugi::xml_node _nd : _way.children("nd")) {
             uint64_t _ref = _nd.attribute("ref").as_ullong();
             if (nodes.find(_ref) == nodes.end()) {
-                _way_err_count++;
-                if (_way_err_count < 3)
+                _way_err_counter++;
+                if (_way_err_counter < 3)
                     std::cout << "[DATA_INIT][WAY][E] Error: Node " << _ref << " not found" << std::endl;
                 continue;
             }
@@ -97,25 +118,23 @@ bool data_init(char *_filepath) {
                 }
                 _start = _end;
             }
-
-            //_w->members.push_back(_ref);
-            //nodes[_ref]->ways.push_back(_w->id);
         }
-
-        //ways[_w->id] = _w;
-        _way_count++;
+        _way_counter++;
+        _progress2.prog(_way_counter);
     }
-    if (_way_err_count > 2)
-        std::cout << "[DATA_INIT][WAY][E] ...\n"
-                  << "[DATA_INIT][WAY][E] Error: Total of " << _way_err_count << " ways have at least one node not found" << std::endl;
-    std::cout << "[DATA_INIT][WAY] " << _way_count << " ways parsed" << std::endl;
+    _progress2.done();
 
+    if (_way_err_counter > 2)
+        std::cout << "[DATA_INIT][WAY][E] ...\n"
+                  << "[DATA_INIT][WAY][E] Error: Total of " << _way_err_counter << " ways have at least one node not found" << std::endl;
+    std::cout << "[DATA_INIT][WAY] " << _way_count << " ways parsed" << std::endl;
     std::cout << "[DATA_INIT][QUADTREE] Inserting nodes into quadtree..." << std::endl;
-    Progress _progress(nodes.size());
+    Progress _progress3(nodes.size());
     for (auto n : nodes) {
         root->insert(n.second);
-        _progress.prog_delta(1);
+        _progress3.prog_delta(1);
     }
+    _progress3.done();
     std::cout << "[DATA_INIT][QUADTREE] Nodes inserted into quadtree" << std::endl;
 
     return true;

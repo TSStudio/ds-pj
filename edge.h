@@ -4,7 +4,14 @@
 #include <string>
 
 class NodePtr;
-
+class allowance {
+public:
+    bool pedestrian;
+    bool bicycle;
+    bool car;
+    bool bus;
+    bool subway;
+};
 /**
  * Definition of road levels:
  * 0: highway=motorway //display all the time
@@ -127,15 +134,6 @@ public:
     bool operator==(const EdgePtr &other) const;
     bool operator<(const EdgePtr &other) const;
     double distance(const EdgePtr &other) const;
-};
-
-class allowance {
-public:
-    bool pedestrian;
-    bool bicycle;
-    bool car;
-    bool bus;
-    bool subway;
 };
 
 /**
