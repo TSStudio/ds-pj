@@ -14,5 +14,8 @@
 
 using json = nlohmann::json;
 
+[[deprecated]]
 bool data_init(char *);
+
+bool data_init_all(char **, unsigned int);  //allow multiple files
 #endif

@@ -7,17 +7,32 @@
 using json = nlohmann::json;
 extern QuadTreeNode* root;
 
-const char* default_filepath = "data/shanghai.osm";
+char** default_filepath;
+unsigned int _file_count = 0;
+
+void load_default() {
+    _file_count = 1;
+    default_filepath = new char*[_file_count];
+    default_filepath[0] = new char[100];
+    strcpy(default_filepath[0], "data/shanghai.osm");
+    // default_filepath[1] = new char[100];
+    // strcpy(default_filepath[1], "data/jiangsu.osm");
+    // default_filepath[2] = new char[100];
+    // strcpy(default_filepath[2], "data/zhejiang.osm");
+    // default_filepath[3] = new char[100];
+    // strcpy(default_filepath[3], "data/anhui.osm");
+}
 
 int main(int argc, char* argv[]) {
     std::cout << "[MAIN] Initializing..." << std::endl;
     bool result = false;
     if (argc > 1) {
-        std::cout << "[MAIN] Reading Data: " << argv[1] << std::endl;
-        result = data_init(argv[1]);
+        std::cout << "[MAIN] Reading Data " << std::endl;
+        result = data_init_all(argv + 1, argc - 1);
     } else {
-        std::cout << "[MAIN][W] No data file path provided, loading default: " << default_filepath << std::endl;
-        result = data_init((char*)default_filepath);
+        std::cout << "[MAIN][W] No data file path provided, loading default." << std::endl;
+        load_default();
+        result = data_init_all(default_filepath, _file_count);
     }
     if (result) {
         std::cout << "[MAIN] Initialization successful" << std::endl;

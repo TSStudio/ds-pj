@@ -60,12 +60,6 @@
   "output": "CMakeFiles/server.dir/routes.cpp.o"
 },
 {
-  "directory": "/home/tmysam/ds-pj",
-  "command": "/usr/bin/g++ -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -g -std=gnu++20 -o CMakeFiles/server.dir/utils.cpp.o -c /home/tmysam/ds-pj/utils.cpp",
-  "file": "/home/tmysam/ds-pj/utils.cpp",
-  "output": "CMakeFiles/server.dir/utils.cpp.o"
-},
-{
   "directory": "/home/tmysam/ds-pj/pugixml",
   "command": "/usr/bin/g++  -I/home/tmysam/ds-pj/pugixml/src -g -std=gnu++20 -fPIC -o CMakeFiles/pugixml-static.dir/src/pugixml.cpp.o -c /home/tmysam/ds-pj/pugixml/src/pugixml.cpp",
   "file": "/home/tmysam/ds-pj/pugixml/src/pugixml.cpp",

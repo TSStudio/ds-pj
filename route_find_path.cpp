@@ -21,11 +21,11 @@ void init_route_find_path(crow::SimpleApp& app) {
         }
         uint64_t start = std::stoull(id_start);
         uint64_t end = std::stoull(id_end);
-        DijkstraPathFinder dpf(nodes[start], nodes[end], 4);
+        DijkstraPathFinder dpf(nodes[start], nodes[end], 15);
         dpf.find_path();
         auto path = dpf.get_path();
         auto distance = dpf.get_distance();
-        auto travel_time = dpf.get_travel_time(4);
+        auto travel_time = dpf.get_travel_time(15);
         json j;
         j["distance"] = distance;
         j["travel_time"] = travel_time;

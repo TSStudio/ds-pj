@@ -46,7 +46,9 @@ public:
         std::cout.flush();
     }
     void done() {
-        std::cout << std::endl;
+        auto now = std::chrono::system_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - start);
+        std::cout << std::format("Finished in {:.2f}s!", duration.count() / 1000.0) << std::endl;
     }
 
 private:
