@@ -55,19 +55,19 @@ public:
      */
     static allowance getAllowance(const std::string &highway) {
         if (highway == "motorway" || highway == "motorway_link") {
-            return {false, false, true, true, false};
+            return {false, false, true, false, false};
         } else if (highway == "trunk" || highway == "trunk_link") {
-            return {false, false, true, true, false};
+            return {false, false, true, false, false};
         } else if (highway == "primary" || highway == "primary_link") {
-            return {true, true, true, true, false};
+            return {true, true, true, false, false};
         } else if (highway == "secondary" || highway == "secondary_link") {
-            return {true, true, true, true, false};
+            return {true, true, true, false, false};
         } else if (highway == "tertiary" || highway == "tertiary_link") {
-            return {true, true, true, true, false};
+            return {true, true, true, false, false};
         } else if (highway == "unclassified") {
-            return {true, true, true, true, false};
+            return {true, true, true, false, false};
         } else if (highway == "residential") {
-            return {true, true, true, true, false};
+            return {true, true, true, false, false};
         } else if (highway == "living_street") {
             return {true, true, false, false, false};
         } else if (highway == "pedestrian") {
@@ -146,10 +146,19 @@ public:
     char *name;
     double distance;
     double speed_limit;
+    double forceTime;
     allowance allow;
-    ComputedEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit, char *name);
+    ComputedEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit, char *name, double forceTime = 0);
     double getTravelTime(int method);  //bit 0: pedestrian, bit 1: bicycle, bit 2: car, bit 3: bus, bit 4: subway
     bool vis(int method);
+    int getMethodUsed(int method);
+};
+
+class ResultEdge : public ComputedEdge {
+public:
+    ResultEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit, char *name, double forceTime = 0);
+    ResultEdge(ComputedEdge *e, int method);
+    int method;
 };
 
 #endif

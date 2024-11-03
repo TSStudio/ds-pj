@@ -48,6 +48,7 @@ void init_route_find_path(crow::SimpleApp& app) {
             je["end"] = e->end->node->id;
             node_ids.insert(e->end->node->id);
             je["distance"] = e->distance;
+            je["method"] = e->method;
             if (e->name != nullptr) {
                 je["name"] = e->name;
             }

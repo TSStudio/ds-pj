@@ -9,6 +9,7 @@
 #include <vector>
 #include <set>
 #include "edge.h"
+#include <unordered_map>
 
 /**
  * @brief Utility class for node operations
@@ -32,19 +33,22 @@ public:
  */
 class Node {
 public:
-    uint64_t id;                                    //unique id
-    double lat;                                     //latitude
-    double lon;                                     //longitude
-    bool road;                                      //is a start of a road, false if only end of a one-way road
-    int level;                                      //minimum appearance level of the node
-    std::multiset<EdgePtr> edges;                   //edges connected to the node
-    std::vector<ComputedEdge *> computed_edges;     //Computed edges starting from the node
-    Node(uint64_t id, double lat, double lon);      //constructor
-    Node();                                         //default constructor
-    bool operator==(const Node &other) const;       //equality operator
-    bool operator<(const Node &other) const;        //less than operator
-    double distance(const Node &other) const;       //distance to another node
-    double distance(double lat, double lon) const;  //distance to a point
+    uint64_t id;                                   //unique id
+    double lat;                                    //latitude
+    double lon;                                    //longitude
+    bool road;                                     //is a start of a road, false if only end of a one-way road
+    int level;                                     //minimum appearance level of the node
+    std::multiset<EdgePtr> edges;                  //edges connected to the node
+    std::vector<ComputedEdge *> computed_edges;    //Computed edges starting from the node
+    std::unordered_map<uint64_t, Node *> vpoints;  //virtual point for relation
+
+    Node(uint64_t id, double lat, double lon);                                                           //constructor
+    Node();                                                                                              //default constructor
+    bool operator==(const Node &other) const;                                                            //equality operator
+    bool operator<(const Node &other) const;                                                             //less than operator
+    double distance(const Node &other) const;                                                            //distance to another node
+    double distance(double lat, double lon) const;                                                       //distance to a point
+    void push_relation(uint64_t relation_id, Node *n, allowance allow, double speed_limit, char *name);  //push a relation
 };
 
 /**

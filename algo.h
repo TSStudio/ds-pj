@@ -21,17 +21,17 @@ protected:
     int method;
     Node* start;
     Node* end;
-    std::vector<ComputedEdge*> path;
+    std::vector<ResultEdge*> path;
     std::unordered_map<Node*, double> distance_map;
     std::unordered_map<Node*, Node*> parent_map;
-    std::unordered_map<Node*, ComputedEdge*> edge_map;
+    std::unordered_map<Node*, ResultEdge*> edge_map;
     double distance;
     double travel_time;
 
 public:
     DijkstraPathFinder(Node* start, Node* end, int method);
     virtual void find_path();
-    std::vector<ComputedEdge*> get_path();
+    std::vector<ResultEdge*> get_path();
     double get_distance();
     double get_travel_time(int method);
 };

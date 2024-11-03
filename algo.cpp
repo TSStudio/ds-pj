@@ -1,7 +1,7 @@
 #include "algo.h"
 
 DijkstraPathFinder::DijkstraPathFinder(Node* start, Node* end, int method) : start(start), end(end), found(false), distance(1e18), travel_time(1e18), method(method) {}
-std::vector<ComputedEdge*> DijkstraPathFinder::get_path() {
+std::vector<ResultEdge*> DijkstraPathFinder::get_path() {
     return path;
 }
 double DijkstraPathFinder::get_distance() {
@@ -37,7 +37,7 @@ void DijkstraPathFinder::find_path() {
             if (distance_map.find(next) == distance_map.end() || new_distance < distance_map[next]) {
                 distance_map[next] = new_distance;
                 parent_map[next] = current;
-                edge_map[next] = e;
+                edge_map[next] = new ResultEdge(e, e->getMethodUsed(method));
                 pq.push(std::make_pair(-new_distance, next));
             }
         }

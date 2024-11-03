@@ -1,5 +1,8 @@
 #include "node.h"
 
+extern std::unordered_map<uint64_t, Node *> nodes;
+uint64_t id_counter = 1145141919810ull;
+
 Node::Node(uint64_t id, double lat, double lon) : id(id), lat(lat), lon(lon) {
     level = 999;
 }
@@ -23,6 +26,31 @@ double Node::distance(double lat, double lon) const {
     long double lat2 = lat * PI / 180.0L;
     long double lon2 = lon * PI / 180.0L;
     return (double)(EARTH_RADIUS * acosl(sinl(lat1) * sinl(lat2) + cosl(lat1) * cosl(lat2) * cosl(lon1 - lon2)));
+}
+void Node::push_relation(uint64_t relation_id, Node *n, allowance allow, double speed_limit, char *name) {
+    Node *virtual_point;
+    Node *target_virtual_point;
+    if (vpoints.find(relation_id) == vpoints.end()) {
+        virtual_point = new Node(id_counter, lat, lon);
+        nodes[id_counter] = virtual_point;
+        vpoints[relation_id] = virtual_point;
+        virtual_point->computed_edges.push_back(new ComputedEdge(virtual_point, this, {true, false, false, false, false}, 10, nullptr, 300));
+        computed_edges.push_back(new ComputedEdge(this, virtual_point, {true, false, false, false, false}, 10, nullptr, 300));
+        id_counter++;
+    } else {
+        virtual_point = vpoints[relation_id];
+    }
+    if (n->vpoints.find(relation_id) == n->vpoints.end()) {
+        target_virtual_point = new Node(id_counter, n->lat, n->lon);
+        nodes[id_counter] = target_virtual_point;
+        n->vpoints[relation_id] = target_virtual_point;
+        target_virtual_point->computed_edges.push_back(new ComputedEdge(target_virtual_point, n, {true, false, false, false, false}, 10, nullptr, 300));
+        n->computed_edges.push_back(new ComputedEdge(n, target_virtual_point, {true, false, false, false, false}, 10, nullptr, 300));
+        id_counter++;
+    } else {
+        target_virtual_point = n->vpoints[relation_id];
+    }
+    virtual_point->computed_edges.push_back(new ComputedEdge(virtual_point, target_virtual_point, allow, speed_limit, name));
 }
 
 NodePtr::NodePtr(Node *n) : node(n) {}
