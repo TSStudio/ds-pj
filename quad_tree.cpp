@@ -129,12 +129,20 @@ std::multiset<NodePtr> QuadTreeNode::get_nodes(double lat_min, double lat_max, d
     return result;
 }
 
+bool filter_road(const NodePtr &n) {
+    return n.node->road;
+}
+
 NodePtr QuadTreeNode::find_nearest_node(double lat, double lon, bool road) {
+    return find_nearest_node(lat, lon, filter_road);
+}
+
+NodePtr QuadTreeNode::find_nearest_node(double lat, double lon, bool (*filter)(const NodePtr &)) {
     if (!split) {
         NodePtr result;
         double min_distance = 1e18;
         for (auto n : nodes) {
-            if (road && !n.node->road) {
+            if (!filter(n)) {
                 continue;
             }
             double d = n.distance(lat, lon);
@@ -156,15 +164,15 @@ NodePtr QuadTreeNode::find_nearest_node(double lat, double lon, bool road) {
     min_distance_if_in_other_children = std::min(NodeUtil::distance(lat, lon, lat_div, lon), min_distance_if_in_other_children);
     if (lat > lat_div) {
         if (lon < (lon_min + lon_max) / 2) {
-            temp = nw->find_nearest_node(lat, lon);
+            temp = nw->find_nearest_node(lat, lon, filter);
         } else {
-            temp = ne->find_nearest_node(lat, lon);
+            temp = ne->find_nearest_node(lat, lon, filter);
         }
     } else {
         if (lon < lon_div) {
-            temp = sw->find_nearest_node(lat, lon);
+            temp = sw->find_nearest_node(lat, lon, filter);
         } else {
-            temp = se->find_nearest_node(lat, lon);
+            temp = se->find_nearest_node(lat, lon, filter);
         }
     }
 
@@ -178,7 +186,7 @@ NodePtr QuadTreeNode::find_nearest_node(double lat, double lon, bool road) {
             }
         }
     }
-    temp = nw->find_nearest_node(lat, lon);
+    temp = nw->find_nearest_node(lat, lon, filter);
     if (temp.node != nullptr) {
         double d = temp.distance(lat, lon);
         if (d < min_distance) {
@@ -186,7 +194,7 @@ NodePtr QuadTreeNode::find_nearest_node(double lat, double lon, bool road) {
             result = temp;
         }
     }
-    temp = ne->find_nearest_node(lat, lon);
+    temp = ne->find_nearest_node(lat, lon, filter);
     if (temp.node != nullptr) {
         double d = temp.distance(lat, lon);
         if (d < min_distance) {
@@ -194,7 +202,7 @@ NodePtr QuadTreeNode::find_nearest_node(double lat, double lon, bool road) {
             result = temp;
         }
     }
-    temp = sw->find_nearest_node(lat, lon);
+    temp = sw->find_nearest_node(lat, lon, filter);
     if (temp.node != nullptr) {
         double d = temp.distance(lat, lon);
         if (d < min_distance) {
@@ -202,7 +210,7 @@ NodePtr QuadTreeNode::find_nearest_node(double lat, double lon, bool road) {
             result = temp;
         }
     }
-    temp = se->find_nearest_node(lat, lon);
+    temp = se->find_nearest_node(lat, lon, filter);
     if (temp.node != nullptr) {
         double d = temp.distance(lat, lon);
         if (d < min_distance) {

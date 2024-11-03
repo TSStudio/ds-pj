@@ -5,7 +5,12 @@ std::unordered_map<uint64_t, Way *> ways;
 
 QuadTreeNode *root = new QuadTreeNode(-90, 90, -180, 180);
 
+bool is_ped(const NodePtr &nd) {
+    return nd.node->pedestrian;
+}
+
 bool data_init_all(char **__filepath, unsigned int _file_count) {
+    std::unordered_set<Node *> _railway_stops;
     uint64_t *_node_count = new uint64_t[_file_count];
     uint64_t *_way_count = new uint64_t[_file_count];
     uint64_t *_relation_count = new uint64_t[_file_count];
@@ -51,6 +56,12 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             double _lon = _node.attribute("lon").as_double();
             Node *_n = new Node(_id, _lat, _lon);
             nodes[_id] = _n;
+            for (pugi::xml_node _child : _node.children("tag")) {
+                if (strcmp(_child.attribute("k").as_string(), "railway") == 0 && strcmp(_child.attribute("v").as_string(), "stop") == 0) {
+                    _railway_stops.insert(_n);
+                    break;
+                }
+            }
             _node_counter++;
             if (_meta) _progress1.prog(_node_counter);
         }
@@ -142,6 +153,10 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                     _end.node->level = std::min(_end.node->level, _appear_level_min);
                     if (_isRoad) {
                         _start.node->road = true;
+                        if (_allow.pedestrian) {
+                            _start.node->pedestrian = true;
+                            _end.node->pedestrian = true;
+                        }
                         if (_direction & 1) {
                             _start.node->computed_edges.push_back(new ComputedEdge(_start, _end, _allow, _speed_limit, _name));
                         }
@@ -277,6 +292,18 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             _json_file.close();
         }
     }
+
+    std::cout << "[DATA_INIT] Connecting Railway Stops to Nearest Pedestrain." << std::endl;
+    Progress _progress4(_railway_stops.size());
+    for (auto n : _railway_stops) {
+        NodePtr nearest = root->find_nearest_node(n->lat, n->lon, is_ped);
+        if (nearest.node != nullptr) {
+            n->computed_edges.push_back(new ComputedEdge(n, nearest, {true, false, false, false, false}, 10, nullptr, 200));
+            nearest.node->computed_edges.push_back(new ComputedEdge(nearest, n, {true, false, false, false, false}, 10, nullptr, 200));
+        }
+        _progress4.prog_delta(1);
+    }
+    _progress4.done();
 
     delete[] _node_count;
     delete[] _way_count;

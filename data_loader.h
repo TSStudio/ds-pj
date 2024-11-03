@@ -4,6 +4,7 @@
 #include <fstream>
 #include "pugixml.hpp"
 #include <unordered_map>
+#include <unordered_set>
 #include "node.h"
 #include "way.h"
 #include "quad_tree.h"

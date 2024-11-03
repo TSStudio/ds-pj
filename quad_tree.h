@@ -22,5 +22,6 @@ public:
     std::multiset<NodePtr> get_nodes(double lat_min, double lat_max, double lon_min, double lon_max);
     std::multiset<NodePtr> get_nodes(double lat_min, double lat_max, double lon_min, double lon_max, int level);
     NodePtr find_nearest_node(double lat, double lon, bool road = true);
+    NodePtr find_nearest_node(double lat, double lon, bool (*filter)(const NodePtr &));
 };
 #endif

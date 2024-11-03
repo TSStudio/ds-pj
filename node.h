@@ -37,6 +37,7 @@ public:
     double lat;                                    //latitude
     double lon;                                    //longitude
     bool road;                                     //is a start of a road, false if only end of a one-way road
+    bool pedestrian;                               //is a pedestrian node
     int level;                                     //minimum appearance level of the node
     std::multiset<EdgePtr> edges;                  //edges connected to the node
     std::vector<ComputedEdge *> computed_edges;    //Computed edges starting from the node
