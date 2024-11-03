@@ -21,7 +21,7 @@ double EdgePtr::distance(const EdgePtr &other) const {
     return edge->distance;
 }
 
-ComputedEdge::ComputedEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit) : speed_limit(speed_limit) {
+ComputedEdge::ComputedEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit, char *name) : speed_limit(speed_limit), name(name) {
     this->start = new NodePtr(start);
     this->end = new NodePtr(end);
     this->allow = allow;
@@ -51,11 +51,11 @@ double ComputedEdge::getTravelTime(int method) {
     } else if (method & 2 && allow.bicycle) {
         speed = 3;
     } else if (method & 4 && allow.car) {
-        speed = 0.5 * speed_limit;
+        speed = 0.9 * speed_limit;
     } else if (method & 8 && allow.bus) {
         speed = 0.4 * speed_limit;
     } else if (method & 16 && allow.subway) {
-        speed = 0.4 * speed_limit;
+        speed = 0.5 * speed_limit;
     } else {
         speed = 0.0;
     }

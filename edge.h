@@ -143,10 +143,11 @@ class ComputedEdge {
 public:
     NodePtr *start;
     NodePtr *end;
+    char *name;
     double distance;
     double speed_limit;
     allowance allow;
-    ComputedEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit);
+    ComputedEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit, char *name);
     double getTravelTime(int method);  //bit 0: pedestrian, bit 1: bicycle, bit 2: car, bit 3: bus, bit 4: subway
     bool vis(int method);
 };

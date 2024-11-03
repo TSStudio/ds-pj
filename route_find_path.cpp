@@ -10,18 +10,28 @@ void init_route_find_path(crow::SimpleApp& app) {
         double lat, lon;
         char* id_start = param.get("start");
         char* id_end = param.get("end");
+        char* method = param.get("method");
         if (id_start == nullptr) {
             id_start = req.url_params.get("start");
         }
         if (id_end == nullptr) {
             id_end = req.url_params.get("end");
         }
+        if (method == nullptr) {
+            method = req.url_params.get("method");
+        }
         if (id_start == nullptr || id_end == nullptr) {
             return crow::response(400);
         }
+        int mtd = 0;
+        if (method == nullptr) {
+            mtd = 15;
+        } else {
+            mtd = std::stoi(method);
+        }
         uint64_t start = std::stoull(id_start);
         uint64_t end = std::stoull(id_end);
-        DijkstraPathFinder dpf(nodes[start], nodes[end], 15);
+        DijkstraPathFinder dpf(nodes[start], nodes[end], mtd);
         dpf.find_path();
         auto path = dpf.get_path();
         auto distance = dpf.get_distance();
@@ -38,6 +48,9 @@ void init_route_find_path(crow::SimpleApp& app) {
             je["end"] = e->end->node->id;
             node_ids.insert(e->end->node->id);
             je["distance"] = e->distance;
+            if (e->name != nullptr) {
+                je["name"] = e->name;
+            }
             j["path"].push_back(je);
         }
         j["nodes"] = json::object();
