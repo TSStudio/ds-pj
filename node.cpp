@@ -1,9 +1,9 @@
 #include "node.h"
 
 extern std::unordered_map<uint64_t, Node *> nodes;
-uint64_t id_counter = 1145141919810ull;
+extern uint64_t id_counter;
 
-Node::Node(uint64_t id, double lat, double lon) : id(id), lat(lat), lon(lon), road(false), pedestrian(false), level(999) {
+Node::Node(uint64_t id, double lat, double lon) : id(id), lat(lat), lon(lon), road(false), pedestrian(false), level(999), virtual_node(false) {
 }
 Node::Node() : id(0), lat(0), lon(0) {}
 bool Node::operator==(const Node &other) const {

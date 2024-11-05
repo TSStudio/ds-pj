@@ -1,7 +1,7 @@
 #include "data_loader.h"
 
-std::unordered_map<uint64_t, Node *> nodes;
-std::unordered_map<uint64_t, Way *> ways;
+extern std::unordered_map<uint64_t, Node *> nodes;
+extern std::unordered_map<uint64_t, Way *> ways;
 
 QuadTreeNode *root = new QuadTreeNode(-90, 90, -180, 180);
 

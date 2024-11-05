@@ -1,6 +1,6 @@
 #include "edge.h"
 #include "node.h"
-Edge::Edge(NodePtr _start, NodePtr _end, double _distance, bool _isRoad, int _appear_level_min) : distance(_distance), isRoad(_isRoad), appear_level_min(_appear_level_min) {
+Edge::Edge(NodePtr _start, NodePtr _end, double _distance, bool _isRoad, int _appear_level_min) : distance(_distance), isRoad(_isRoad), appear_level_min(_appear_level_min), virtual_edge(false) {
     this->start = new NodePtr(_start);
     this->end = new NodePtr(_end);
 }
@@ -79,4 +79,12 @@ int ComputedEdge::getMethodUsed(int method) {
     if (method & 2 && allow.bicycle) return 2;
     if (method & 1 && allow.pedestrian) return 1;
     return 0;
+}
+
+EdgePtr deepCopyEdge(EdgePtr e) {
+    return EdgePtr(new Edge(*e.edge));
+}
+
+EdgePtr deepCopyEdge(Edge *e) {
+    return EdgePtr(new Edge(*e));
 }

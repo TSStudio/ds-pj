@@ -113,11 +113,13 @@ public:
  */
 class Edge {
 public:
-    NodePtr *start;                                                                        //start node
-    NodePtr *end;                                                                          //end node
-    double distance;                                                                       //distance between the nodes
-    bool isRoad;                                                                           //is a road
-    int appear_level_min;                                                                  //minimum appearance level of the edge
+    NodePtr *start;        //start node
+    NodePtr *end;          //end node
+    double distance;       //distance between the nodes
+    bool isRoad;           //is a road
+    int appear_level_min;  //minimum appearance level of the edge
+    bool virtual_edge = false;
+    int fill = 0;                                                                          //-1 left, 0 none, 1 right
     Edge(NodePtr start, NodePtr end, double distance, bool isRoad, int appear_level_min);  //constructor
     Edge();                                                                                //default constructor
     Edge(NodePtr start, NodePtr end, bool isRoad, int appear_level_min);
@@ -161,4 +163,6 @@ public:
     int method;
 };
 
+EdgePtr deepCopyEdge(EdgePtr e);
+EdgePtr deepCopyEdge(Edge *e);
 #endif
