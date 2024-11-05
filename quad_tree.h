@@ -3,6 +3,7 @@
 #include <set>
 #include "node.h"
 #include <iostream>
+#include <functional>
 #define MAX_POINT_IN_TREENODE 1000
 
 class QuadTreeNode {
@@ -21,7 +22,6 @@ public:
     std::multiset<NodePtr> get_nodes();
     std::multiset<NodePtr> get_nodes(double lat_min, double lat_max, double lon_min, double lon_max);
     std::multiset<NodePtr> get_nodes(double lat_min, double lat_max, double lon_min, double lon_max, int level);
-    NodePtr find_nearest_node(double lat, double lon, bool road = true);
-    NodePtr find_nearest_node(double lat, double lon, bool (*filter)(const NodePtr &));
+    NodePtr find_nearest_node(double lat, double lon, std::function<bool(const NodePtr &)> filter);
 };
 #endif

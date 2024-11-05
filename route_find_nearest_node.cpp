@@ -21,7 +21,7 @@ void init_route_find_nearest_node(crow::SimpleApp& app) {
         }
         lat = std::stod(lat_s);
         lon = std::stod(lon_s);
-        NodePtr n = root->find_nearest_node(lat, lon);
+        NodePtr n = root->find_nearest_node(lat, lon, [](const NodePtr& n) { return n.node->road; });
         json j;
         j["id"] = n.node->id;
         j["lat"] = n.node->lat;

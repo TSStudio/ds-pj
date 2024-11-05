@@ -7,7 +7,7 @@ std::vector<ResultEdge*> DijkstraPathFinder::get_path() {
 double DijkstraPathFinder::get_distance() {
     return distance;
 }
-double DijkstraPathFinder::get_travel_time(int method) {
+double DijkstraPathFinder::get_travel_time() {
     return travel_time;
 }
 

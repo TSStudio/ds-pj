@@ -1,11 +1,11 @@
 #include "edge.h"
 #include "node.h"
-Edge::Edge(NodePtr start, NodePtr end, double distance, bool isRoad, int appear_level_min) : distance(distance), isRoad(isRoad), appear_level_min(appear_level_min) {
-    this->start = new NodePtr(start);
-    this->end = new NodePtr(end);
+Edge::Edge(NodePtr _start, NodePtr _end, double _distance, bool _isRoad, int _appear_level_min) : distance(_distance), isRoad(_isRoad), appear_level_min(_appear_level_min) {
+    this->start = new NodePtr(_start);
+    this->end = new NodePtr(_end);
 }
 Edge::Edge() : start(nullptr), end(nullptr), distance(0), isRoad(false), appear_level_min(0) {}
-Edge::Edge(NodePtr start, NodePtr end, bool isRoad, int appear_level_min) : distance(distance), isRoad(isRoad), appear_level_min(appear_level_min) {
+Edge::Edge(NodePtr start, NodePtr end, bool isRoad, int appear_level_min) : isRoad(isRoad), appear_level_min(appear_level_min) {
     distance = start.distance(end);
     this->start = new NodePtr(start);
     this->end = new NodePtr(end);
@@ -17,7 +17,7 @@ bool EdgePtr::operator==(const EdgePtr &other) const {
 bool EdgePtr::operator<(const EdgePtr &other) const {
     return edge->appear_level_min < other.edge->appear_level_min;
 }
-double EdgePtr::distance(const EdgePtr &other) const {
+double EdgePtr::distance() const {
     return edge->distance;
 }
 

@@ -5,10 +5,6 @@ std::unordered_map<uint64_t, Way *> ways;
 
 QuadTreeNode *root = new QuadTreeNode(-90, 90, -180, 180);
 
-bool is_ped(const NodePtr &nd) {
-    return nd.node->pedestrian;
-}
-
 bool data_init_all(char **__filepath, unsigned int _file_count) {
     std::unordered_set<Node *> _railway_stops;
     uint64_t *_node_count = new uint64_t[_file_count];
@@ -89,7 +85,7 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         uint64_t _way_counter = 0, _way_err_counter = 0;
         Progress _progress2(_way_count[_file_no]);
         for (pugi::xml_node _way : _doc.child("osm").children("way")) {
-            Way *_w = new Way(_way.attribute("id").as_ullong(), "");
+            Way *_w = new Way(_way.attribute("id").as_ullong());
             //Way *_w = new Way(_way.attribute("id").as_ullong(), "");
             //check if way is a road
             bool _isRoad = false;
@@ -293,17 +289,18 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         }
     }
 
-    std::cout << "[DATA_INIT] Connecting Railway Stops to Nearest Pedestrain." << std::endl;
-    Progress _progress4(_railway_stops.size());
-    for (auto n : _railway_stops) {
-        NodePtr nearest = root->find_nearest_node(n->lat, n->lon, is_ped);
-        if (nearest.node != nullptr) {
-            n->computed_edges.push_back(new ComputedEdge(n, nearest, {true, false, false, false, false}, 10, nullptr, 200));
-            nearest.node->computed_edges.push_back(new ComputedEdge(nearest, n, {true, false, false, false, false}, 10, nullptr, 200));
-        }
-        _progress4.prog_delta(1);
-    }
-    _progress4.done();
+    // std::cout << "[DATA_INIT] Connecting Railway Stops to Nearest Pedestrain." << std::endl;
+    // Progress _progress4(_railway_stops.size());
+    // for (auto n : _railway_stops) {
+    //     if (n == nullptr) continue;
+    //     NodePtr nearest = root->find_nearest_node(n->lat, n->lon, [](const NodePtr &n) { return n.node->pedestrian; });
+    //     if (nearest.node != nullptr) {
+    //         n->computed_edges.push_back(new ComputedEdge(n, nearest, {true, false, false, false, false}, 10, nullptr, 200));
+    //         nearest.node->computed_edges.push_back(new ComputedEdge(nearest, n, {true, false, false, false, false}, 10, nullptr, 200));
+    //     }
+    //     _progress4.prog_delta(1);
+    // }
+    // _progress4.done();
 
     delete[] _node_count;
     delete[] _way_count;

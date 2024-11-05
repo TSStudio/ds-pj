@@ -129,15 +129,7 @@ std::multiset<NodePtr> QuadTreeNode::get_nodes(double lat_min, double lat_max, d
     return result;
 }
 
-bool filter_road(const NodePtr &n) {
-    return n.node->road;
-}
-
-NodePtr QuadTreeNode::find_nearest_node(double lat, double lon, bool road) {
-    return find_nearest_node(lat, lon, filter_road);
-}
-
-NodePtr QuadTreeNode::find_nearest_node(double lat, double lon, bool (*filter)(const NodePtr &)) {
+NodePtr QuadTreeNode::find_nearest_node(double lat, double lon, std::function<bool(const NodePtr &)> filter) {
     if (!split) {
         NodePtr result;
         double min_distance = 1e18;

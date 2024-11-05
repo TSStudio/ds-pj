@@ -61,6 +61,12 @@ bool NodePtr::operator==(const NodePtr &other) const {
 bool NodePtr::operator<(const NodePtr &other) const {
     return node->level < other.node->level;
 }
+// NodePtr NodePtr::operator=(const NodePtr &other) const {
+//     return NodePtr(other);
+// }
+// NodePtr &NodePtr::operator=(const NodePtr &other) const {
+//     return *new NodePtr(other);
+// }
 double NodePtr::distance(const NodePtr &other) const {
     return node->distance(*other.node);
 }

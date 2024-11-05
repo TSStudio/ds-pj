@@ -7,7 +7,6 @@ void init_route_find_path(crow::SimpleApp& app) {
     CROW_ROUTE(app, "/find_path")
     ([](const crow::request& req) {
         auto param = req.get_body_params();
-        double lat, lon;
         char* id_start = param.get("start");
         char* id_end = param.get("end");
         char* method = param.get("method");
@@ -35,7 +34,7 @@ void init_route_find_path(crow::SimpleApp& app) {
         dpf.find_path();
         auto path = dpf.get_path();
         auto distance = dpf.get_distance();
-        auto travel_time = dpf.get_travel_time(15);
+        auto travel_time = dpf.get_travel_time();
         json j;
         j["distance"] = distance;
         j["travel_time"] = travel_time;
