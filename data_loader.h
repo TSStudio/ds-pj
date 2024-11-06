@@ -8,6 +8,7 @@
 #include "node.h"
 #include "way.h"
 #include "quad_tree.h"
+#include "quad_edge_tree.h"
 #include "edge.h"
 #include "cstring"
 #include "utils.h"

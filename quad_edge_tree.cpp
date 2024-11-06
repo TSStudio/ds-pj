@@ -2,27 +2,32 @@
 
 extern std::unordered_map<uint64_t, Node*> nodes;
 extern uint64_t id_counter;
+extern bool __debug;
 
-QuadEdgeTreeNode::QuadEdgeTreeNode(int x, int y, int z) : x(x), y(y), z(z) {
-    nw = ne = sw = se = nullptr;
-}
 QuadEdgeTreeNode::QuadEdgeTreeNode(int x, int y, int z, double lat_min, double lat_max, double lon_min, double lon_max) : x(x), y(y), z(z), lat_min(lat_min), lat_max(lat_max), lon_min(lon_min), lon_max(lon_max) {
     nw = ne = sw = se = nullptr;
+    lat_mid = get_lat_mid();
+    lon_mid = (lon_min + lon_max) / 2;
 }
-
+double QuadEdgeTreeNode::get_lat_mid() {
+    double n = M_PI - (2 * M_PI * (2 * y + 1)) / pow(2, z + 1);
+    return (180 / M_PI) * atan(0.5 * (exp(n) - exp(-n)));
+}
 void QuadEdgeTreeNode::insert(EdgePtr e) {
     EdgePtr ed = deepCopyEdge(e);
     edges_display.insert(ed);
     if (splitted) {
         push_to_children(ed);
-    } else if (edges_display.size() > MAX_EDGE_IN_TREENODE) {
+    } else if (edges_display.size() > MAX_EDGE_IN_TREENODE && z < MAX_Z) {
         split();
     }
 }
 void QuadEdgeTreeNode::split() {
+    if (__debug) {
+        std::cout << "[D]splitting " << x << " " << y << " " << z << std::endl;
+        std::cout << "[D] edge lat min max lon min max: " << lat_min << " " << lat_max << " " << lon_min << " " << lon_max << std::endl;
+    }
     splitted = true;
-    double lat_mid = (lat_min + lat_max) / 2;
-    double lon_mid = (lon_min + lon_max) / 2;
     sw = new QuadEdgeTreeNode(x * 2, y * 2 + 1, z + 1, lat_min, lat_mid, lon_min, lon_mid);
     se = new QuadEdgeTreeNode(x * 2 + 1, y * 2 + 1, z + 1, lat_min, lat_mid, lon_mid, lon_max);
     nw = new QuadEdgeTreeNode(x * 2, y * 2, z + 1, lat_mid, lat_max, lon_min, lon_mid);
@@ -36,8 +41,6 @@ void QuadEdgeTreeNode::push_to_children(EdgePtr e) {
         return;
     }
     //check if fully in the child
-    double lat_mid = (lat_min + lat_max) / 2;
-    double lon_mid = (lon_min + lon_max) / 2;
     bool in_both_north_south_childs = false;
     bool in_both_east_west_childs = false;
     if (e.edge->start->node->lat < lat_mid && e.edge->end->node->lat > lat_mid) {
@@ -74,16 +77,17 @@ void QuadEdgeTreeNode::push_to_children(EdgePtr e) {
     double lat2 = e.edge->end->node->lat;
     double lon2 = e.edge->end->node->lon;
     if (in_both_east_west_childs) {
-        double lat_across = (lon_mid * (lat1 - lat2) - (lat1 * lon1 - lat2 * lon2)) / (lon2 - lon1);
+        double lat_across = lat1 + (lat2 - lat1) * (lon_mid - lon1) / (lon2 - lon1);
         double lon_across = lon_mid;
         Node* n = new Node(id_counter++, lat_across, lon_across);
         nodes[n->id] = n;
         point_across_east_west = new NodePtr(n);
     }
     if (in_both_north_south_childs) {
-        double lon_across = (lat_mid * (lon1 - lon2) - (lat1 * lon1 - lat2 * lon2)) / (lat2 - lat1);
+        double lon_across = lon1 + (lon2 - lon1) * (lat_mid - lat1) / (lat2 - lat1);
         double lat_across = lat_mid;
         Node* n = new Node(id_counter++, lat_across, lon_across);
+        nodes[n->id] = n;
         point_across_north_south = new NodePtr(n);
     }
     if (in_both_east_west_childs && !in_both_north_south_childs) {
@@ -222,6 +226,9 @@ std::multiset<EdgePtr> QuadEdgeTreeNode::get_edges() {
     return edges_display;
 }
 std::multiset<EdgePtr> QuadEdgeTreeNode::get_edges(int _x, int _y, int _z) {
+    if (__debug) {
+        std::cout << "[D]getting edges from " << x << " " << y << " " << z << " to " << _x << " " << _y << " " << _z << std::endl;
+    }
     if (_z < z) {
         return std::multiset<EdgePtr>();
     }
@@ -233,14 +240,20 @@ std::multiset<EdgePtr> QuadEdgeTreeNode::get_edges(int _x, int _y, int _z) {
         return std::multiset<EdgePtr>();
     }
     if (!splitted) {
+        if (__debug) {
+            std::cout << "[D]returning edges from " << x << " " << y << " " << z << std::endl;
+        }
         return edges_display;
     }
     if (_z == z) {
+        if (__debug) {
+            std::cout << "[D]returning edges from " << x << " " << y << " " << z << std::endl;
+        }
         return edges_display;
     }
     //check in which child it is
-    int x_rem = _x >> (_z - z - 1) - 2 * x;
-    int y_rem = _y >> (_z - z - 1) - 2 * y;
+    int x_rem = (_x >> (_z - z - 1)) - 2 * x;
+    int y_rem = (_y >> (_z - z - 1)) - 2 * y;
     if (x_rem & 1) {
         if (y_rem & 1) {
             return se->get_edges(_x, _y, _z);

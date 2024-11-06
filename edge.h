@@ -2,6 +2,7 @@
 #define EDGE_H
 
 #include <string>
+#include <cstdint>
 
 class NodePtr;
 class allowance {
@@ -119,7 +120,10 @@ public:
     bool isRoad;           //is a road
     int appear_level_min;  //minimum appearance level of the edge
     bool virtual_edge = false;
-    int fill = 0;                                                                          //-1 left, 0 none, 1 right
+    uint64_t belong_to_way = 0;
+    uint64_t seq = 0;
+    int fill = 0;  //-1 left, 0 none, 1 right
+    char *edgetype;
     Edge(NodePtr start, NodePtr end, double distance, bool isRoad, int appear_level_min);  //constructor
     Edge();                                                                                //default constructor
     Edge(NodePtr start, NodePtr end, bool isRoad, int appear_level_min);

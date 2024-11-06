@@ -2,8 +2,8 @@
 
 extern std::unordered_map<uint64_t, Node *> nodes;
 extern std::unordered_map<uint64_t, Way *> ways;
-
-QuadTreeNode *root = new QuadTreeNode(-90, 90, -180, 180);
+extern QuadEdgeTreeNode *root_edge;
+extern QuadTreeNode *root;
 
 bool data_init_all(char **__filepath, unsigned int _file_count) {
     std::unordered_set<Node *> _railway_stops;
@@ -91,11 +91,14 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             bool _isRoad = false;
             int _appear_level_min = 999;
             std::string _highway;
+            char *_highway_ty = nullptr;
             for (pugi::xml_node _tag : _way.children("tag")) {
                 if (strcmp(_tag.attribute("k").as_string(), "highway") == 0) {
                     _highway = _tag.attribute("v").as_string();
                     _isRoad = true;
                     _appear_level_min = EdgeUtil::getLevel(_tag.attribute("v").as_string());
+                    _highway_ty = new char[strlen(_tag.attribute("v").as_string()) + 1];
+                    strcpy(_highway_ty, _tag.attribute("v").as_string());
                     break;
                 }
             }
@@ -124,11 +127,46 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                     break;
                 }
             }
+            char *_type_ = nullptr;
+            //check if building=* landuse=* leisure=* natural=*
+            int _type_lvl = 20;
+            for (pugi::xml_node _tag : _way.children("tag")) {
+                if (strcmp(_tag.attribute("k").as_string(), "building") == 0) {
+                    _type_ = new char[strlen("building:") + strlen(_tag.attribute("v").as_string()) + 1];
+                    strcpy(_type_, "building:");
+                    strcat(_type_, _tag.attribute("v").as_string());
+                    _type_lvl = 14;
+                    break;
+                }
+                if (strcmp(_tag.attribute("k").as_string(), "landuse") == 0) {
+                    _type_ = new char[strlen("landuse:") + strlen(_tag.attribute("v").as_string()) + 1];
+                    strcpy(_type_, "landuse:");
+                    strcat(_type_, _tag.attribute("v").as_string());
+                    _type_lvl = 10;
+                    break;
+                }
+                if (strcmp(_tag.attribute("k").as_string(), "leisure") == 0) {
+                    _type_ = new char[strlen("leisure:") + strlen(_tag.attribute("v").as_string()) + 1];
+                    strcpy(_type_, "leisure:");
+                    strcat(_type_, _tag.attribute("v").as_string());
+                    _type_lvl = 12;
+                    break;
+                }
+                if (strcmp(_tag.attribute("k").as_string(), "natural") == 0) {
+                    _type_ = new char[strlen("natural:") + strlen(_tag.attribute("v").as_string()) + 1];
+                    strcpy(_type_, "natural:");
+                    strcat(_type_, _tag.attribute("v").as_string());
+                    _type_lvl = 10;
+                    break;
+                }
+            }
             if (_speed_limit == 0) {
                 _speed_limit = EdgeUtil::getDefaultSpeedLimit(_highway);
             }
             allowance _allow = EdgeUtil::getAllowance(_highway);
-            NodePtr _start, _end;
+            NodePtr _start, _end, _rstart;
+            std::unordered_set<Edge *> _edges_created;
+            uint64_t _nd_counter = 0;
             for (pugi::xml_node _nd : _way.children("nd")) {
                 uint64_t _ref = _nd.attribute("ref").as_ullong();
                 if (nodes.find(_ref) == nodes.end()) {
@@ -139,9 +177,20 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                 }
                 if (_start.node == nullptr) {
                     _start = NodePtr(nodes[_ref]);
+                    _rstart = _start;
                 } else {
                     _end = NodePtr(nodes[_ref]);
                     Edge *_e = new Edge(_start, _end, _isRoad, _appear_level_min);
+                    _e->belong_to_way = _w->id;
+                    _e->seq = _nd_counter++;
+                    _e->fill = 0;
+                    if (_isRoad) {
+                        _edges_created.insert(_e);
+                        _e->edgetype = _highway_ty;
+                    }
+                    // } else {
+                    //     _e->edgetype = _type_;
+                    // }
                     _w->edges.push_back(EdgePtr(_e));
                     _start.node->edges.insert(EdgePtr(_e));
                     _end.node->edges.insert(EdgePtr(_e));
@@ -149,6 +198,7 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                     _end.node->level = std::min(_end.node->level, _appear_level_min);
                     if (_isRoad) {
                         _start.node->road = true;
+                        _end.node->road = true;
                         if (_allow.pedestrian) {
                             _start.node->pedestrian = true;
                             _end.node->pedestrian = true;
@@ -160,9 +210,11 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                             _end.node->computed_edges.push_back(new ComputedEdge(_end, _start, _allow, _speed_limit, _name));
                         }
                     }
-
                     _start = _end;
                 }
+            }
+            for (Edge *_e : _edges_created) {
+                root_edge->insert(EdgePtr(_e));
             }
             ways[_w->id] = _w;
             _way_counter++;
@@ -271,7 +323,8 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
     std::cout << "[DATA_INIT][QUADTREE] Inserting nodes into quadtree..." << std::endl;
     Progress _progress3(nodes.size());
     for (auto n : nodes) {
-        root->insert(n.second);
+        if (n.second->road)
+            root->insert(n.second);
         _progress3.prog_delta(1);
     }
     _progress3.done();
