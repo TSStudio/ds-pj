@@ -83,5 +83,6 @@
         "valarray": "cpp",
         "queue": "cpp"
     },
-    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "makefile.configureOnOpen": false
 }

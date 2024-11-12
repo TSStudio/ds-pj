@@ -6,3 +6,6 @@ Makefile
 nlohmann_json/
 pugixml/
 data/
+server
+compile_commands.json
+talk1.md

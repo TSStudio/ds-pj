@@ -5,7 +5,6 @@
 #include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
-extern QuadTreeNode* root;
 
 char** default_filepath;
 unsigned int _file_count = 0;

@@ -1,15 +1,15 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.30)
 
 project(tsmap LANGUAGES CXX)
 
 if(NOT CMAKE_BUILD_TYPE)
-set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE ReleaseLocal)
 endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
@@ -24,10 +24,10 @@ include_directories(pugixml/src)
 
 add_subdirectory(nlohmann_json)
 
-find_package(Crow)
+find_package(Crow REQUIRED)
 
-target_link_libraries(server PUBLIC Crow::Crow pugixml nlohmann_json::nlohmann_json)
-target_compile_features(server PRIVATE cxx_std_20)
+target_link_libraries(server PUBLIC Crow::Crow pugixml nlohmann_json::nlohmann_json pqxx)
+target_compile_features(server PRIVATE cxx_std_23)
 
 
 install(TARGETS server)
