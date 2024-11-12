@@ -2,11 +2,10 @@
 
 extern std::unordered_map<uint64_t, Node *> nodes;
 extern std::unordered_map<uint64_t, Way *> ways;
-extern QuadEdgeTreeNode *root_edge;
 extern QuadTreeNode *root;
 
 bool data_init_all(char **__filepath, unsigned int _file_count) {
-    std::unordered_set<Node *> _railway_stops;
+    std::unordered_set<Node *> _transport_stops;
     uint64_t *_node_count = new uint64_t[_file_count];
     uint64_t *_way_count = new uint64_t[_file_count];
     uint64_t *_relation_count = new uint64_t[_file_count];
@@ -54,7 +53,11 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             nodes[_id] = _n;
             for (pugi::xml_node _child : _node.children("tag")) {
                 if (strcmp(_child.attribute("k").as_string(), "railway") == 0 && strcmp(_child.attribute("v").as_string(), "stop") == 0) {
-                    _railway_stops.insert(_n);
+                    _transport_stops.insert(_n);
+                    break;
+                }
+                if (strcmp(_child.attribute("k").as_string(), "highway") == 0 && strcmp(_child.attribute("v").as_string(), "bus_stop") == 0) {
+                    _transport_stops.insert(_n);
                     break;
                 }
             }
@@ -127,45 +130,11 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                     break;
                 }
             }
-            char *_type_ = nullptr;
-            //check if building=* landuse=* leisure=* natural=*
-            int _type_lvl = 20;
-            for (pugi::xml_node _tag : _way.children("tag")) {
-                if (strcmp(_tag.attribute("k").as_string(), "building") == 0) {
-                    _type_ = new char[strlen("building:") + strlen(_tag.attribute("v").as_string()) + 1];
-                    strcpy(_type_, "building:");
-                    strcat(_type_, _tag.attribute("v").as_string());
-                    _type_lvl = 14;
-                    break;
-                }
-                if (strcmp(_tag.attribute("k").as_string(), "landuse") == 0) {
-                    _type_ = new char[strlen("landuse:") + strlen(_tag.attribute("v").as_string()) + 1];
-                    strcpy(_type_, "landuse:");
-                    strcat(_type_, _tag.attribute("v").as_string());
-                    _type_lvl = 10;
-                    break;
-                }
-                if (strcmp(_tag.attribute("k").as_string(), "leisure") == 0) {
-                    _type_ = new char[strlen("leisure:") + strlen(_tag.attribute("v").as_string()) + 1];
-                    strcpy(_type_, "leisure:");
-                    strcat(_type_, _tag.attribute("v").as_string());
-                    _type_lvl = 12;
-                    break;
-                }
-                if (strcmp(_tag.attribute("k").as_string(), "natural") == 0) {
-                    _type_ = new char[strlen("natural:") + strlen(_tag.attribute("v").as_string()) + 1];
-                    strcpy(_type_, "natural:");
-                    strcat(_type_, _tag.attribute("v").as_string());
-                    _type_lvl = 10;
-                    break;
-                }
-            }
             if (_speed_limit == 0) {
                 _speed_limit = EdgeUtil::getDefaultSpeedLimit(_highway);
             }
             allowance _allow = EdgeUtil::getAllowance(_highway);
             NodePtr _start, _end, _rstart;
-            std::unordered_set<Edge *> _edges_created;
             uint64_t _nd_counter = 0;
             for (pugi::xml_node _nd : _way.children("nd")) {
                 uint64_t _ref = _nd.attribute("ref").as_ullong();
@@ -185,7 +154,6 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                     _e->seq = _nd_counter++;
                     _e->fill = 0;
                     if (_isRoad) {
-                        _edges_created.insert(_e);
                         _e->edgetype = _highway_ty;
                     }
                     // } else {
@@ -212,9 +180,6 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                     }
                     _start = _end;
                 }
-            }
-            for (Edge *_e : _edges_created) {
-                root_edge->insert(EdgePtr(_e));
             }
             ways[_w->id] = _w;
             _way_counter++;
@@ -292,20 +257,21 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                     Way *_w = ways[_ref];
                     NodePtr _start, _end;
                     for (EdgePtr _e : _w->edges) {
-                        if (_start.node == nullptr) {
-                            _start = *(_e.edge->start);
-                        } else {
-                            _end = *(_e.edge->end);
-                            if (_start.node->id == _end.node->id) {
-                                continue;
-                            }
-                            //_start.node->computed_edges.push_back(new ComputedEdge(_start, _end, {false, false, false, _type & 8 ? true : false, _type & 16 ? true : false}, _type & 8 ? 50 : 80, _route_name));
-                            _start.node->push_relation(_id, _end.node, {false, false, false, _type & 8 ? true : false, _type & 16 ? true : false}, _type & 8 ? 60 : 80, _route_name);
+                        _start = *(_e.edge->start);
+                        _end = *(_e.edge->end);
+                        if (_start.node->id == _end.node->id) {
+                            continue;
                         }
+                        //_start.node->computed_edges.push_back(new ComputedEdge(_start, _end, {false, false, false, _type & 8 ? true : false, _type & 16 ? true : false}, _type & 8 ? 50 : 80, _route_name));
+                        _start.node->push_relation(_id, _end.node, {false, false, false, _type & 8 ? true : false, _type & 16 ? true : false}, _type & 8 ? 60 : 80, _route_name);
+                        _start = _end;
                     }
+
                     _relation_ok_counter++;
                 }
             }
+            if (_route_name != nullptr)
+                std::println("Processed relation {}", _route_name);
             _relation_counter++;
             if (_meta) _progress3.prog(_relation_counter);
         }
@@ -342,18 +308,18 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         }
     }
 
-    // std::cout << "[DATA_INIT] Connecting Railway Stops to Nearest Pedestrain." << std::endl;
-    // Progress _progress4(_railway_stops.size());
-    // for (auto n : _railway_stops) {
-    //     if (n == nullptr) continue;
-    //     NodePtr nearest = root->find_nearest_node(n->lat, n->lon, [](const NodePtr &n) { return n.node->pedestrian; });
-    //     if (nearest.node != nullptr) {
-    //         n->computed_edges.push_back(new ComputedEdge(n, nearest, {true, false, false, false, false}, 10, nullptr, 200));
-    //         nearest.node->computed_edges.push_back(new ComputedEdge(nearest, n, {true, false, false, false, false}, 10, nullptr, 200));
-    //     }
-    //     _progress4.prog_delta(1);
-    // }
-    // _progress4.done();
+    std::cout << "[DATA_INIT] Connecting Transport Stops to Nearest Pedestrain." << std::endl;
+    Progress _progress4(_transport_stops.size());
+    for (auto n : _transport_stops) {
+        if (n == nullptr) continue;
+        NodePtr nearest = root->find_nearest_node(n->lat, n->lon, [](const NodePtr &n) { return n.node->pedestrian; });
+        if (nearest.node != nullptr) {
+            n->computed_edges.push_back(new ComputedEdge(n, nearest, {true, false, false, false, false}, 10, nullptr, 200));
+            nearest.node->computed_edges.push_back(new ComputedEdge(nearest, n, {true, false, false, false, false}, 10, nullptr, 200));
+        }
+        _progress4.prog_delta(1);
+    }
+    _progress4.done();
 
     delete[] _node_count;
     delete[] _way_count;

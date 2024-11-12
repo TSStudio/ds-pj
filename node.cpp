@@ -73,3 +73,10 @@ double NodePtr::distance(const NodePtr &other) const {
 double NodePtr::distance(double lat, double lon) const {
     return node->distance(lat, lon);
 }
+NodePtr &NodePtr::operator=(const NodePtr &other) {
+    if (this != &other) {
+        node = other.node;
+    }
+
+    return *this;
+}

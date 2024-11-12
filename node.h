@@ -64,7 +64,7 @@ public:
     NodePtr(const NodePtr &other);
     bool operator==(const NodePtr &other) const;
     bool operator<(const NodePtr &other) const;
-    //NodePtr &operator=(const NodePtr &other) const;
+    NodePtr &operator=(const NodePtr &other);
     double distance(const NodePtr &other) const;
     double distance(double lat, double lon) const;
 };

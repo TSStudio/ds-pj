@@ -11,5 +11,4 @@ void init_routes(crow::SimpleApp& app) {
     init_route_nodes(app);
     init_route_find_nearest_node(app);
     init_route_find_path(app);
-    init_route_get_edges(app);
 }

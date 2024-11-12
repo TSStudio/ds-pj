@@ -2,13 +2,13 @@
 #define DATA_LOADER_H
 #include <iostream>
 #include <fstream>
+#include <print>
 #include "pugixml.hpp"
 #include <unordered_map>
 #include <unordered_set>
 #include "node.h"
 #include "way.h"
 #include "quad_tree.h"
-#include "quad_edge_tree.h"
 #include "edge.h"
 #include "cstring"
 #include "utils.h"

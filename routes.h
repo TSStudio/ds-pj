@@ -14,6 +14,5 @@ void init_routes(crow::SimpleApp& app);
 void init_route_nodes(crow::SimpleApp& app);
 void init_route_find_nearest_node(crow::SimpleApp& app);
 void init_route_find_path(crow::SimpleApp& app);
-void init_route_get_edges(crow::SimpleApp& app);
 
 #endif
