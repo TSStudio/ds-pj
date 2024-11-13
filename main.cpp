@@ -23,24 +23,23 @@ void load_default() {
 }
 
 int main(int argc, char* argv[]) {
-    std::cout << "[MAIN] Initializing..." << std::endl;
+    std::println("[MAIN] Initializing...");
     bool result = false;
     if (argc > 1) {
-        std::cout << "[MAIN] Reading Data " << std::endl;
+        std::println("[MAIN] Reading Data...");
         result = data_init_all(argv + 1, argc - 1);
     } else {
-        std::cout << "[MAIN][W] No data file path provided, loading default." << std::endl;
+        std::println("[MAIN][W] No data file path provided, loading default.");
         load_default();
         result = data_init_all(default_filepath, _file_count);
     }
     if (result) {
-        std::cout << "[MAIN] Initialization successful" << std::endl;
+        std::println("[MAIN] Initialization successful");
     } else {
-        std::cout << "[MAIN][E] Initialization failed" << std::endl;
+        std::println("[MAIN][E] Initialization failed");
         return -1;
     }
-
-    std::cout << "[MAIN] Starting web server..." << std::endl;
+    std::println("[MAIN] Starting web server...");
     crow::SimpleApp app;
     init_routes(app);
 

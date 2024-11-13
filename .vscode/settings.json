@@ -81,7 +81,8 @@
         "regex": "cpp",
         "ranges": "cpp",
         "valarray": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "print": "cpp"
     },
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "makefile.configureOnOpen": false

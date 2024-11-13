@@ -4,6 +4,8 @@
 #include <iostream>
 #include <format>
 #include <chrono>
+#include <string>
+#include <print>
 
 class Progress {
 public:
@@ -21,26 +23,26 @@ public:
     void print() {
         if (int((current * 1.0 / total) * 100.0) == last_prog) return;
         last_prog = int((current * 1.0 / total) * 100.0);
-        std::cout << "[";
+        std::string s = "";
         int pos = barWidth * (current * 1.0 / total);
         for (int i = 0; i < barWidth; ++i) {
             if (i < pos)
-                std::cout << "=";
+                s += "=";
             else if (i == pos)
-                std::cout << ">";
+                s += ">";
             else
-                std::cout << " ";
+                s += " ";
         }
-        std::cout << "] ";
+        std::print("[{}]", s);
         //<< int((current * 1.0 / total) * 100.0) << " %";
         auto now = std::chrono::system_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - start);
         //std::cout << current << " / " << total << " in " << duration.count() << "s, ";
-        std::cout << std::format("{}/{} in {}s", current, total, duration.count() / 1000.0);
+        std::print("{}/{} in {}s", current, total, duration.count() / 1000.0);
         if (current > 0) {
             double itps = current * 1.0 / duration.count() * 1000;
             double eta = (total - current) / itps;
-            std::cout << std::format("({:.2f} it/s), ETA: {:.2f}s", itps, eta);
+            std::print("({:.2f} it/s), ETA: {:.2f}s", itps, eta);
         }
         std::cout << "\r";
         std::cout.flush();
@@ -48,7 +50,7 @@ public:
     void done() {
         auto now = std::chrono::system_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - start);
-        std::cout << std::format("Finished in {:.2f}s!", duration.count() / 1000.0) << std::endl;
+        std::println("Finished in {:.2f}s!", duration.count() / 1000.0);
     }
 
 private:

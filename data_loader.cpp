@@ -16,11 +16,10 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         pugi::xml_document _doc;
         pugi::xml_parse_result _result = _doc.load_file(_filepath);
         if (!_result) {
-            std::cout << "[DATA_INIT_PHASE1][FILE][E] Error: " << _result.description() << " when loading " << _filepath << std::endl;
+            std::println("[DATA_INIT_PHASE1][FILE][E] Error: {} when loading {}", _result.description(), _filepath);
             continue;
         }
-        std::cout
-            << "[DATA_INIT_PHASE1][FILE] File " << _filepath << " loaded successfully" << std::endl;
+        std::println("[DATA_INIT_PHASE1][FILE] File {} loaded successfully", _filepath);
         // ---------- META READING ----------
         _meta[_file_no] = false;
         std::ifstream _json_file(_filepath + std::string(".json"));
@@ -28,22 +27,22 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             _meta[_file_no] = true;
         }
         if (_meta[_file_no]) {
-            std::cout << "[DATA_INIT][META] Meta file loaded successfully" << std::endl;
+            std::println("[DATA_INIT][META] Meta file loaded successfully");
         } else {
-            std::cout << "[DATA_INIT][META][W] Meta file not found" << std::endl;
+            std::println("[DATA_INIT][META][W] Meta file not found");
         }
         json __meta = _meta[_file_no] ? json::parse(_json_file) : json();
         if (_meta[_file_no]) {
             _node_count[_file_no] = __meta.at("nodes").get<uint64_t>();
             _way_count[_file_no] = __meta.at("ways").get<uint64_t>();
             _relation_count[_file_no] = __meta.at("relations").get<uint64_t>();
-            std::cout << "[DATA_INIT][META] Meta file parsed successfully" << std::endl;
-            std::cout << "[DATA_INIT][META] " << _node_count[_file_no] << " nodes and " << _way_count[_file_no] << " ways found" << std::endl;
+            std::println("[DATA_INIT][META] Meta file parsed successfully");
+            std::println("[DATA_INIT][META] {} nodes and {} ways found", _node_count[_file_no], _way_count[_file_no]);
         }
         _json_file.close();
         // ---------- NODE PARSING ----------
         Progress _progress1(_node_count[_file_no]);
-        std::cout << "[DATA_INIT][NODE] Parsing nodes..." << std::endl;
+        std::println("[DATA_INIT][NODE] Parsing nodes...");
         uint64_t _node_counter = 0;
         for (pugi::xml_node _node : _doc.child("osm").children("node")) {
             uint64_t _id = _node.attribute("id").as_ullong();
@@ -65,8 +64,7 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             if (_meta) _progress1.prog(_node_counter);
         }
         _progress1.done();
-        std::cout << "[DATA_INIT][NODE] " << _node_counter << " nodes parsed successfully" << std::endl;
-
+        std::println("[DATA_INIT][NODE] {} nodes parsed", _node_counter);
         if (!_meta[_file_no]) {
             _node_count[_file_no] = _node_counter;
         }
@@ -78,13 +76,12 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         pugi::xml_document _doc;
         pugi::xml_parse_result _result = _doc.load_file(_filepath);
         if (!_result) {
-            std::cout << "[DATA_INIT_PHASE2][FILE][E] Error: " << _result.description() << " when loading " << _filepath << std::endl;
+            std::println("[DATA_INIT_PHASE2][FILE][E] Error: {} when loading {}", _result.description(), _filepath);
             continue;
         }
-        std::cout
-            << "[DATA_INIT_PHASE2][FILE] File " << _filepath << " loaded successfully" << std::endl;
+        std::println("[DATA_INIT_PHASE2][FILE] File {} loaded successfully", _filepath);
         // ---------- WAY PARSING ----------
-        std::cout << "[DATA_INIT][WAY] Parsing ways..." << std::endl;
+        std::println("[DATA_INIT][WAY] Parsing ways...");
         uint64_t _way_counter = 0, _way_err_counter = 0;
         Progress _progress2(_way_count[_file_no]);
         for (pugi::xml_node _way : _doc.child("osm").children("way")) {
@@ -141,7 +138,7 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                 if (nodes.find(_ref) == nodes.end()) {
                     _way_err_counter++;
                     if (_way_err_counter < 3)
-                        std::cout << "[DATA_INIT][WAY][E] Error: Node " << _ref << " not found" << std::endl;
+                        std::println("[DATA_INIT][WAY][E] Error: Node {} not found", _ref);
                     continue;
                 }
                 if (_start.node == nullptr) {
@@ -187,9 +184,8 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         }
         _progress2.done();
         if (_way_err_counter > 2)
-            std::cout << "[DATA_INIT][WAY][E] ...\n"
-                      << "[DATA_INIT][WAY][E] Error: Total of " << _way_err_counter << " nodes not found" << std::endl;
-        std::cout << "[DATA_INIT][WAY] " << _way_counter << " ways parsed" << std::endl;
+            std::println("[DATA_INIT][WAY][E] ...\n[DATA_INIT][WAY][E] Error: Total of {} nodes not found", _way_err_counter);
+        std::println("[DATA_INIT][WAY] {} ways parsed", _way_counter);
 
         if (!_meta[_file_no]) {
             _way_count[_file_no] = _way_counter;
@@ -201,13 +197,12 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         pugi::xml_document _doc;
         pugi::xml_parse_result _result = _doc.load_file(_filepath);
         if (!_result) {
-            std::cout << "[DATA_INIT_PHASE3][FILE][E] Error: " << _result.description() << " when loading " << _filepath << std::endl;
+            std::println("[DATA_INIT_PHASE3][FILE][E] Error: {} when loading {}", _result.description(), _filepath);
             continue;
         }
-        std::cout
-            << "[DATA_INIT_PHASE3][FILE] File " << _filepath << " loaded successfully" << std::endl;
+        std::println("[DATA_INIT_PHASE3][FILE] File {} loaded successfully", _filepath);
         // ---------- RELATION PARSING ----------
-        std::cout << "[DATA_INIT][RELATION] Parsing relations..." << std::endl;
+        std::println("[DATA_INIT][RELATION] Parsing relations...");
         uint64_t _relation_counter = 0, _relation_err_counter = 0, _relation_ok_counter = 0;
         Progress _progress3(_relation_count[_file_no]);
         for (pugi::xml_node _relation : _doc.child("osm").children("relation")) {
@@ -251,7 +246,7 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                     if (ways.find(_ref) == ways.end()) {
                         _relation_err_counter++;
                         if (_relation_err_counter < 3)
-                            std::cout << "[DATA_INIT][RELATION][E] Error: Way " << _ref << " not found" << std::endl;
+                            std::println("[DATA_INIT][RELATION][E] Error: Way {} not found", _ref);
                         continue;
                     }
                     Way *_w = ways[_ref];
@@ -277,16 +272,15 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         }
         _progress3.done();
         if (_relation_err_counter > 2)
-            std::cout << "[DATA_INIT][RELATION][E] ...\n"
-                      << "[DATA_INIT][RELATION][E] Error: Total of " << _relation_err_counter << " ways not found" << std::endl;
-        std::cout << "[DATA_INIT][RELATION] " << _relation_ok_counter << " ways parsed successfully" << std::endl;
-        std::cout << "[DATA_INIT][RELATION] " << _relation_counter << " relations parsed" << std::endl;
+            std::println("[DATA_INIT][RELATION][E] ...\n[DATA_INIT][RELATION][E] Error: Total of {} ways not found", _relation_err_counter);
+        std::println("[DATA_INIT][RELATION] {} ways parsed successfully", _relation_ok_counter);
+        std::println("[DATA_INIT][RELATION] {} relations parsed", _relation_counter);
 
         if (!_meta[_file_no]) {
             _relation_count[_file_no] = _relation_counter;
         }
     }
-    std::cout << "[DATA_INIT][QUADTREE] Inserting nodes into quadtree..." << std::endl;
+    std::println("[DATA_INIT][QUADTREE] Inserting nodes into quadtree...");
     Progress _progress3(nodes.size());
     for (auto n : nodes) {
         if (n.second->road)
@@ -294,7 +288,7 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         _progress3.prog_delta(1);
     }
     _progress3.done();
-    std::cout << "[DATA_INIT][QUADTREE] Nodes inserted into quadtree" << std::endl;
+    std::println("[DATA_INIT][META] Writing meta files...");
 
     for (unsigned int i = 0; i < _file_count; i++) {
         if (!_meta[i] && _node_count[i] > 0 && _way_count[i] > 0) {
@@ -308,7 +302,7 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         }
     }
 
-    std::cout << "[DATA_INIT] Connecting Transport Stops to Nearest Pedestrain." << std::endl;
+    std::println("[DATA_INIT][TRANSPORT_STOPS] Connecting Transport Stops to Nearest Pedestrain.");
     Progress _progress4(_transport_stops.size());
     for (auto n : _transport_stops) {
         if (n == nullptr) continue;
