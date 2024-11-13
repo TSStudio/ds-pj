@@ -10,12 +10,12 @@ char** default_filepath;
 unsigned int _file_count = 0;
 
 void load_default() {
-    _file_count = 1;
+    _file_count = 2;
     default_filepath = new char*[_file_count];
     default_filepath[0] = new char[100];
     strcpy(default_filepath[0], "data/shanghai.osm");
-    // default_filepath[1] = new char[100];
-    // strcpy(default_filepath[1], "data/jiangsu.osm");
+    default_filepath[1] = new char[100];
+    strcpy(default_filepath[1], "data/jiangsu.osm");
     // default_filepath[2] = new char[100];
     // strcpy(default_filepath[2], "data/zhejiang.osm");
     // default_filepath[3] = new char[100];

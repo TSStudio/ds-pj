@@ -6,10 +6,13 @@ extern std::unordered_map<uint64_t, Node*> nodes;
 void init_route_find_path(crow::SimpleApp& app) {
     CROW_ROUTE(app, "/find_path")
     ([](const crow::request& req) {
+        bool heuristic = false;
+        double heuristic_factor = 1.0;
         auto param = req.get_body_params();
         char* id_start = param.get("start");
         char* id_end = param.get("end");
         char* method = param.get("method");
+        char* heuristic_factor_str = param.get("heuristic_factor");
         if (id_start == nullptr) {
             id_start = req.url_params.get("start");
         }
@@ -18,6 +21,13 @@ void init_route_find_path(crow::SimpleApp& app) {
         }
         if (method == nullptr) {
             method = req.url_params.get("method");
+        }
+        if (heuristic_factor_str == nullptr) {
+            heuristic_factor_str = req.url_params.get("heuristic_factor");
+        }
+        if (heuristic_factor_str != nullptr) {
+            heuristic = true;
+            heuristic_factor = std::stod(heuristic_factor_str);
         }
         if (id_start == nullptr || id_end == nullptr) {
             return crow::response(400);
@@ -30,15 +40,23 @@ void init_route_find_path(crow::SimpleApp& app) {
         }
         uint64_t start = std::stoull(id_start);
         uint64_t end = std::stoull(id_end);
-        DijkstraPathFinder dpf(nodes[start], nodes[end], mtd);
-        dpf.find_path();
-        auto path = dpf.get_path();
-        auto distance = dpf.get_distance();
-        auto travel_time = dpf.get_travel_time();
+        DijkstraPathFinder* dpf;
+        if (heuristic) {
+            dpf = new HeuristicOptimizedDijkstraPathFinder(nodes[start], nodes[end], mtd, heuristic_factor);
+        } else {
+            dpf = new DijkstraPathFinder(nodes[start], nodes[end], mtd);
+        }
+        // DijkstraPathFinder dpf(nodes[start], nodes[end], mtd);
+        // dpf.find_path();
+        dpf->find_path();
+        auto path = dpf->get_path();
+        auto distance = dpf->get_distance();
+        auto travel_time = dpf->get_travel_time();
         json j;
         j["distance"] = distance;
         j["travel_time"] = travel_time;
         j["path"] = json::array();
+        j["heuristic_factor"] = heuristic_factor;
         std::unordered_set<uint64_t> node_ids;
         for (auto e : path) {
             json je;

@@ -270,8 +270,8 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                     _relation_ok_counter++;
                 }
             }
-            if (_route_name != nullptr)
-                std::println("Processed relation {}", _route_name);
+            // if (_route_name != nullptr)
+            //     std::println("Processed relation {}", _route_name);
             _relation_counter++;
             if (_meta) _progress3.prog(_relation_counter);
         }
