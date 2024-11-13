@@ -9,17 +9,21 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
     uint64_t *_node_count = new uint64_t[_file_count];
     uint64_t *_way_count = new uint64_t[_file_count];
     uint64_t *_relation_count = new uint64_t[_file_count];
+    pugi::xml_document *__doc = new pugi::xml_document[_file_count];
+    pugi::xml_parse_result *__result = new pugi::xml_parse_result[_file_count];
     bool *_meta = new bool[_file_count];
     for (unsigned int _file_no = 0; _file_no < _file_count; _file_no++) {
         // ---------- FILE READING ----------
         char *_filepath = __filepath[_file_no];
-        pugi::xml_document _doc;
-        pugi::xml_parse_result _result = _doc.load_file(_filepath);
-        if (!_result) {
-            std::println("[DATA_INIT_PHASE1][FILE][E] Error: {} when loading {}", _result.description(), _filepath);
+        __result[_file_no] = __doc[_file_no].load_file(_filepath);
+        if (!__result[_file_no]) {
+            std::println("[DATA_INIT_PHASE1][FILE][E] Error: {} when loading {}", __result[_file_no].description(), _filepath);
             continue;
         }
         std::println("[DATA_INIT_PHASE1][FILE] File {} loaded successfully", _filepath);
+    }
+    for (unsigned int _file_no = 0; _file_no < _file_count; _file_no++) {
+        char *_filepath = __filepath[_file_no];
         // ---------- META READING ----------
         _meta[_file_no] = false;
         std::ifstream _json_file(_filepath + std::string(".json"));
@@ -29,7 +33,7 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         if (_meta[_file_no]) {
             std::println("[DATA_INIT][META] Meta file loaded successfully");
         } else {
-            std::println("[DATA_INIT][META][W] Meta file not found");
+            std::println("[DATA_INIT][META] Meta file not found");
         }
         json __meta = _meta[_file_no] ? json::parse(_json_file) : json();
         if (_meta[_file_no]) {
@@ -44,7 +48,7 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         Progress _progress1(_node_count[_file_no]);
         std::println("[DATA_INIT][NODE] Parsing nodes...");
         uint64_t _node_counter = 0;
-        for (pugi::xml_node _node : _doc.child("osm").children("node")) {
+        for (pugi::xml_node _node : __doc[_file_no].child("osm").children("node")) {
             uint64_t _id = _node.attribute("id").as_ullong();
             double _lat = _node.attribute("lat").as_double();
             double _lon = _node.attribute("lon").as_double();
@@ -71,20 +75,12 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
     }
 
     for (unsigned int _file_no = 0; _file_no < _file_count; _file_no++) {
-        // ---------- FILE READING ----------
         char *_filepath = __filepath[_file_no];
-        pugi::xml_document _doc;
-        pugi::xml_parse_result _result = _doc.load_file(_filepath);
-        if (!_result) {
-            std::println("[DATA_INIT_PHASE2][FILE][E] Error: {} when loading {}", _result.description(), _filepath);
-            continue;
-        }
-        std::println("[DATA_INIT_PHASE2][FILE] File {} loaded successfully", _filepath);
         // ---------- WAY PARSING ----------
         std::println("[DATA_INIT][WAY] Parsing ways...");
         uint64_t _way_counter = 0, _way_err_counter = 0;
         Progress _progress2(_way_count[_file_no]);
-        for (pugi::xml_node _way : _doc.child("osm").children("way")) {
+        for (pugi::xml_node _way : __doc[_file_no].child("osm").children("way")) {
             Way *_w = new Way(_way.attribute("id").as_ullong());
             //Way *_w = new Way(_way.attribute("id").as_ullong(), "");
             //check if way is a road
@@ -192,20 +188,12 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         }
     }
     for (unsigned int _file_no = 0; _file_no < _file_count; _file_no++) {
-        // ---------- FILE READING ----------
         char *_filepath = __filepath[_file_no];
-        pugi::xml_document _doc;
-        pugi::xml_parse_result _result = _doc.load_file(_filepath);
-        if (!_result) {
-            std::println("[DATA_INIT_PHASE3][FILE][E] Error: {} when loading {}", _result.description(), _filepath);
-            continue;
-        }
-        std::println("[DATA_INIT_PHASE3][FILE] File {} loaded successfully", _filepath);
         // ---------- RELATION PARSING ----------
         std::println("[DATA_INIT][RELATION] Parsing relations...");
         uint64_t _relation_counter = 0, _relation_err_counter = 0, _relation_ok_counter = 0;
         Progress _progress3(_relation_count[_file_no]);
-        for (pugi::xml_node _relation : _doc.child("osm").children("relation")) {
+        for (pugi::xml_node _relation : __doc[_file_no].child("osm").children("relation")) {
             //check if is route
             bool _isRoute = false;
             int _type = 0;
@@ -301,22 +289,73 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             _json_file.close();
         }
     }
-
-    std::println("[DATA_INIT][TRANSPORT_STOPS] Connecting Transport Stops to Nearest Pedestrain.");
-    Progress _progress4(_transport_stops.size());
-    for (auto n : _transport_stops) {
-        if (n == nullptr) continue;
-        NodePtr nearest = root->find_nearest_node(n->lat, n->lon, [](const NodePtr &n) { return n.node->pedestrian; });
-        if (nearest.node != nullptr) {
-            n->computed_edges.push_back(new ComputedEdge(n, nearest, {true, false, false, false, false}, 10, nullptr, 200));
-            nearest.node->computed_edges.push_back(new ComputedEdge(nearest, n, {true, false, false, false, false}, 10, nullptr, 200));
+    std::ifstream _link_cache_json_file("link_cache.json");
+    json _link_cache_json;
+    bool iscache = false;
+    if (!_link_cache_json_file.is_open()) {
+        std::println("[DATA_INIT][META] Link cache file not found, creating new one.");
+    } else {
+        _link_cache_json = json::parse(_link_cache_json_file);
+        //{files:["file1.osm"],links:[{tr:id,rd:id}]}
+        //check if file list is the same
+        if (_link_cache_json["files"].size() == _file_count) {
+            bool _same = true;
+            for (unsigned int i = 0; i < _file_count; i++) {
+                if (_link_cache_json["files"][i] != __filepath[i]) {
+                    _same = false;
+                    std::println("[DATA_INIT][META] Link cache file found, but file list is different, creating new one.");
+                    break;
+                }
+            }
+            if (_same) {
+                iscache = true;
+                std::println("[DATA_INIT][META] Link cache file found, using cache.");
+            }
         }
-        _progress4.prog_delta(1);
     }
-    _progress4.done();
+    std::println("[DATA_INIT][TRANSPORT_STOPS] Connecting Transport Stops to Nearest Pedestrain.");
+    if (iscache) {
+        std::println("[DATA_INIT][META] Using link cache.");
+        Progress _progress4(_link_cache_json["links"].size());
+        for (auto _link : _link_cache_json["links"]) {
+            NodePtr _tr = NodePtr(nodes[_link["tr"].get<uint64_t>()]);
+            NodePtr _rd = NodePtr(nodes[_link["rd"].get<uint64_t>()]);
+            if (_tr.node != nullptr && _rd.node != nullptr) {
+                _tr.node->computed_edges.push_back(new ComputedEdge(_tr, _rd, {true, false, false, false, false}, 10, nullptr, 200));
+                _rd.node->computed_edges.push_back(new ComputedEdge(_rd, _tr, {true, false, false, false, false}, 10, nullptr, 200));
+            }
+            _progress4.prog_delta(1);
+        }
+        _progress4.done();
+    } else {
+        json _link_cache_json = {
+            {"files", json::array()},
+            {"links", json::array()}};
+        Progress _progress4(_transport_stops.size());
+        for (auto n : _transport_stops) {
+            if (n == nullptr) continue;
+            NodePtr nearest = root->find_nearest_node(n->lat, n->lon, [](const NodePtr &n) { return n.node->pedestrian; });
+            if (nearest.node != nullptr) {
+                n->computed_edges.push_back(new ComputedEdge(n, nearest, {true, false, false, false, false}, 10, nullptr, 200));
+                nearest.node->computed_edges.push_back(new ComputedEdge(nearest, n, {true, false, false, false, false}, 10, nullptr, 200));
+                _link_cache_json["links"].push_back({{"tr", n->id}, {"rd", nearest.node->id}});
+            }
+            _progress4.prog_delta(1);
+        }
+        _progress4.done();
+        for (unsigned int i = 0; i < _file_count; i++) {
+            _link_cache_json["files"].push_back(__filepath[i]);
+        }
+        std::ofstream _link_cache_json_file("link_cache.json");
+        _link_cache_json_file << _link_cache_json.dump();
+        _link_cache_json_file.close();
+        std::println("[DATA_INIT][META] Link cache file created.");
+    }
 
     delete[] _node_count;
     delete[] _way_count;
     delete[] _meta;
+    delete[] __doc;
+    delete[] __result;
     return true;
 }

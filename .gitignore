@@ -9,3 +9,4 @@ data/
 server
 compile_commands.json
 talk1.md
+link_cache.json
