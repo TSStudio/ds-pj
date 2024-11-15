@@ -7,12 +7,14 @@ void init_route_find_path(crow::SimpleApp& app) {
     CROW_ROUTE(app, "/find_path")
     ([](const crow::request& req) {
         bool heuristic = false;
+        bool view_search_range = false;
         double heuristic_factor = 1.0;
         auto param = req.get_body_params();
         char* id_start = param.get("start");
         char* id_end = param.get("end");
         char* method = param.get("method");
         char* heuristic_factor_str = param.get("heuristic_factor");
+        char* view_search_range_str = param.get("view_search_range");
         if (id_start == nullptr) {
             id_start = req.url_params.get("start");
         }
@@ -25,9 +27,15 @@ void init_route_find_path(crow::SimpleApp& app) {
         if (heuristic_factor_str == nullptr) {
             heuristic_factor_str = req.url_params.get("heuristic_factor");
         }
+        if (view_search_range_str == nullptr) {
+            view_search_range_str = req.url_params.get("view_search_range");
+        }
         if (heuristic_factor_str != nullptr) {
             heuristic = true;
             heuristic_factor = std::stod(heuristic_factor_str);
+        }
+        if (view_search_range_str != nullptr) {
+            view_search_range = true;
         }
         if (id_start == nullptr || id_end == nullptr) {
             return crow::response(400);
@@ -48,7 +56,9 @@ void init_route_find_path(crow::SimpleApp& app) {
         }
         // DijkstraPathFinder dpf(nodes[start], nodes[end], mtd);
         // dpf.find_path();
+        Progress p(1);
         dpf->find_path();
+        p.done_ms();
         auto path = dpf->get_path();
         auto distance = dpf->get_distance();
         auto travel_time = dpf->get_travel_time();
@@ -71,6 +81,19 @@ void init_route_find_path(crow::SimpleApp& app) {
             }
             j["path"].push_back(je);
         }
+
+        if (view_search_range) {
+            j["nodes_ch"] = json::array();
+            //put all nodes searched instead of only nodes in path
+            auto ns = dpf->get_visited_nodes();
+            for (auto n : ns) {
+                json jn;
+                jn["id"] = n->id;
+                jn["lat"] = n->lat;
+                jn["lon"] = n->lon;
+                j["nodes_ch"].push_back(jn);
+            }
+        }
         j["nodes"] = json::object();
         for (auto n : node_ids) {
             json jn;
@@ -85,6 +108,7 @@ void init_route_find_path(crow::SimpleApp& app) {
         auto res = crow::response(response);
         res.add_header("Access-Control-Allow-Origin", "*");
         res.add_header("Content-Type", "application/json");
+        delete dpf;
         return res;
-    });
+        });
 }

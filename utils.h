@@ -52,6 +52,11 @@ public:
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - start);
         std::println("Finished in {:.2f}s!", duration.count() / 1000.0);
     }
+    void done_ms() {
+        auto now = std::chrono::system_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(now - start);
+        std::println("Finished in {:.2f}ms!", duration.count() / 1000.0);
+    }
 
 private:
     int barWidth = 20;

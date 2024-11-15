@@ -34,6 +34,8 @@ public:
     std::vector<ResultEdge*> get_path();
     double get_distance();
     double get_travel_time();
+    std::unordered_set<Node*> get_visited_nodes();
+    std::vector<Node*> get_convex_hull_of_visited_nodes();
 };
 
 /**
