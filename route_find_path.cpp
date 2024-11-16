@@ -15,6 +15,7 @@ void init_route_find_path(crow::SimpleApp& app) {
         char* method = param.get("method");
         char* heuristic_factor_str = param.get("heuristic_factor");
         char* view_search_range_str = param.get("view_search_range");
+        char* key_str = param.get("key");
         if (id_start == nullptr) {
             id_start = req.url_params.get("start");
         }
@@ -29,6 +30,9 @@ void init_route_find_path(crow::SimpleApp& app) {
         }
         if (view_search_range_str == nullptr) {
             view_search_range_str = req.url_params.get("view_search_range");
+        }
+        if (key_str == nullptr) {
+            key_str = req.url_params.get("key");
         }
         if (heuristic_factor_str != nullptr) {
             heuristic = true;
@@ -46,13 +50,17 @@ void init_route_find_path(crow::SimpleApp& app) {
         } else {
             mtd = std::stoi(method);
         }
+        int key = 0;
+        if (key_str != nullptr) {
+            key = std::stoi(key_str);
+        }
         uint64_t start = std::stoull(id_start);
         uint64_t end = std::stoull(id_end);
         DijkstraPathFinder* dpf;
         if (heuristic) {
-            dpf = new HeuristicOptimizedDijkstraPathFinder(nodes[start], nodes[end], mtd, heuristic_factor);
+            dpf = new HeuristicOptimizedDijkstraPathFinder(nodes[start], nodes[end], mtd, key, heuristic_factor);
         } else {
-            dpf = new DijkstraPathFinder(nodes[start], nodes[end], mtd);
+            dpf = new DijkstraPathFinder(nodes[start], nodes[end], mtd, key);
         }
         // DijkstraPathFinder dpf(nodes[start], nodes[end], mtd);
         // dpf.find_path();
@@ -85,7 +93,7 @@ void init_route_find_path(crow::SimpleApp& app) {
         if (view_search_range) {
             j["nodes_ch"] = json::array();
             //put all nodes searched instead of only nodes in path
-            auto ns = dpf->get_visited_nodes();
+            auto ns = dpf->get_convex_hull_of_visited_nodes();
             for (auto n : ns) {
                 json jn;
                 jn["id"] = n->id;
@@ -110,5 +118,5 @@ void init_route_find_path(crow::SimpleApp& app) {
         res.add_header("Content-Type", "application/json");
         delete dpf;
         return res;
-        });
+    });
 }

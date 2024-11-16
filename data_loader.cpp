@@ -75,7 +75,6 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
     }
 
     for (unsigned int _file_no = 0; _file_no < _file_count; _file_no++) {
-        char *_filepath = __filepath[_file_no];
         // ---------- WAY PARSING ----------
         std::println("[DATA_INIT][WAY] Parsing ways...");
         uint64_t _way_counter = 0, _way_err_counter = 0;
@@ -188,7 +187,6 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         }
     }
     for (unsigned int _file_no = 0; _file_no < _file_count; _file_no++) {
-        char *_filepath = __filepath[_file_no];
         // ---------- RELATION PARSING ----------
         std::println("[DATA_INIT][RELATION] Parsing relations...");
         uint64_t _relation_counter = 0, _relation_err_counter = 0, _relation_ok_counter = 0;
@@ -246,7 +244,7 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                             continue;
                         }
                         //_start.node->computed_edges.push_back(new ComputedEdge(_start, _end, {false, false, false, _type & 8 ? true : false, _type & 16 ? true : false}, _type & 8 ? 50 : 80, _route_name));
-                        _start.node->push_relation(_id, _end.node, {false, false, false, _type & 8 ? true : false, _type & 16 ? true : false}, _type & 8 ? 60 : 80, _route_name);
+                        _start.node->push_relation(_id, _end.node, {false, false, false, _type & 8 ? true : false, _type & 16 ? true : false, false}, _type & 8 ? 60 : 80, _route_name);
                         _start = _end;
                     }
 
@@ -321,8 +319,8 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             NodePtr _tr = NodePtr(nodes[_link["tr"].get<uint64_t>()]);
             NodePtr _rd = NodePtr(nodes[_link["rd"].get<uint64_t>()]);
             if (_tr.node != nullptr && _rd.node != nullptr) {
-                _tr.node->computed_edges.push_back(new ComputedEdge(_tr, _rd, {true, false, false, false, false}, 10, nullptr, 200));
-                _rd.node->computed_edges.push_back(new ComputedEdge(_rd, _tr, {true, false, false, false, false}, 10, nullptr, 200));
+                _tr.node->computed_edges.push_back(new ComputedEdge(_tr, _rd, {false, false, false, false, false, true}, 10, nullptr, 200));
+                _rd.node->computed_edges.push_back(new ComputedEdge(_rd, _tr, {false, false, false, false, false, true}, 10, nullptr, 200));
             }
             _progress4.prog_delta(1);
         }
@@ -336,8 +334,8 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             if (n == nullptr) continue;
             NodePtr nearest = root->find_nearest_node(n->lat, n->lon, [](const NodePtr &n) { return n.node->pedestrian; });
             if (nearest.node != nullptr) {
-                n->computed_edges.push_back(new ComputedEdge(n, nearest, {true, false, false, false, false}, 10, nullptr, 200));
-                nearest.node->computed_edges.push_back(new ComputedEdge(nearest, n, {true, false, false, false, false}, 10, nullptr, 200));
+                n->computed_edges.push_back(new ComputedEdge(n, nearest, {false, false, false, false, false, true}, 10, nullptr, 200));
+                nearest.node->computed_edges.push_back(new ComputedEdge(nearest, n, {false, false, false, false, false, true}, 10, nullptr, 200));
                 _link_cache_json["links"].push_back({{"tr", n->id}, {"rd", nearest.node->id}});
             }
             _progress4.prog_delta(1);

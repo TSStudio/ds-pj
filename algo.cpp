@@ -1,6 +1,6 @@
 #include "algo.h"
 
-DijkstraPathFinder::DijkstraPathFinder(Node* start, Node* end, int method) : start(start), end(end), found(false), distance(1e18), travel_time(1e18), method(method) {}
+DijkstraPathFinder::DijkstraPathFinder(Node* start, Node* end, int method, int key) : start(start), end(end), found(false), distance(1e18), travel_time(1e18), method(method), key(key) {}
 std::vector<ResultEdge*> DijkstraPathFinder::get_path() {
     return path;
 }
@@ -75,7 +75,7 @@ void DijkstraPathFinder::find_path() {
             if (!e->vis(method)) {
                 continue;
             }
-            double new_distance = distance_map[current] + e->getTravelTime(method);
+            double new_distance = distance_map[current] + (key == 0 ? e->getTravelTime(method) : e->getDistance(method));
             if (distance_map.find(next) == distance_map.end() || new_distance < distance_map[next]) {
                 distance_map[next] = new_distance;
                 parent_map[next] = current;
@@ -100,9 +100,18 @@ void DijkstraPathFinder::find_path() {
     }
 }
 
-HeuristicOptimizedDijkstraPathFinder::HeuristicOptimizedDijkstraPathFinder(Node* start, Node* end, int method, double heuristicFactor) : DijkstraPathFinder(start, end, method), heuristicFactor(heuristicFactor) {}
+DijkstraPathFinder::~DijkstraPathFinder() {
+    for (auto e : edge_map) {
+        delete e.second;
+    }
+}
+
+HeuristicOptimizedDijkstraPathFinder::HeuristicOptimizedDijkstraPathFinder(Node* start, Node* end, int method, int key, double heuristicFactor) : DijkstraPathFinder(start, end, method, key), heuristicFactor(heuristicFactor) {}
 double HeuristicOptimizedDijkstraPathFinder::get_heuristic(double _distance, Node* middle, Node* end) {
-    return _distance + heuristicFactor * (middle->distance(*end)) / get_avg_speed(method);
+    if (key == 0)
+        return _distance + heuristicFactor * (middle->distance(*end)) / get_avg_speed(method);
+    else
+        return _distance + heuristicFactor * (middle->distance(*end));
 }
 
 double HeuristicOptimizedDijkstraPathFinder::get_avg_speed(int method) {
@@ -135,23 +144,23 @@ void HeuristicOptimizedDijkstraPathFinder::find_path() {
     while (!pq_heuristic.empty()) {
         Node* current = pq_heuristic.top().second;
         pq_heuristic.pop();
-        if (visited_nodes_heuristic.find(current) != visited_nodes_heuristic.end()) {
+        if (visited_nodes.find(current) != visited_nodes.end()) {
             continue;
         }
-        visited_nodes_heuristic.insert(current);
+        visited_nodes.insert(current);
         if (current == end) {
             found = true;
             break;
         }
         for (auto e : current->computed_edges) {
             Node* next = e->end->node;
-            if (visited_nodes_heuristic.find(next) != visited_nodes_heuristic.end()) {
+            if (visited_nodes.find(next) != visited_nodes.end()) {
                 continue;
             }
             if (!e->vis(method)) {
                 continue;
             }
-            double new_distance = distance_map[current] + e->getTravelTime(method);
+            double new_distance = distance_map[current] + (key == 0 ? e->getTravelTime(method) : e->getDistance(method));
             if (distance_map.find(next) == distance_map.end() || new_distance < distance_map[next]) {
                 distance_map[next] = new_distance;
                 parent_map[next] = current;

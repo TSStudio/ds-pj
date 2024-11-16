@@ -12,6 +12,7 @@ public:
     bool car;
     bool bus;
     bool subway;
+    bool transfer;
 };
 /**
  * Definition of road levels:
@@ -56,33 +57,33 @@ public:
      */
     static allowance getAllowance(const std::string &highway) {
         if (highway == "motorway" || highway == "motorway_link") {
-            return {false, false, true, false, false};
+            return {false, false, true, false, false, false};
         } else if (highway == "trunk" || highway == "trunk_link") {
-            return {false, false, true, false, false};
+            return {false, false, true, false, false, false};
         } else if (highway == "primary" || highway == "primary_link") {
-            return {true, true, true, false, false};
+            return {true, true, true, false, false, false};
         } else if (highway == "secondary" || highway == "secondary_link") {
-            return {true, true, true, false, false};
+            return {true, true, true, false, false, false};
         } else if (highway == "tertiary" || highway == "tertiary_link") {
-            return {true, true, true, false, false};
+            return {true, true, true, false, false, false};
         } else if (highway == "unclassified") {
-            return {true, true, true, false, false};
+            return {true, true, true, false, false, false};
         } else if (highway == "residential") {
-            return {true, true, true, false, false};
+            return {true, true, true, false, false, false};
         } else if (highway == "living_street") {
-            return {true, true, false, false, false};
+            return {true, true, false, false, false, false};
         } else if (highway == "pedestrian") {
-            return {true, true, false, false, false};
+            return {true, true, false, false, false, false};
         } else if (highway == "footway") {
-            return {true, false, false, false, false};
+            return {true, false, false, false, false, false};
         } else if (highway == "cycleway") {
-            return {false, true, false, false, false};
+            return {false, true, false, false, false, false};
         } else if (highway == "path") {
-            return {true, true, false, false, false};
+            return {true, true, false, false, false, false};
         } else if (highway == "steps") {
-            return {true, false, false, false, false};
+            return {true, false, false, false, false, false};
         } else {
-            return {true, false, false, false, false};
+            return {true, false, false, false, false, false};
         }
     }
     /**
@@ -156,6 +157,7 @@ public:
     double distance;
     ComputedEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit, char *name, double forceTime = 0);
     double getTravelTime(int method);  //bit 0: pedestrian, bit 1: bicycle, bit 2: car, bit 3: bus, bit 4: subway
+    double getDistance(int method);
     bool vis(int method);
     int getMethodUsed(int method);
 };

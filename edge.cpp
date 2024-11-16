@@ -39,6 +39,8 @@ bool ComputedEdge::vis(int method) {
         return true;
     } else if (method & 16 && allow.subway) {
         return true;
+    } else if ((method & 16 && allow.transfer) || (method & 8 && allow.transfer)) {
+        return true;
     } else {
         return false;
     }
@@ -69,10 +71,17 @@ double ComputedEdge::getTravelTime(int method) {
     return distance / speed;
 }
 
+double ComputedEdge::getDistance(int method) {
+    if (vis(method)) return distance;
+    return 1e18;
+}
+
 ResultEdge::ResultEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit, char *name, double forceTime) : ComputedEdge(start, end, allow, speed_limit, name, forceTime) {}
 ResultEdge::ResultEdge(ComputedEdge *e, int method) : ComputedEdge(*e->start, *e->end, e->allow, e->speed_limit, e->name, e->forceTime), method(method) {}
 
 int ComputedEdge::getMethodUsed(int method) {
+    if (method & 16 && allow.transfer) return 16;
+    if (method & 8 && allow.transfer) return 8;
     if (method & 16 && allow.subway) return 16;
     if (method & 8 && allow.bus) return 8;
     if (method & 4 && allow.car) return 4;
