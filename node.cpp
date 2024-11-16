@@ -19,12 +19,26 @@ double Node::distance(const Node &other) const {
     long double lon2 = other.lon * PI / 180.0L;
     return (double)(EARTH_RADIUS * acosl(sinl(lat1) * sinl(lat2) + cosl(lat1) * cosl(lat2) * cosl(lon1 - lon2)));
 }
+float Node::distanceF(const Node &other) const {
+    double lat1 = lat * PI / 180.0L;
+    double lon1 = lon * PI / 180.0L;
+    double lat2 = other.lat * PI / 180.0L;
+    double lon2 = other.lon * PI / 180.0L;
+    return (float)(EARTH_RADIUS * acosl(sinl(lat1) * sinl(lat2) + cosl(lat1) * cosl(lat2) * cosl(lon1 - lon2)));
+}
 double Node::distance(double lat, double lon) const {
     long double lat1 = this->lat * PI / 180.0L;
     long double lon1 = this->lon * PI / 180.0L;
     long double lat2 = lat * PI / 180.0L;
     long double lon2 = lon * PI / 180.0L;
     return (double)(EARTH_RADIUS * acosl(sinl(lat1) * sinl(lat2) + cosl(lat1) * cosl(lat2) * cosl(lon1 - lon2)));
+}
+float Node::distanceF(double lat, double lon) const {
+    double lat1 = this->lat * PI / 180.0L;
+    double lon1 = this->lon * PI / 180.0L;
+    double lat2 = lat * PI / 180.0L;
+    double lon2 = lon * PI / 180.0L;
+    return (float)(EARTH_RADIUS * acosl(sinl(lat1) * sinl(lat2) + cosl(lat1) * cosl(lat2) * cosl(lon1 - lon2)));
 }
 void Node::push_relation(uint64_t relation_id, Node *n, allowance allow, double speed_limit, char *name) {
     Node *virtual_point;

@@ -13,19 +13,19 @@ extern std::unordered_map<uint64_t, Node*> nodes;
 
 class DijkstraPathFinder {
 private:
-    std::priority_queue<std::pair<double, Node*>> pq;
+    std::priority_queue<std::pair<float, Node*>> pq;
 
 protected:
     Node* start;
     Node* end;
     bool found;
-    double distance;
-    double travel_time;
+    float distance;
+    float travel_time;
     int method;
     int key;
     std::unordered_set<Node*> visited_nodes;
     std::vector<ResultEdge*> path;
-    std::unordered_map<Node*, double> distance_map;
+    std::unordered_map<Node*, float> distance_map;
     std::unordered_map<Node*, Node*> parent_map;
     std::unordered_map<Node*, ResultEdge*> edge_map;
 
@@ -33,8 +33,8 @@ public:
     DijkstraPathFinder(Node* start, Node* end, int method, int key);
     virtual void find_path();
     std::vector<ResultEdge*> get_path();
-    double get_distance();
-    double get_travel_time();
+    float get_distance();
+    float get_travel_time();
     std::unordered_set<Node*> get_visited_nodes();
     std::vector<Node*> get_convex_hull_of_visited_nodes();
     virtual ~DijkstraPathFinder();
@@ -46,16 +46,16 @@ public:
  */
 class HeuristicOptimizedDijkstraPathFinder : public DijkstraPathFinder {
 private:
-    double heuristicFactor;
-    std::priority_queue<std::pair<double, Node*>> pq_heuristic;
-    double get_heuristic(double distance, Node* middle, Node* end);
-    static double get_avg_speed(int method);
+    float heuristicFactor;
+    std::priority_queue<std::pair<float, Node*>> pq_heuristic;
+    float get_heuristic(float distance, Node* middle, Node* end);
+    static float get_avg_speed(int method);
 
 public:
     /**
  * @param key: 0 for time, 1 for distance
  */
-    HeuristicOptimizedDijkstraPathFinder(Node* start, Node* end, int method, int key, double heuristicFactor);
+    HeuristicOptimizedDijkstraPathFinder(Node* start, Node* end, int method, int key, float heuristicFactor);
     void find_path() override;
 };
 

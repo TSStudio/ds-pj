@@ -118,6 +118,7 @@ public:
     NodePtr *start;        //start node
     NodePtr *end;          //end node
     double distance;       //distance between the nodes
+    float distance_f;      //distance between the nodes
     bool isRoad;           //is a road
     int appear_level_min;  //minimum appearance level of the edge
     bool virtual_edge = false;
@@ -155,9 +156,12 @@ public:
     char *name;
     double forceTime;
     double distance;
+    float distance_f;
     ComputedEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit, char *name, double forceTime = 0);
     double getTravelTime(int method);  //bit 0: pedestrian, bit 1: bicycle, bit 2: car, bit 3: bus, bit 4: subway
+    float getTravelTimeF(int method);
     double getDistance(int method);
+    float getDistanceF(int method);
     bool vis(int method);
     int getMethodUsed(int method);
 };

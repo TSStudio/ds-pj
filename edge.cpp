@@ -3,10 +3,12 @@
 Edge::Edge(NodePtr _start, NodePtr _end, double _distance, bool _isRoad, int _appear_level_min) : distance(_distance), isRoad(_isRoad), appear_level_min(_appear_level_min), virtual_edge(false) {
     this->start = new NodePtr(_start);
     this->end = new NodePtr(_end);
+    this->distance_f = _distance;
 }
-Edge::Edge() : start(nullptr), end(nullptr), distance(0), isRoad(false), appear_level_min(0) {}
+Edge::Edge() : start(nullptr), end(nullptr), distance(0), distance_f(0), isRoad(false), appear_level_min(0) {}
 Edge::Edge(NodePtr start, NodePtr end, bool isRoad, int appear_level_min) : isRoad(isRoad), appear_level_min(appear_level_min) {
     distance = start.distance(end);
+    distance_f = distance;
     this->start = new NodePtr(start);
     this->end = new NodePtr(end);
 }
@@ -26,6 +28,7 @@ ComputedEdge::ComputedEdge(NodePtr start, NodePtr end, allowance allow, double s
     this->end = new NodePtr(end);
     this->allow = allow;
     distance = start.distance(end);
+    distance_f = distance;
 }
 
 bool ComputedEdge::vis(int method) {
@@ -71,7 +74,36 @@ double ComputedEdge::getTravelTime(int method) {
     return distance / speed;
 }
 
+float ComputedEdge::getTravelTimeF(int method) {
+    if (forceTime > 1) return forceTime;
+    float speed = 0;  //m/s
+    if (method & 1 && allow.pedestrian) {
+        if (method & 8)
+            speed = 0.9;
+        else
+            speed = 1.2;
+    }
+    if (method & 2 && allow.bicycle) {
+        speed = 3;
+    }
+    if (method & 4 && allow.car) {
+        speed = 0.9 * speed_limit;
+    }
+    if (method & 8 && allow.bus) {
+        speed = 0.4 * speed_limit;
+    }
+    if (method & 16 && allow.subway) {
+        speed = 0.5 * speed_limit;
+    }
+    if (speed == 0.0) return 1e18;
+    return distance_f / speed;
+}
+
 double ComputedEdge::getDistance(int method) {
+    if (vis(method)) return distance;
+    return 1e18;
+}
+float ComputedEdge::getDistanceF(int method) {
     if (vis(method)) return distance;
     return 1e18;
 }

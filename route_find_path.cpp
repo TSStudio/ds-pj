@@ -8,7 +8,7 @@ void init_route_find_path(crow::SimpleApp& app) {
     ([](const crow::request& req) {
         bool heuristic = false;
         bool view_search_range = false;
-        double heuristic_factor = 1.0;
+        float heuristic_factor = 1.0;
         auto param = req.get_body_params();
         char* id_start = param.get("start");
         char* id_end = param.get("end");
@@ -36,7 +36,7 @@ void init_route_find_path(crow::SimpleApp& app) {
         }
         if (heuristic_factor_str != nullptr) {
             heuristic = true;
-            heuristic_factor = std::stod(heuristic_factor_str);
+            heuristic_factor = std::stof(heuristic_factor_str);
         }
         if (view_search_range_str != nullptr) {
             view_search_range = true;
