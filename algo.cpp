@@ -85,7 +85,7 @@ void DijkstraPathFinder::find_path() {
             if (distance_map.find(next) == distance_map.end() || new_distance < distance_map[next]) {
                 distance_map[next] = new_distance;
                 parent_map[next] = current;
-                edge_map[next] = new ResultEdge(e, e->getMethodUsed(method));
+                edge_map[next] = new ResultEdge(e, e->methodUsed);
                 pq.push(std::make_pair(-new_distance, next));
             }
         }
@@ -172,7 +172,7 @@ void HeuristicOptimizedDijkstraPathFinder::find_path() {
             if (distance_map.find(next) == distance_map.end() || new_distance < distance_map[next]) {
                 distance_map[next] = new_distance;
                 parent_map[next] = current;
-                edge_map[next] = new ResultEdge(e, e->getMethodUsed(method));
+                edge_map[next] = new ResultEdge(e, e->methodUsed);
                 if (key == 0)
                     pq_heuristic.push(std::make_pair(-get_heuristic_time(new_distance, next, end), next));
                 else
