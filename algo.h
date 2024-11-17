@@ -48,7 +48,8 @@ class HeuristicOptimizedDijkstraPathFinder : public DijkstraPathFinder {
 private:
     float heuristicFactor;
     std::priority_queue<std::pair<float, Node*>> pq_heuristic;
-    float get_heuristic(float distance, Node* middle, Node* end);
+    float get_heuristic_time(float distance, Node* middle, Node* end);
+    float get_heuristic_distance(float distance, Node* middle, Node* end);
     static float get_avg_speed(int method);
 
 public:

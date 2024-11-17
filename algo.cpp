@@ -1,6 +1,12 @@
 #include "algo.h"
 
-DijkstraPathFinder::DijkstraPathFinder(Node* start, Node* end, int method, int key) : start(start), end(end), found(false), distance(1e18), travel_time(1e18), method(method), key(key) {}
+DijkstraPathFinder::DijkstraPathFinder(Node* start, Node* end, int method, int key) : start(start), end(end), found(false), distance(1e18), travel_time(1e18), method(method), key(key) {
+    distance_map.reserve(1000);
+    parent_map.reserve(1000);
+    edge_map.reserve(1000);
+    visited_nodes.reserve(1000);
+    path.reserve(1000);
+}
 std::vector<ResultEdge*> DijkstraPathFinder::get_path() {
     return path;
 }
@@ -107,11 +113,13 @@ DijkstraPathFinder::~DijkstraPathFinder() {
 }
 
 HeuristicOptimizedDijkstraPathFinder::HeuristicOptimizedDijkstraPathFinder(Node* start, Node* end, int method, int key, float heuristicFactor) : DijkstraPathFinder(start, end, method, key), heuristicFactor(heuristicFactor) {}
-float HeuristicOptimizedDijkstraPathFinder::get_heuristic(float _distance, Node* middle, Node* end) {
-    if (key == 0)
-        return _distance + heuristicFactor * (middle->distanceF(*end)) / get_avg_speed(method);
-    else
-        return _distance + heuristicFactor * (middle->distanceF(*end));
+
+float HeuristicOptimizedDijkstraPathFinder::get_heuristic_time(float _distance, Node* middle, Node* end) {
+    return _distance + heuristicFactor * (middle->distanceF(*end)) / get_avg_speed(method);
+}
+
+float HeuristicOptimizedDijkstraPathFinder::get_heuristic_distance(float _distance, Node* middle, Node* end) {
+    return _distance + heuristicFactor * middle->distanceF(*end);
 }
 
 float HeuristicOptimizedDijkstraPathFinder::get_avg_speed(int method) {
@@ -165,7 +173,10 @@ void HeuristicOptimizedDijkstraPathFinder::find_path() {
                 distance_map[next] = new_distance;
                 parent_map[next] = current;
                 edge_map[next] = new ResultEdge(e, e->getMethodUsed(method));
-                pq_heuristic.push(std::make_pair(-get_heuristic(new_distance, next, end), next));
+                if (key == 0)
+                    pq_heuristic.push(std::make_pair(-get_heuristic_time(new_distance, next, end), next));
+                else
+                    pq_heuristic.push(std::make_pair(-get_heuristic_distance(new_distance, next, end), next));
             }
         }
     }
