@@ -55,6 +55,7 @@ void Node::push_relation(uint64_t relation_id, Node *n, allowance allow, double 
     Node *target_virtual_point;
     if (vpoints.find(relation_id) == vpoints.end()) {
         virtual_point = new Node(id_counter, lat, lon);
+        virtual_point->name = this->name;
         nodes[id_counter] = virtual_point;
         vpoints[relation_id] = virtual_point;
         virtual_point->computed_edges.push_back(new ComputedEdge(virtual_point, this, {false, false, false, false, false, true}, 10, nullptr, 300));
@@ -65,6 +66,7 @@ void Node::push_relation(uint64_t relation_id, Node *n, allowance allow, double 
     }
     if (n->vpoints.find(relation_id) == n->vpoints.end()) {
         target_virtual_point = new Node(id_counter, n->lat, n->lon);
+        target_virtual_point->name = this->name;
         nodes[id_counter] = target_virtual_point;
         n->vpoints[relation_id] = target_virtual_point;
         target_virtual_point->computed_edges.push_back(new ComputedEdge(target_virtual_point, n, {false, false, false, false, false, true}, 10, nullptr, 300));

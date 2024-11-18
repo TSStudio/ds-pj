@@ -52,7 +52,16 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             uint64_t _id = _node.attribute("id").as_ullong();
             double _lat = _node.attribute("lat").as_double();
             double _lon = _node.attribute("lon").as_double();
+            char *_name = nullptr;
+            for (pugi::xml_node _tag : _node.children("tag")) {
+                if (strcmp(_tag.attribute("k").as_string(), "name") == 0) {
+                    _name = new char[strlen(_tag.attribute("v").as_string()) + 1];
+                    strcpy(_name, _tag.attribute("v").as_string());
+                    break;
+                }
+            }
             Node *_n = new Node(_id, _lat, _lon);
+            _n->name = _name;
             nodes[_id] = _n;
             for (pugi::xml_node _child : _node.children("tag")) {
                 if (strcmp(_child.attribute("k").as_string(), "railway") == 0 && strcmp(_child.attribute("v").as_string(), "stop") == 0) {

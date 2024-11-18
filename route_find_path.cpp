@@ -83,7 +83,7 @@ void init_route_find_path(crow::SimpleApp& app) {
             je["end"] = e->end->node->id;
             node_ids.insert(e->end->node->id);
             je["distance"] = e->distance;
-            je["method"] = e->method;
+            je["method"] = e->methodUsed;
             if (e->name != nullptr) {
                 je["name"] = e->name;
             }
@@ -108,6 +108,8 @@ void init_route_find_path(crow::SimpleApp& app) {
             jn["id"] = n;
             jn["lat"] = nodes[n]->lat;
             jn["lon"] = nodes[n]->lon;
+            if (nodes[n]->name != nullptr)
+                jn["name"] = nodes[n]->name;
             j["nodes"][std::to_string(n)] = jn;
         }
 

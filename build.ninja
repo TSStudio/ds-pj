@@ -53,7 +53,7 @@ build CMakeFiles/server.dir/algo.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/algo.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/algo.cpp.o.ddi
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJ_FILE = CMakeFiles/server.dir/algo.cpp.o
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/algo.cpp.o.ddi.i
@@ -62,7 +62,7 @@ build CMakeFiles/server.dir/algo.cpp.o: CXX_COMPILER__server_scanned_Debug /home
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/algo.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/algo.cpp.o.modmap
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
@@ -72,7 +72,7 @@ build CMakeFiles/server.dir/data_loader.cpp.o.ddi: CXX_SCAN__server_Debug /home/
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/data_loader.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/data_loader.cpp.o.ddi
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJ_FILE = CMakeFiles/server.dir/data_loader.cpp.o
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/data_loader.cpp.o.ddi.i
@@ -81,7 +81,7 @@ build CMakeFiles/server.dir/data_loader.cpp.o: CXX_COMPILER__server_scanned_Debu
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/data_loader.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/data_loader.cpp.o.modmap
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
@@ -91,7 +91,7 @@ build CMakeFiles/server.dir/edge.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/edge.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/edge.cpp.o.ddi
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJ_FILE = CMakeFiles/server.dir/edge.cpp.o
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/edge.cpp.o.ddi.i
@@ -100,7 +100,7 @@ build CMakeFiles/server.dir/edge.cpp.o: CXX_COMPILER__server_scanned_Debug /home
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/edge.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/edge.cpp.o.modmap
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
@@ -110,7 +110,7 @@ build CMakeFiles/server.dir/main.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/main.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/main.cpp.o.ddi
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJ_FILE = CMakeFiles/server.dir/main.cpp.o
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/main.cpp.o.ddi.i
@@ -119,7 +119,7 @@ build CMakeFiles/server.dir/main.cpp.o: CXX_COMPILER__server_scanned_Debug /home
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/main.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/main.cpp.o.modmap
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
@@ -129,7 +129,7 @@ build CMakeFiles/server.dir/node.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/node.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/node.cpp.o.ddi
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJ_FILE = CMakeFiles/server.dir/node.cpp.o
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/node.cpp.o.ddi.i
@@ -138,7 +138,7 @@ build CMakeFiles/server.dir/node.cpp.o: CXX_COMPILER__server_scanned_Debug /home
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/node.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/node.cpp.o.modmap
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
@@ -148,7 +148,7 @@ build CMakeFiles/server.dir/quad_tree.cpp.o.ddi: CXX_SCAN__server_Debug /home/tm
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/quad_tree.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/quad_tree.cpp.o.ddi
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJ_FILE = CMakeFiles/server.dir/quad_tree.cpp.o
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/quad_tree.cpp.o.ddi.i
@@ -157,7 +157,7 @@ build CMakeFiles/server.dir/quad_tree.cpp.o: CXX_COMPILER__server_scanned_Debug 
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/quad_tree.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/quad_tree.cpp.o.modmap
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
@@ -167,7 +167,7 @@ build CMakeFiles/server.dir/route_find_nearest_node.cpp.o.ddi: CXX_SCAN__server_
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/route_find_nearest_node.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/route_find_nearest_node.cpp.o.ddi
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJ_FILE = CMakeFiles/server.dir/route_find_nearest_node.cpp.o
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/route_find_nearest_node.cpp.o.ddi.i
@@ -176,7 +176,7 @@ build CMakeFiles/server.dir/route_find_nearest_node.cpp.o: CXX_COMPILER__server_
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/route_find_nearest_node.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/route_find_nearest_node.cpp.o.modmap
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
@@ -186,7 +186,7 @@ build CMakeFiles/server.dir/route_find_path.cpp.o.ddi: CXX_SCAN__server_Debug /h
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/route_find_path.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/route_find_path.cpp.o.ddi
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJ_FILE = CMakeFiles/server.dir/route_find_path.cpp.o
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/route_find_path.cpp.o.ddi.i
@@ -195,7 +195,7 @@ build CMakeFiles/server.dir/route_find_path.cpp.o: CXX_COMPILER__server_scanned_
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/route_find_path.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/route_find_path.cpp.o.modmap
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
@@ -205,7 +205,7 @@ build CMakeFiles/server.dir/route_nodes.cpp.o.ddi: CXX_SCAN__server_Debug /home/
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/route_nodes.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/route_nodes.cpp.o.ddi
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJ_FILE = CMakeFiles/server.dir/route_nodes.cpp.o
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/route_nodes.cpp.o.ddi.i
@@ -214,7 +214,7 @@ build CMakeFiles/server.dir/route_nodes.cpp.o: CXX_COMPILER__server_scanned_Debu
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/route_nodes.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/route_nodes.cpp.o.modmap
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
@@ -224,7 +224,7 @@ build CMakeFiles/server.dir/routes.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysa
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/routes.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/routes.cpp.o.ddi
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJ_FILE = CMakeFiles/server.dir/routes.cpp.o
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/routes.cpp.o.ddi.i
@@ -233,7 +233,7 @@ build CMakeFiles/server.dir/routes.cpp.o: CXX_COMPILER__server_scanned_Debug /ho
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/routes.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/routes.cpp.o.modmap
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
@@ -243,7 +243,7 @@ build CMakeFiles/server.dir/shared.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysa
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/shared.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/shared.cpp.o.ddi
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJ_FILE = CMakeFiles/server.dir/shared.cpp.o
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/shared.cpp.o.ddi.i
@@ -252,7 +252,7 @@ build CMakeFiles/server.dir/shared.cpp.o: CXX_COMPILER__server_scanned_Debug /ho
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
   DEP_FILE = CMakeFiles/server.dir/shared.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/shared.cpp.o.modmap
-  FLAGS = -Wall -Wextra -g -std=gnu++23
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
@@ -269,7 +269,7 @@ build CMakeFiles/server.dir/CXX.dd | /home/tmysam/ds-pj/CMakeFiles/server.dir/CX
 # Link the executable server
 
 build server: CXX_EXECUTABLE_LINKER__server_Debug CMakeFiles/server.dir/algo.cpp.o CMakeFiles/server.dir/data_loader.cpp.o CMakeFiles/server.dir/edge.cpp.o CMakeFiles/server.dir/main.cpp.o CMakeFiles/server.dir/node.cpp.o CMakeFiles/server.dir/quad_tree.cpp.o CMakeFiles/server.dir/route_find_nearest_node.cpp.o CMakeFiles/server.dir/route_find_path.cpp.o CMakeFiles/server.dir/route_nodes.cpp.o CMakeFiles/server.dir/routes.cpp.o CMakeFiles/server.dir/shared.cpp.o | /usr/lib/x86_64-linux-gnu/libz.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so pugixml/libpugixml.a || pugixml/libpugixml.a
-  FLAGS = -Wall -Wextra -g
+  FLAGS = -Wall -Wextra -g3
   LINK_LIBRARIES = -lpqxx  /usr/lib/x86_64-linux-gnu/libz.so  /usr/lib/x86_64-linux-gnu/libssl.so  /usr/lib/x86_64-linux-gnu/libcrypto.so  pugixml/libpugixml.a
   OBJECT_DIR = CMakeFiles/server.dir
   POST_BUILD = :
@@ -526,7 +526,7 @@ build cmake_object_order_depends_target_pugixml-static: phony || .
 
 build pugixml/CMakeFiles/pugixml-static.dir/src/pugixml.cpp.o: CXX_COMPILER__pugixml-static_unscanned_Debug /home/tmysam/ds-pj/pugixml/src/pugixml.cpp || cmake_object_order_depends_target_pugixml-static
   DEP_FILE = pugixml/CMakeFiles/pugixml-static.dir/src/pugixml.cpp.o.d
-  FLAGS = -Wall -Wextra -g -std=gnu++23 -fPIC
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23 -fPIC
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src
   OBJECT_DIR = pugixml/CMakeFiles/pugixml-static.dir
   OBJECT_FILE_DIR = pugixml/CMakeFiles/pugixml-static.dir/src
@@ -540,7 +540,7 @@ build pugixml/CMakeFiles/pugixml-static.dir/src/pugixml.cpp.o: CXX_COMPILER__pug
 # Link the static library pugixml/libpugixml.a
 
 build pugixml/libpugixml.a: CXX_STATIC_LIBRARY_LINKER__pugixml-static_Debug pugixml/CMakeFiles/pugixml-static.dir/src/pugixml.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -Wall -Wextra -g
+  LANGUAGE_COMPILE_FLAGS = -Wall -Wextra -g3
   OBJECT_DIR = pugixml/CMakeFiles/pugixml-static.dir
   POST_BUILD = :
   PRE_LINK = :

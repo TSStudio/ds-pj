@@ -88,28 +88,41 @@ double ComputedEdge::getTravelTime(int method) {
 }
 
 float ComputedEdge::getTravelTimeF(int method) {
-    if (forceTime > 1) return forceTime;
+    methodUsed = 1;
+    [[unlikely]]
+    if (forceTime > 1)
+        return forceTime;
     float speed = 0;  //m/s
+    [[likely]]
+    if (method & 4 && allow.car) {
+        speed = 0.9 * speed_limit;
+        methodUsed = 4;
+        return distance / speed;
+    }
+    if (method & 16 && allow.subway) {
+        speed = 0.5 * speed_limit;
+        methodUsed = 16;
+        return distance / speed;
+    }
+    if (method & 8 && allow.bus) {
+        speed = 0.4 * speed_limit;
+        methodUsed = 8;
+        return distance / speed;
+    }
+    if (method & 2 && allow.bicycle) {
+        speed = 3;
+        methodUsed = 2;
+        return distance / speed;
+    }
     if (method & 1 && allow.pedestrian) {
         if (method & 8)
             speed = 0.9;
         else
             speed = 1.2;
+        methodUsed = 1;
+        return distance / speed;
     }
-    if (method & 2 && allow.bicycle) {
-        speed = 3;
-    }
-    if (method & 4 && allow.car) {
-        speed = 0.9 * speed_limit;
-    }
-    if (method & 8 && allow.bus) {
-        speed = 0.4 * speed_limit;
-    }
-    if (method & 16 && allow.subway) {
-        speed = 0.5 * speed_limit;
-    }
-    if (speed == 0.0) return 1e18;
-    return distance_f / speed;
+    return 1e18;
 }
 
 double ComputedEdge::getDistance(int method) {
@@ -120,9 +133,6 @@ float ComputedEdge::getDistanceF(int method) {
     if (vis(method)) return distance;
     return 1e18;
 }
-
-ResultEdge::ResultEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit, char *name, double forceTime) : ComputedEdge(start, end, allow, speed_limit, name, forceTime) {}
-ResultEdge::ResultEdge(ComputedEdge *e, int method) : ComputedEdge(*e->start, *e->end, e->allow, e->speed_limit, e->name, e->forceTime), method(method) {}
 
 EdgePtr deepCopyEdge(EdgePtr e) {
     return EdgePtr(new Edge(*e.edge));

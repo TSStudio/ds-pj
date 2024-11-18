@@ -24,20 +24,20 @@ protected:
     int method;
     int key;
     std::unordered_set<Node*> visited_nodes;
-    std::vector<ResultEdge*> path;
+    std::vector<ComputedEdge*> path;
     std::unordered_map<Node*, float> distance_map;
     std::unordered_map<Node*, Node*> parent_map;
-    std::unordered_map<Node*, ResultEdge*> edge_map;
+    std::unordered_map<Node*, ComputedEdge*> edge_map;
 
 public:
     DijkstraPathFinder(Node* start, Node* end, int method, int key);
     virtual void find_path();
-    std::vector<ResultEdge*> get_path();
+    std::vector<ComputedEdge*> get_path();
     float get_distance();
     float get_travel_time();
     std::unordered_set<Node*> get_visited_nodes();
     std::vector<Node*> get_convex_hull_of_visited_nodes();
-    virtual ~DijkstraPathFinder();
+    virtual ~DijkstraPathFinder() = default;
 };
 
 /**

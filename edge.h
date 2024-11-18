@@ -166,13 +166,6 @@ public:
     bool vis(int method);
 };
 
-class ResultEdge : public ComputedEdge {
-public:
-    ResultEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit, char *name, double forceTime = 0);
-    ResultEdge(ComputedEdge *e, int method);
-    int method;
-};
-
 EdgePtr deepCopyEdge(EdgePtr e);
 EdgePtr deepCopyEdge(Edge *e);
 #endif

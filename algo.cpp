@@ -7,7 +7,7 @@ DijkstraPathFinder::DijkstraPathFinder(Node* start, Node* end, int method, int k
     visited_nodes.reserve(1000);
     path.reserve(1000);
 }
-std::vector<ResultEdge*> DijkstraPathFinder::get_path() {
+std::vector<ComputedEdge*> DijkstraPathFinder::get_path() {
     return path;
 }
 float DijkstraPathFinder::get_distance() {
@@ -85,7 +85,7 @@ void DijkstraPathFinder::find_path() {
             if (distance_map.find(next) == distance_map.end() || new_distance < distance_map[next]) {
                 distance_map[next] = new_distance;
                 parent_map[next] = current;
-                edge_map[next] = new ResultEdge(e, e->methodUsed);
+                edge_map[next] = e;
                 pq.push(std::make_pair(-new_distance, next));
             }
         }
@@ -103,12 +103,6 @@ void DijkstraPathFinder::find_path() {
         }
         std::reverse(path.begin(), path.end());
         distance = dis;
-    }
-}
-
-DijkstraPathFinder::~DijkstraPathFinder() {
-    for (auto e : edge_map) {
-        delete e.second;
     }
 }
 
@@ -172,7 +166,7 @@ void HeuristicOptimizedDijkstraPathFinder::find_path() {
             if (distance_map.find(next) == distance_map.end() || new_distance < distance_map[next]) {
                 distance_map[next] = new_distance;
                 parent_map[next] = current;
-                edge_map[next] = new ResultEdge(e, e->methodUsed);
+                edge_map[next] = e;
                 if (key == 0)
                     pq_heuristic.push(std::make_pair(-get_heuristic_time(new_distance, next, end), next));
                 else
