@@ -146,15 +146,16 @@ void HeuristicOptimizedDijkstraPathFinder::find_path() {
     while (!pq_heuristic.empty()) {
         Node* current = pq_heuristic.top().second;
         pq_heuristic.pop();
-        if (visited_nodes.find(current) != visited_nodes.end()) {
+        if (visited_nodes.contains(current)) {
             continue;
         }
         visited_nodes.insert(current);
+        [[unlikely]]
         if (current == end) {
             found = true;
             break;
         }
-        for (auto e : current->computed_edges) {
+        for (auto& e : current->computed_edges) {
             Node* next = e->end->node;
             if (visited_nodes.find(next) != visited_nodes.end()) {
                 continue;
