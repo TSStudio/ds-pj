@@ -53,7 +53,7 @@ float Node::approxDistanceF(double lat, double lon) const {
 void Node::push_relation(uint64_t relation_id, Node *n, allowance allow, double speed_limit, char *name) {
     Node *virtual_point;
     Node *target_virtual_point;
-    if (vpoints.find(relation_id) == vpoints.end()) {
+    if (!vpoints.contains(relation_id)) {
         virtual_point = new Node(id_counter, lat, lon);
         virtual_point->name = this->name;
         nodes[id_counter] = virtual_point;
@@ -64,7 +64,7 @@ void Node::push_relation(uint64_t relation_id, Node *n, allowance allow, double 
     } else {
         virtual_point = vpoints[relation_id];
     }
-    if (n->vpoints.find(relation_id) == n->vpoints.end()) {
+    if (!n->vpoints.contains(relation_id)) {
         target_virtual_point = new Node(id_counter, n->lat, n->lon);
         target_virtual_point->name = this->name;
         nodes[id_counter] = target_virtual_point;

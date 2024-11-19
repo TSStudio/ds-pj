@@ -65,7 +65,7 @@ void DijkstraPathFinder::find_path() {
     while (!pq.empty()) {
         Node* current = pq.top().second;
         pq.pop();
-        if (visited_nodes.find(current) != visited_nodes.end()) {
+        if (visited_nodes.contains(current)) {
             continue;
         }
         visited_nodes.insert(current);
@@ -75,14 +75,14 @@ void DijkstraPathFinder::find_path() {
         }
         for (auto e : current->computed_edges) {
             Node* next = e->end->node;
-            if (visited_nodes.find(next) != visited_nodes.end()) {
+            if (visited_nodes.contains(next)) {
                 continue;
             }
             if (!e->vis(method)) {
                 continue;
             }
             float new_distance = distance_map[current] + (key == 0 ? e->getTravelTimeF(method) : e->getDistanceF(method));
-            if (distance_map.find(next) == distance_map.end() || new_distance < distance_map[next]) {
+            if (!distance_map.contains(next) || new_distance < distance_map[next]) {
                 distance_map[next] = new_distance;
                 parent_map[next] = current;
                 edge_map[next] = e;
@@ -157,14 +157,14 @@ void HeuristicOptimizedDijkstraPathFinder::find_path() {
         }
         for (auto& e : current->computed_edges) {
             Node* next = e->end->node;
-            if (visited_nodes.find(next) != visited_nodes.end()) {
+            if (visited_nodes.contains(next)) {
                 continue;
             }
             if (!e->vis(method)) {
                 continue;
             }
             float new_distance = distance_map[current] + (key == 0 ? e->getTravelTimeF(method) : e->getDistanceF(method));
-            if (distance_map.find(next) == distance_map.end() || new_distance < distance_map[next]) {
+            if (!distance_map.contains(next) || new_distance < distance_map[next]) {
                 distance_map[next] = new_distance;
                 parent_map[next] = current;
                 edge_map[next] = e;

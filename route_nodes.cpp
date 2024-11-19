@@ -48,10 +48,10 @@ void init_route_nodes(crow::SimpleApp& app) {
         for (auto n : _nodes) {
             for (auto e : n.node->edges) {
                 if (e.edge->appear_level_min > level) continue;
-                if (node_ids.find(e.edge->start->node->id) == node_ids.end()) {
+                if (!node_ids.contains(e.edge->start->node->id)) {
                     node_ids.insert(e.edge->start->node->id);
                 }
-                if (node_ids.find(e.edge->end->node->id) == node_ids.end()) {
+                if (!node_ids.contains(e.edge->end->node->id)) {
                     node_ids.insert(e.edge->end->node->id);
                 }
             }

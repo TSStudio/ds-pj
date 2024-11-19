@@ -139,7 +139,7 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             uint64_t _nd_counter = 0;
             for (pugi::xml_node _nd : _way.children("nd")) {
                 uint64_t _ref = _nd.attribute("ref").as_ullong();
-                if (nodes.find(_ref) == nodes.end()) {
+                if (!nodes.contains(_ref)) {
                     _way_err_counter++;
                     if (_way_err_counter < 3)
                         std::println("[DATA_INIT][WAY][E] Error: Node {} not found", _ref);
@@ -238,7 +238,7 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             for (pugi::xml_node _member : _relation.children("member")) {
                 if (strcmp(_member.attribute("type").as_string(), "way") == 0) {
                     uint64_t _ref = _member.attribute("ref").as_ullong();
-                    if (ways.find(_ref) == ways.end()) {
+                    if (!ways.contains(_ref)) {
                         _relation_err_counter++;
                         if (_relation_err_counter < 3)
                             std::println("[DATA_INIT][RELATION][E] Error: Way {} not found", _ref);
