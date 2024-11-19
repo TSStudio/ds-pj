@@ -17,7 +17,7 @@ float DijkstraPathFinder::get_travel_time() {
     return travel_time;
 }
 
-std::unordered_set<Node*> DijkstraPathFinder::get_visited_nodes() {
+boost::unordered_set<Node*> DijkstraPathFinder::get_visited_nodes() {
     return visited_nodes;
 }
 
@@ -108,15 +108,15 @@ void DijkstraPathFinder::find_path() {
 
 HeuristicOptimizedDijkstraPathFinder::HeuristicOptimizedDijkstraPathFinder(Node* start, Node* end, int method, int key, float heuristicFactor) : DijkstraPathFinder(start, end, method, key), heuristicFactor(heuristicFactor) {}
 
-float HeuristicOptimizedDijkstraPathFinder::get_heuristic_time(float _distance, Node* middle, Node* end) {
+constexpr float HeuristicOptimizedDijkstraPathFinder::get_heuristic_time(float _distance, Node* middle, Node* end) {
     return _distance + heuristicFactor * (middle->distanceF(*end)) / get_avg_speed(method);
 }
 
-float HeuristicOptimizedDijkstraPathFinder::get_heuristic_distance(float _distance, Node* middle, Node* end) {
+constexpr float HeuristicOptimizedDijkstraPathFinder::get_heuristic_distance(float _distance, Node* middle, Node* end) {
     return _distance + heuristicFactor * middle->distanceF(*end);
 }
 
-float HeuristicOptimizedDijkstraPathFinder::get_avg_speed(int method) {
+constexpr float HeuristicOptimizedDijkstraPathFinder::get_avg_speed(int method) {
     float speed = 0;  //m/s
     if (method & 1) {
         if (method & 8)
@@ -141,6 +141,7 @@ float HeuristicOptimizedDijkstraPathFinder::get_avg_speed(int method) {
 }
 
 void HeuristicOptimizedDijkstraPathFinder::find_path() {
+    Progress p(1);
     distance_map[start] = 0;
     pq_heuristic.push(std::make_pair(0, start));
     while (!pq_heuristic.empty()) {
@@ -175,6 +176,7 @@ void HeuristicOptimizedDijkstraPathFinder::find_path() {
             }
         }
     }
+    p.done_ms();
 
     if (found) {
         float dis = 0;

@@ -64,9 +64,9 @@ void init_route_find_path(crow::SimpleApp& app) {
         }
         // DijkstraPathFinder dpf(nodes[start], nodes[end], mtd);
         // dpf.find_path();
-        Progress p(1);
+
         dpf->find_path();
-        p.done_ms();
+
         auto path = dpf->get_path();
         auto distance = dpf->get_distance();
         auto travel_time = dpf->get_travel_time();

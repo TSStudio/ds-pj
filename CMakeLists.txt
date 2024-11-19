@@ -26,6 +26,12 @@ add_subdirectory(nlohmann_json)
 
 find_package(Crow REQUIRED)
 
+set(Boost_USE_STATIC_LIBS OFF) 
+set(Boost_USE_MULTITHREADED ON)  
+set(Boost_USE_STATIC_RUNTIME OFF) 
+find_package(Boost 1.83.0 COMPONENTS)
+include_directories(${Boost_INCLUDE_DIRS}) 
+
 target_link_libraries(server PUBLIC Crow::Crow pugixml nlohmann_json::nlohmann_json pqxx)
 target_compile_features(server PRIVATE cxx_std_23)
 

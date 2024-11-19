@@ -8,12 +8,16 @@
 #include <queue>
 #include "edge.h"
 #include "node.h"
+#include "utils.h"
+#include <boost/unordered_set.hpp>
+#include <boost/unordered_map.hpp>
+#include <boost/heap/priority_queue.hpp>
 
 extern std::unordered_map<uint64_t, Node*> nodes;
 
 class DijkstraPathFinder {
 private:
-    std::priority_queue<std::pair<float, Node*>> pq;
+    boost::heap::priority_queue<std::pair<float, Node*>> pq;
 
 protected:
     Node* start;
@@ -23,11 +27,11 @@ protected:
     float travel_time;
     int method;
     int key;
-    std::unordered_set<Node*> visited_nodes;
+    boost::unordered_set<Node*> visited_nodes;
     std::vector<ComputedEdge*> path;
-    std::unordered_map<Node*, float> distance_map;
-    std::unordered_map<Node*, Node*> parent_map;
-    std::unordered_map<Node*, ComputedEdge*> edge_map;
+    boost::unordered_map<Node*, float> distance_map;
+    boost::unordered_map<Node*, Node*> parent_map;
+    boost::unordered_map<Node*, ComputedEdge*> edge_map;
 
 public:
     DijkstraPathFinder(Node* start, Node* end, int method, int key);
@@ -35,7 +39,7 @@ public:
     std::vector<ComputedEdge*> get_path();
     float get_distance();
     float get_travel_time();
-    std::unordered_set<Node*> get_visited_nodes();
+    boost::unordered_set<Node*> get_visited_nodes();
     std::vector<Node*> get_convex_hull_of_visited_nodes();
     virtual ~DijkstraPathFinder() = default;
 };
@@ -47,10 +51,10 @@ public:
 class HeuristicOptimizedDijkstraPathFinder : public DijkstraPathFinder {
 private:
     float heuristicFactor;
-    std::priority_queue<std::pair<float, Node*>> pq_heuristic;
-    float get_heuristic_time(float distance, Node* middle, Node* end);
-    float get_heuristic_distance(float distance, Node* middle, Node* end);
-    static float get_avg_speed(int method);
+    boost::heap::priority_queue<std::pair<float, Node*>> pq_heuristic;
+    constexpr float get_heuristic_time(float distance, Node* middle, Node* end);
+    constexpr float get_heuristic_distance(float distance, Node* middle, Node* end);
+    constexpr static float get_avg_speed(int method);
 
 public:
     /**
