@@ -25,6 +25,7 @@ include_directories(pugixml/src)
 add_subdirectory(nlohmann_json)
 
 find_package(Crow REQUIRED)
+include_directories(SYSTEM ${Crow_INCLUDE_DIRS})
 
 set(Boost_USE_STATIC_LIBS OFF) 
 set(Boost_USE_MULTITHREADED ON)  

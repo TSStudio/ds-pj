@@ -29,7 +29,6 @@ std::vector<Node*> DijkstraPathFinder::get_convex_hull_of_visited_nodes() {
     std::sort(v_nodes_sorted.begin(), v_nodes_sorted.end(), [](Node* a, Node* b) {
         return a->lat < b->lat || (a->lat == b->lat && a->lon < b->lon);
     });
-    //use Andrew
     // Andrew's monotone chain algorithm to find the convex hull
     std::vector<Node*> convex_hull;
     auto n = v_nodes_sorted.size();
@@ -40,7 +39,10 @@ std::vector<Node*> DijkstraPathFinder::get_convex_hull_of_visited_nodes() {
     };
 
     // Build lower hull
-    for (int i = 0; i < n; ++i) {
+
+    // CAUTION UNDEFINED BEHAVIOR
+    // converting size_t to int
+    for (int i = 0; i < (int)n; ++i) {
         while (convex_hull.size() >= 2 && cross(convex_hull[convex_hull.size() - 2], convex_hull.back(), v_nodes_sorted[i]) <= 0) {
             convex_hull.pop_back();
         }
@@ -49,7 +51,9 @@ std::vector<Node*> DijkstraPathFinder::get_convex_hull_of_visited_nodes() {
 
     // Build upper hull
     for (int i = n - 1, t = convex_hull.size() + 1; i >= 0; --i) {
-        while (convex_hull.size() >= t && cross(convex_hull[convex_hull.size() - 2], convex_hull.back(), v_nodes_sorted[i]) <= 0) {
+        // CAUTION UNDEFINED BEHAVIOR
+        // converting size_t to int
+        while ((int)convex_hull.size() >= t && cross(convex_hull[convex_hull.size() - 2], convex_hull.back(), v_nodes_sorted[i]) <= 0) {
             convex_hull.pop_back();
         }
         convex_hull.push_back(v_nodes_sorted[i]);
@@ -60,6 +64,7 @@ std::vector<Node*> DijkstraPathFinder::get_convex_hull_of_visited_nodes() {
 }
 
 void DijkstraPathFinder::find_path() {
+    Progress p(1);
     distance_map[start] = 0;
     pq.push(std::make_pair(0, start));
     while (!pq.empty()) {
@@ -90,6 +95,7 @@ void DijkstraPathFinder::find_path() {
             }
         }
     }
+    p.done_ms();
 
     if (found) {
         float dis = 0;
@@ -109,7 +115,7 @@ void DijkstraPathFinder::find_path() {
 HeuristicOptimizedDijkstraPathFinder::HeuristicOptimizedDijkstraPathFinder(Node* start, Node* end, int method, int key, float heuristicFactor) : DijkstraPathFinder(start, end, method, key), heuristicFactor(heuristicFactor) {}
 
 constexpr float HeuristicOptimizedDijkstraPathFinder::get_heuristic_time(float _distance, Node* middle, Node* end) {
-    return _distance + heuristicFactor * (middle->distanceF(*end)) / get_avg_speed(method);
+    return _distance + heuristicFactor * (middle->distanceF(*end)) / avgSpeed;
 }
 
 constexpr float HeuristicOptimizedDijkstraPathFinder::get_heuristic_distance(float _distance, Node* middle, Node* end) {
@@ -142,6 +148,7 @@ constexpr float HeuristicOptimizedDijkstraPathFinder::get_avg_speed(int method) 
 
 void HeuristicOptimizedDijkstraPathFinder::find_path() {
     Progress p(1);
+    avgSpeed = get_avg_speed(method);
     distance_map[start] = 0;
     pq_heuristic.push(std::make_pair(0, start));
     while (!pq_heuristic.empty()) {

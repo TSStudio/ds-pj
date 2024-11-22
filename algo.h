@@ -13,8 +13,6 @@
 #include <boost/unordered_map.hpp>
 #include <boost/heap/priority_queue.hpp>
 
-extern std::unordered_map<uint64_t, Node*> nodes;
-
 class DijkstraPathFinder {
 private:
     boost::heap::priority_queue<std::pair<float, Node*>> pq;
@@ -51,6 +49,7 @@ public:
 class HeuristicOptimizedDijkstraPathFinder : public DijkstraPathFinder {
 private:
     float heuristicFactor;
+    float avgSpeed;
     boost::heap::priority_queue<std::pair<float, Node*>> pq_heuristic;
     constexpr float get_heuristic_time(float distance, Node* middle, Node* end);
     constexpr float get_heuristic_distance(float distance, Node* middle, Node* end);

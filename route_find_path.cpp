@@ -56,6 +56,9 @@ void init_route_find_path(crow::SimpleApp& app) {
         }
         uint64_t start = std::stoull(id_start);
         uint64_t end = std::stoull(id_end);
+        if (!nodes.contains(start) || !nodes.contains(end)) {
+            return crow::response(400);
+        }
         DijkstraPathFinder* dpf;
         if (heuristic) {
             dpf = new HeuristicOptimizedDijkstraPathFinder(nodes[start], nodes[end], mtd, key, heuristic_factor);
