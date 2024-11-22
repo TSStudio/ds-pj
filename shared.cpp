@@ -1,4 +1,5 @@
 #include <unordered_map>
+#include <unordered_set>
 #include "node.h"
 #include "way.h"
 #include "quad_tree.h"
@@ -6,6 +7,7 @@
 
 std::unordered_map<uint64_t, Node *> nodes;
 std::unordered_map<uint64_t, Way *> ways;
+std::unordered_set<ComputedEdge *> computed_edges_individual;
 QuadTreeNode *root = new QuadTreeNode(-90, 90, -180, 180);
 uint64_t id_counter = 1145141919810ull;
 bool __debug = false;

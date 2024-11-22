@@ -47,7 +47,7 @@ public:
  * @details For example: if you want to find a path from Shanghai to Beijing, the dijkstra will run with a order of time-increasing, which means if it reaches Hebei, it also reach Guangdong at the same time. It is expecting a path from Guangdong to Beijing with distance of almost 0. However it is just impossible. So we need to add a heuristic factor to make the dijkstra run with a order of "expected-"distance-increasing. Which means avoiding 南辕北辙.
  */
 class HeuristicOptimizedDijkstraPathFinder : public DijkstraPathFinder {
-private:
+protected:
     float heuristicFactor;
     float avgSpeed;
     boost::heap::priority_queue<std::pair<float, Node*>> pq_heuristic;
@@ -60,6 +60,12 @@ public:
  * @param key: 0 for time, 1 for distance
  */
     HeuristicOptimizedDijkstraPathFinder(Node* start, Node* end, int method, int key, float heuristicFactor);
+    virtual void find_path() override;
+};
+
+class JumpHDPF : public HeuristicOptimizedDijkstraPathFinder {
+public:
+    JumpHDPF(Node* start, Node* end, int method, int key, float heuristicFactor);
     void find_path() override;
 };
 

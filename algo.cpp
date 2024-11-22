@@ -199,3 +199,69 @@ void HeuristicOptimizedDijkstraPathFinder::find_path() {
         distance = dis;
     }
 }
+
+JumpHDPF::JumpHDPF(Node* start, Node* end, int method, int key, float heuristicFactor) : HeuristicOptimizedDijkstraPathFinder(start, end, method, key, heuristicFactor) {}
+
+void JumpHDPF::find_path() {
+    Progress p(1);
+    avgSpeed = get_avg_speed(method);
+    bool useLogicStart = false, useLogicEnd = false;
+    Node *logic_start = start, *logic_end = end;
+    if (start->is_inner_node_of_set) {
+        logic_start = start->is_inner_of->end->node;
+        useLogicStart = true;
+    }
+    if (end->is_inner_node_of_set) {
+        logic_end = end->is_inner_of->start->node;
+        useLogicEnd = true;
+    }
+    distance_map[logic_start] = 0;
+    pq_heuristic.push(std::make_pair(0, start));
+    while (!pq_heuristic.empty()) {
+        Node* current = pq_heuristic.top().second;
+        pq_heuristic.pop();
+        if (visited_nodes.contains(current)) {
+            continue;
+        }
+        visited_nodes.insert(current);
+        [[unlikely]]
+        if (current == logic_end) {
+            found = true;
+            break;
+        }
+        for (auto& e : current->computed_edges_set) {
+            Node* next = e->end->node;
+            if (visited_nodes.contains(next)) {
+                continue;
+            }
+            if (!e->vis(method)) {
+                continue;
+            }
+            float new_distance = distance_map[current] + (key == 0 ? e->getTravelTimeF(method) : e->getDistanceF(method));
+            if (!distance_map.contains(next) || new_distance < distance_map[next]) {
+                distance_map[next] = new_distance;
+                parent_map[next] = current;
+                edge_map[next] = e;
+                if (key == 0)
+                    pq_heuristic.push(std::make_pair(-get_heuristic_time(new_distance, next, end), next));
+                else
+                    pq_heuristic.push(std::make_pair(-get_heuristic_distance(new_distance, next, end), next));
+            }
+        }
+    }
+    p.done_ms();
+
+    if (found) {
+        float dis = 0;
+        travel_time = distance_map[end];
+        Node* current = end;
+        while (current != start) {
+            Node* parent = parent_map[current];
+            path.push_back(edge_map[current]);
+            dis += edge_map[current]->distance;
+            current = parent;
+        }
+        std::reverse(path.begin(), path.end());
+        distance = dis;
+    }
+}

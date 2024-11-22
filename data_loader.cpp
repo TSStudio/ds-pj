@@ -3,6 +3,7 @@
 extern std::unordered_map<uint64_t, Node *> nodes;
 extern std::unordered_map<uint64_t, Way *> ways;
 extern QuadTreeNode *root;
+extern std::unordered_set<ComputedEdge *> computed_edges_individual;
 
 bool data_init_all(char **__filepath, unsigned int _file_count) {
     std::unordered_set<Node *> _transport_stops;
@@ -173,10 +174,18 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                             _end.node->pedestrian = true;
                         }
                         if (_direction & 1) {
-                            _start.node->computed_edges.push_back(new ComputedEdge(_start, _end, _allow, _speed_limit, _name));
+                            ComputedEdge *tmp = new ComputedEdge(_start, _end, _allow, _speed_limit, _name);
+
+                            computed_edges_individual.insert(tmp);
+                            _start.node->computed_edges.push_back(tmp);
+                            _end.node->computed_edges_in.push_back(tmp);
                         }
                         if (_direction & 2) {
-                            _end.node->computed_edges.push_back(new ComputedEdge(_end, _start, _allow, _speed_limit, _name));
+                            ComputedEdge *tmp = new ComputedEdge(_end, _start, _allow, _speed_limit, _name);
+
+                            computed_edges_individual.insert(tmp);
+                            _end.node->computed_edges.push_back(tmp);
+                            _start.node->computed_edges_in.push_back(tmp);
                         }
                     }
                     _start = _end;
@@ -321,43 +330,66 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         }
     }
     std::println("[DATA_INIT][TRANSPORT_STOPS] Connecting Transport Stops to Nearest Pedestrain.");
-    if (iscache) {
-        std::println("[DATA_INIT][META] Using link cache.");
-        Progress _progress4(_link_cache_json["links"].size());
-        for (auto _link : _link_cache_json["links"]) {
-            NodePtr _tr = NodePtr(nodes[_link["tr"].get<uint64_t>()]);
-            NodePtr _rd = NodePtr(nodes[_link["rd"].get<uint64_t>()]);
-            if (_tr.node != nullptr && _rd.node != nullptr) {
-                _tr.node->computed_edges.push_back(new ComputedEdge(_tr, _rd, {false, false, false, false, false, true}, 10, nullptr, 200));
-                _rd.node->computed_edges.push_back(new ComputedEdge(_rd, _tr, {false, false, false, false, false, true}, 10, nullptr, 200));
-            }
-            _progress4.prog_delta(1);
-        }
-        _progress4.done();
-    } else {
-        json _link_cache_json = {
-            {"files", json::array()},
-            {"links", json::array()}};
-        Progress _progress4(_transport_stops.size());
-        for (auto n : _transport_stops) {
-            if (n == nullptr) continue;
-            NodePtr nearest = root->find_nearest_node(n->lat, n->lon, [](const NodePtr &n) { return n.node->pedestrian; });
-            if (nearest.node != nullptr) {
-                n->computed_edges.push_back(new ComputedEdge(n, nearest, {false, false, false, false, false, true}, 10, nullptr, 200));
-                nearest.node->computed_edges.push_back(new ComputedEdge(nearest, n, {false, false, false, false, false, true}, 10, nullptr, 200));
-                _link_cache_json["links"].push_back({{"tr", n->id}, {"rd", nearest.node->id}});
-            }
-            _progress4.prog_delta(1);
-        }
-        _progress4.done();
-        for (unsigned int i = 0; i < _file_count; i++) {
-            _link_cache_json["files"].push_back(__filepath[i]);
-        }
-        std::ofstream _link_cache_json_file("link_cache.json");
-        _link_cache_json_file << _link_cache_json.dump();
-        _link_cache_json_file.close();
-        std::println("[DATA_INIT][META] Link cache file created.");
+    // if (iscache) {
+    //     std::println("[DATA_INIT][META] Using link cache.");
+    //     Progress _progress4(_link_cache_json["links"].size());
+    //     for (auto _link : _link_cache_json["links"]) {
+    //         NodePtr _tr = NodePtr(nodes[_link["tr"].get<uint64_t>()]);
+    //         NodePtr _rd = NodePtr(nodes[_link["rd"].get<uint64_t>()]);
+    //         if (_tr.node != nullptr && _rd.node != nullptr) {
+    //             ComputedEdge *tmp1 = new ComputedEdge(_tr, _rd, {false, false, false, false, false, true}, 10, nullptr, 200);
+    //             ComputedEdge *tmp2 = new ComputedEdge(_rd, _tr, {false, false, false, false, false, true}, 10, nullptr, 200);
+    //             _tr.node->computed_edges.push_back(tmp1);
+    //             _tr.node->computed_edges_in.push_back(tmp2);
+    //             _rd.node->computed_edges.push_back(tmp2);
+    //             _rd.node->computed_edges_in.push_back(tmp1);
+    //             computed_edges_individual.insert(tmp1);
+    //             computed_edges_individual.insert(tmp2);
+    //         }
+    //         _progress4.prog_delta(1);
+    //     }
+    //     _progress4.done();
+    // } else {
+    //     json _link_cache_json = {
+    //         {"files", json::array()},
+    //         {"links", json::array()}};
+    //     Progress _progress4(_transport_stops.size());
+    //     for (auto n : _transport_stops) {
+    //         if (n == nullptr) continue;
+    //         NodePtr nearest = root->find_nearest_node(n->lat, n->lon, [](const NodePtr &n) { return n.node->pedestrian; });
+    //         if (nearest.node != nullptr) {
+    //             ComputedEdge *tmp1 = new ComputedEdge(n, nearest, {false, false, false, false, false, true}, 10, nullptr, 200);
+    //             ComputedEdge *tmp2 = new ComputedEdge(nearest, n, {false, false, false, false, false, true}, 10, nullptr, 200);
+    //             n->computed_edges.push_back(tmp1);
+    //             n->computed_edges_in.push_back(tmp2);
+    //             nearest.node->computed_edges.push_back(tmp2);
+    //             nearest.node->computed_edges_in.push_back(tmp1);
+    //             computed_edges_individual.insert(tmp1);
+    //             computed_edges_individual.insert(tmp2);
+    //             _link_cache_json["links"].push_back({{"tr", n->id}, {"rd", nearest.node->id}});
+    //         }
+    //         _progress4.prog_delta(1);
+    //     }
+    //     _progress4.done();
+    //     for (unsigned int i = 0; i < _file_count; i++) {
+    //         _link_cache_json["files"].push_back(__filepath[i]);
+    //     }
+    //     std::ofstream _link_cache_json_file("link_cache.json");
+    //     _link_cache_json_file << _link_cache_json.dump();
+    //     _link_cache_json_file.close();
+    //     std::println("[DATA_INIT][META] Link cache file created.");
+    // }
+
+    std::println("[DATA_INIT] Processing Reduced Graph...");
+    Progress _progress5(computed_edges_individual.size());
+    for (auto e : computed_edges_individual) {
+        _progress5.prog_delta(1);
+        if (e->isInSet) continue;
+        ComputedEdgeSet *_ces = new ComputedEdgeSet(e);
+        _ces->extend();
+        _ces->start->node->computed_edges_set.push_back(_ces);
     }
+    _progress5.done();
 
     delete[] _node_count;
     delete[] _way_count;

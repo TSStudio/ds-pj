@@ -1,5 +1,8 @@
 #include "edge.h"
 #include "node.h"
+
+extern std::unordered_set<ComputedEdge *> computed_edges_individual;
+
 Edge::Edge(NodePtr _start, NodePtr _end, double _distance, bool _isRoad, int _appear_level_min) : distance(_distance), isRoad(_isRoad), appear_level_min(_appear_level_min), virtual_edge(false) {
     this->start = new NodePtr(_start);
     this->end = new NodePtr(_end);
@@ -28,6 +31,13 @@ ComputedEdge::ComputedEdge(NodePtr start, NodePtr end, allowance allow, double s
     this->end = new NodePtr(end);
     this->allow = allow;
     distance = start.distance(end);
+    distance_f = distance;
+}
+ComputedEdge::ComputedEdge(const ComputedEdge *other) : speed_limit(other->speed_limit), name(other->name), forceTime(other->forceTime) {
+    this->start = new NodePtr(*other->start);
+    this->end = new NodePtr(*other->end);
+    this->allow = other->allow;
+    distance = other->distance;
     distance_f = distance;
 }
 
@@ -132,6 +142,71 @@ double ComputedEdge::getDistance(int method) {
 float ComputedEdge::getDistanceF(int method) {
     if (vis(method)) return distance;
     return 1e18;
+}
+
+ComputedEdgeSet::ComputedEdgeSet(ComputedEdge *upgrade_from) : ComputedEdge(*upgrade_from) {
+    edges.push_back(upgrade_from);
+}
+
+bool ComputedEdgeSet::isNodeForwardable(NodePtr n) {
+    return n.node->computed_edges.size() == 1 && n.node->computed_edges_in.size() == 1;
+}
+
+bool ComputedEdgeSet::isEdgeForwardable(ComputedEdge *e) {
+    return e->allow == allow && e->speed_limit == speed_limit && e->name == name && e->forceTime == forceTime;
+}
+
+void ComputedEdgeSet::forward_extend() {
+    NodePtr *n = end;
+    while (isNodeForwardable(*n)) {
+        ComputedEdge *e = n->node->computed_edges[0];
+        if (!computed_edges_individual.contains(e)) {
+            break;
+        }
+        if (!isEdgeForwardable(e)) {
+            break;
+        }
+        if (e->isInSet) {
+            break;
+        }
+        n->node->is_inner_node_of_set = true;
+        n->node->is_inner_of = this;
+        edges.push_back(e);
+        n = e->end;
+        e->isInSet = true;
+        distance += e->distance;
+        distance_f = distance;
+    }
+    end = n;
+}
+
+void ComputedEdgeSet::backward_extend() {
+    NodePtr *n = start;
+    while (isNodeForwardable(*n)) {
+        ComputedEdge *e = n->node->computed_edges_in[0];
+        if (!computed_edges_individual.contains(e)) {
+            break;
+        }
+        if (!isEdgeForwardable(e)) {
+            break;
+        }
+        if (e->isInSet) {
+            break;
+        }
+        n->node->is_inner_node_of_set = true;
+        n->node->is_inner_of = this;
+        edges.push_front(e);
+        n = e->start;
+        e->isInSet = true;
+        distance += e->distance;
+        distance_f = distance;
+    }
+    start = n;
+}
+
+void ComputedEdgeSet::extend() {
+    forward_extend();
+    backward_extend();
 }
 
 EdgePtr deepCopyEdge(EdgePtr e) {

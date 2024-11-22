@@ -3,6 +3,7 @@
 
 #include <string>
 #include <cstdint>
+#include <queue>
 
 class NodePtr;
 class allowance {
@@ -13,6 +14,10 @@ public:
     bool bus;
     bool subway;
     bool transfer;
+
+    bool operator==(const allowance &other) const {
+        return pedestrian == other.pedestrian && bicycle == other.bicycle && car == other.car && bus == other.bus && subway == other.subway && transfer == other.transfer;
+    }
 };
 /**
  * Definition of road levels:
@@ -158,12 +163,30 @@ public:
     double distance;
     float distance_f;
     int methodUsed;
+    bool isInSet = false;
     ComputedEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit, char *name, double forceTime = 0);
+    ComputedEdge(const ComputedEdge *other);
     double getTravelTime(int method);  //bit 0: pedestrian, bit 1: bicycle, bit 2: car, bit 3: bus, bit 4: subway
     float getTravelTimeF(int method);
     double getDistance(int method);
     float getDistanceF(int method);
     bool vis(int method);
+};
+
+/**
+ * @brief Class representing a set of computed edges
+ * @details This class is used to store the "chained" computed edges
+ */
+
+class ComputedEdgeSet : public ComputedEdge {
+public:
+    std::deque<ComputedEdge *> edges;
+    ComputedEdgeSet(ComputedEdge *upgrade_from);
+    static bool isNodeForwardable(NodePtr n);
+    bool isEdgeForwardable(ComputedEdge *e);
+    void forward_extend();
+    void backward_extend();
+    void extend();
 };
 
 EdgePtr deepCopyEdge(EdgePtr e);

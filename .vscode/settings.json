@@ -82,7 +82,9 @@
         "ranges": "cpp",
         "valarray": "cpp",
         "queue": "cpp",
-        "print": "cpp"
+        "print": "cpp",
+        "*.ipp": "cpp",
+        "rope": "cpp"
     },
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "makefile.configureOnOpen": false

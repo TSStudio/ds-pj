@@ -13,6 +13,7 @@ void init_route_find_path(crow::SimpleApp& app) {
         char* id_start = param.get("start");
         char* id_end = param.get("end");
         char* method = param.get("method");
+        char* jump = param.get("method");
         char* heuristic_factor_str = param.get("heuristic_factor");
         char* view_search_range_str = param.get("view_search_range");
         char* key_str = param.get("key");
@@ -24,6 +25,9 @@ void init_route_find_path(crow::SimpleApp& app) {
         }
         if (method == nullptr) {
             method = req.url_params.get("method");
+        }
+        if (jump == nullptr) {
+            jump = req.url_params.get("jump");
         }
         if (heuristic_factor_str == nullptr) {
             heuristic_factor_str = req.url_params.get("heuristic_factor");
@@ -61,7 +65,11 @@ void init_route_find_path(crow::SimpleApp& app) {
         }
         DijkstraPathFinder* dpf;
         if (heuristic) {
-            dpf = new HeuristicOptimizedDijkstraPathFinder(nodes[start], nodes[end], mtd, key, heuristic_factor);
+            //dpf = new HeuristicOptimizedDijkstraPathFinder(nodes[start], nodes[end], mtd, key, heuristic_factor);
+            if (jump)
+                dpf = new JumpHDPF(nodes[start], nodes[end], mtd, key, heuristic_factor);
+            else
+                dpf = new HeuristicOptimizedDijkstraPathFinder(nodes[start], nodes[end], mtd, key, heuristic_factor);
         } else {
             dpf = new DijkstraPathFinder(nodes[start], nodes[end], mtd, key);
         }
