@@ -173,10 +173,14 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                             _end.node->pedestrian = true;
                         }
                         if (_direction & 1) {
-                            _start.node->computed_edges.push_back(new ComputedEdge(_start, _end, _allow, _speed_limit, _name));
+                            ComputedEdge *tmp = new ComputedEdge(_start, _end, _allow, _speed_limit, _name);
+                            _start.node->computed_edges.push_back(tmp);
+                            _end.node->computed_edges_end.push_back(tmp);
                         }
                         if (_direction & 2) {
-                            _end.node->computed_edges.push_back(new ComputedEdge(_end, _start, _allow, _speed_limit, _name));
+                            ComputedEdge *tmp = new ComputedEdge(_end, _start, _allow, _speed_limit, _name);
+                            _end.node->computed_edges.push_back(tmp);
+                            _start.node->computed_edges_end.push_back(tmp);
                         }
                     }
                     _start = _end;
@@ -328,8 +332,12 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             NodePtr _tr = NodePtr(nodes[_link["tr"].get<uint64_t>()]);
             NodePtr _rd = NodePtr(nodes[_link["rd"].get<uint64_t>()]);
             if (_tr.node != nullptr && _rd.node != nullptr) {
-                _tr.node->computed_edges.push_back(new ComputedEdge(_tr, _rd, {false, false, false, false, false, true}, 10, nullptr, 200));
-                _rd.node->computed_edges.push_back(new ComputedEdge(_rd, _tr, {false, false, false, false, false, true}, 10, nullptr, 200));
+                ComputedEdge *tmp1 = new ComputedEdge(_tr, _rd, {false, false, false, false, false, true}, 10, nullptr, 200);
+                ComputedEdge *tmp2 = new ComputedEdge(_rd, _tr, {false, false, false, false, false, true}, 10, nullptr, 200);
+                _tr.node->computed_edges.push_back(tmp1);
+                _rd.node->computed_edges.push_back(tmp2);
+                _tr.node->computed_edges_end.push_back(tmp2);
+                _rd.node->computed_edges_end.push_back(tmp1);
             }
             _progress4.prog_delta(1);
         }
@@ -343,8 +351,12 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             if (n == nullptr) continue;
             NodePtr nearest = root->find_nearest_node(n->lat, n->lon, [](const NodePtr &n) { return n.node->pedestrian; });
             if (nearest.node != nullptr) {
-                n->computed_edges.push_back(new ComputedEdge(n, nearest, {false, false, false, false, false, true}, 10, nullptr, 200));
-                nearest.node->computed_edges.push_back(new ComputedEdge(nearest, n, {false, false, false, false, false, true}, 10, nullptr, 200));
+                ComputedEdge *tmp1 = new ComputedEdge(n, nearest, {false, false, false, false, false, true}, 10, nullptr, 200);
+                ComputedEdge *tmp2 = new ComputedEdge(nearest, n, {false, false, false, false, false, true}, 10, nullptr, 200);
+                n->computed_edges.push_back(tmp1);
+                nearest.node->computed_edges.push_back(tmp2);
+                n->computed_edges_end.push_back(tmp2);
+                nearest.node->computed_edges_end.push_back(tmp1);
                 _link_cache_json["links"].push_back({{"tr", n->id}, {"rd", nearest.node->id}});
             }
             _progress4.prog_delta(1);

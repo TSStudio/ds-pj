@@ -61,7 +61,9 @@ void init_route_find_path(crow::SimpleApp& app) {
         }
         DijkstraPathFinder* dpf;
         if (heuristic) {
-            dpf = new HeuristicOptimizedDijkstraPathFinder(nodes[start], nodes[end], mtd, key, heuristic_factor);
+            //dpf = new HeuristicOptimizedDijkstraPathFinder(nodes[start], nodes[end], mtd, key, heuristic_factor);
+            //use BidirectionalHODPF
+            dpf = new BidirectionalHODPF(nodes[start], nodes[end], mtd, key, heuristic_factor);
         } else {
             dpf = new DijkstraPathFinder(nodes[start], nodes[end], mtd, key);
         }
@@ -103,6 +105,18 @@ void init_route_find_path(crow::SimpleApp& app) {
                 jn["lat"] = n->lat;
                 jn["lon"] = n->lon;
                 j["nodes_ch"].push_back(jn);
+            }
+            //check if dpf is BidirectionalHODPF
+            if (dynamic_cast<BidirectionalHODPF*>(dpf) != nullptr) {
+                auto ns_end = dynamic_cast<BidirectionalHODPF*>(dpf)->get_convex_hull_of_visited_nodes_end();
+                j["nodes_ch2"] = json::array();
+                for (auto n : ns_end) {
+                    json jn;
+                    jn["id"] = n->id;
+                    jn["lat"] = n->lat;
+                    jn["lon"] = n->lon;
+                    j["nodes_ch2"].push_back(jn);
+                }
             }
         }
         j["nodes"] = json::object();

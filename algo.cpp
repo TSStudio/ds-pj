@@ -1,9 +1,8 @@
 #include "algo.h"
 
 DijkstraPathFinder::DijkstraPathFinder(Node* start, Node* end, int method, int key) : start(start), end(end), found(false), distance(1e18), travel_time(1e18), method(method), key(key) {
-    distance_map.reserve(1000);
-    parent_map.reserve(1000);
-    edge_map.reserve(1000);
+    pq.reserve(1000);
+    details_map.reserve(1000);
     visited_nodes.reserve(1000);
     path.reserve(1000);
 }
@@ -22,8 +21,12 @@ boost::unordered_set<Node*> DijkstraPathFinder::get_visited_nodes() {
 }
 
 std::vector<Node*> DijkstraPathFinder::get_convex_hull_of_visited_nodes() {
+    return get_convex_hull_of(std::vector<Node*>(visited_nodes.begin(), visited_nodes.end()));
+}
+
+std::vector<Node*> DijkstraPathFinder::get_convex_hull_of(std::vector<Node*> v_nodes_unsorted) {
     std::vector<Node*> v_nodes_sorted;
-    for (auto node : visited_nodes) {
+    for (auto node : v_nodes_unsorted) {
         v_nodes_sorted.push_back(node);
     }
     std::sort(v_nodes_sorted.begin(), v_nodes_sorted.end(), [](Node* a, Node* b) {
@@ -65,10 +68,11 @@ std::vector<Node*> DijkstraPathFinder::get_convex_hull_of_visited_nodes() {
 
 void DijkstraPathFinder::find_path() {
     Progress p(1);
-    distance_map[start] = 0;
-    pq.push(std::make_pair(0, start));
+    details_map[start] = {0, nullptr, nullptr};
+    pq.push({0, start});
     while (!pq.empty()) {
         Node* current = pq.top().second;
+        float cur_dis = pq.top().first;
         pq.pop();
         if (visited_nodes.contains(current)) {
             continue;
@@ -86,12 +90,13 @@ void DijkstraPathFinder::find_path() {
             if (!e->vis(method)) {
                 continue;
             }
-            float new_distance = distance_map[current] + (key == 0 ? e->getTravelTimeF(method) : e->getDistanceF(method));
-            if (!distance_map.contains(next) || new_distance < distance_map[next]) {
-                distance_map[next] = new_distance;
-                parent_map[next] = current;
-                edge_map[next] = e;
-                pq.push(std::make_pair(-new_distance, next));
+            float new_distance = cur_dis + (key == 0 ? e->getTravelTimeF(method) : e->getDistanceF(method));
+            if (!details_map.contains(next) || new_distance < details_map[next].distance) {
+                // distance_map[next] = new_distance;
+                // parent_map[next] = current;
+                // edge_map[next] = e;
+                details_map[next] = {new_distance, current, e};
+                pq.push({new_distance, next});
             }
         }
     }
@@ -99,12 +104,12 @@ void DijkstraPathFinder::find_path() {
 
     if (found) {
         float dis = 0;
-        travel_time = distance_map[end];
+        travel_time = details_map[end].distance;
         Node* current = end;
         while (current != start) {
-            Node* parent = parent_map[current];
-            path.push_back(edge_map[current]);
-            dis += edge_map[current]->distance;
+            Node* parent = details_map[current].parent;
+            path.push_back(details_map[current].edge);
+            dis += details_map[current].edge->distance;
             current = parent;
         }
         std::reverse(path.begin(), path.end());
@@ -112,7 +117,9 @@ void DijkstraPathFinder::find_path() {
     }
 }
 
-HeuristicOptimizedDijkstraPathFinder::HeuristicOptimizedDijkstraPathFinder(Node* start, Node* end, int method, int key, float heuristicFactor) : DijkstraPathFinder(start, end, method, key), heuristicFactor(heuristicFactor) {}
+HeuristicOptimizedDijkstraPathFinder::HeuristicOptimizedDijkstraPathFinder(Node* start, Node* end, int method, int key, float heuristicFactor) : DijkstraPathFinder(start, end, method, key), heuristicFactor(heuristicFactor) {
+    pq_heuristic.reserve(1000);
+}
 
 constexpr float HeuristicOptimizedDijkstraPathFinder::get_heuristic_time(float _distance, Node* middle, Node* end) {
     return _distance + heuristicFactor * (middle->distanceF(*end)) / avgSpeed;
@@ -149,10 +156,11 @@ constexpr float HeuristicOptimizedDijkstraPathFinder::get_avg_speed(int method) 
 void HeuristicOptimizedDijkstraPathFinder::find_path() {
     Progress p(1);
     avgSpeed = get_avg_speed(method);
-    distance_map[start] = 0;
-    pq_heuristic.push(std::make_pair(0, start));
+    details_map[start] = {0, nullptr, nullptr};
+    pq_heuristic.push({0, start, 0});
     while (!pq_heuristic.empty()) {
         Node* current = pq_heuristic.top().second;
+        float cur_dis = pq_heuristic.top().third;
         pq_heuristic.pop();
         if (visited_nodes.contains(current)) {
             continue;
@@ -171,15 +179,13 @@ void HeuristicOptimizedDijkstraPathFinder::find_path() {
             if (!e->vis(method)) {
                 continue;
             }
-            float new_distance = distance_map[current] + (key == 0 ? e->getTravelTimeF(method) : e->getDistanceF(method));
-            if (!distance_map.contains(next) || new_distance < distance_map[next]) {
-                distance_map[next] = new_distance;
-                parent_map[next] = current;
-                edge_map[next] = e;
+            float new_distance = cur_dis + (key == 0 ? e->getTravelTimeF(method) : e->getDistanceF(method));
+            if (!details_map.contains(next) || new_distance < details_map[next].distance) {
+                details_map[next] = {new_distance, current, e};
                 if (key == 0)
-                    pq_heuristic.push(std::make_pair(-get_heuristic_time(new_distance, next, end), next));
+                    pq_heuristic.push({get_heuristic_time(new_distance, next, end), next, new_distance});
                 else
-                    pq_heuristic.push(std::make_pair(-get_heuristic_distance(new_distance, next, end), next));
+                    pq_heuristic.push({get_heuristic_distance(new_distance, next, end), next, new_distance});
             }
         }
     }
@@ -187,15 +193,132 @@ void HeuristicOptimizedDijkstraPathFinder::find_path() {
 
     if (found) {
         float dis = 0;
-        travel_time = distance_map[end];
+        travel_time = details_map[end].distance;
         Node* current = end;
         while (current != start) {
-            Node* parent = parent_map[current];
-            path.push_back(edge_map[current]);
-            dis += edge_map[current]->distance;
+            Node* parent = details_map[current].parent;
+            path.push_back(details_map[current].edge);
+            dis += details_map[current].edge->distance;
             current = parent;
         }
         std::reverse(path.begin(), path.end());
         distance = dis;
     }
+}
+
+BidirectionalHODPF::BidirectionalHODPF(Node* start, Node* end, int method, int key, float heuristicFactor) : HeuristicOptimizedDijkstraPathFinder(start, end, method, key, heuristicFactor) {
+    details_map_end.reserve(1000);
+    visited_nodes_end.reserve(1000);
+    pq_heuristic_end.reserve(1000);
+}
+
+void BidirectionalHODPF::find_path() {
+    Progress p(1);
+    avgSpeed = get_avg_speed(method);
+    details_map[start] = {0, nullptr, nullptr};
+    details_map_end[end] = {0, nullptr, nullptr};
+    pq_heuristic.push({0, start, 0});
+    pq_heuristic_end.push({0, end, 0});
+    int i = 0;
+    Node* middle = nullptr;
+    while (!pq_heuristic.empty() && !pq_heuristic_end.empty()) {
+        i++;
+        if (i & BATCH_SIZE_MASK) {
+            Node* current = pq_heuristic.top().second;
+            float cur_dis = pq_heuristic.top().third;
+            pq_heuristic.pop();
+            if (visited_nodes.contains(current)) {
+                continue;
+            }
+            visited_nodes.insert(current);
+            [[unlikely]]
+            if (current == end || visited_nodes_end.contains(current)) {
+                found = true;
+                middle = current;
+                break;
+            }
+            for (auto& e : current->computed_edges) {
+                Node* next = e->end;
+                if (visited_nodes.contains(next)) {
+                    continue;
+                }
+                if (!e->vis(method)) {
+                    continue;
+                }
+                float new_distance = cur_dis + (key == 0 ? e->getTravelTimeF(method) : e->getDistanceF(method));
+                if (!details_map.contains(next) || new_distance < details_map[next].distance) {
+                    details_map[next] = {new_distance, current, e};
+                    if (key == 0)
+                        pq_heuristic.push({get_heuristic_time(new_distance, next, end), next, new_distance});
+                    else
+                        pq_heuristic.push({get_heuristic_distance(new_distance, next, end), next, new_distance});
+                }
+            }
+        } else {
+            Node* current = pq_heuristic_end.top().second;
+            float cur_dis = pq_heuristic_end.top().third;
+            pq_heuristic_end.pop();
+            if (visited_nodes_end.contains(current)) {
+                continue;
+            }
+            visited_nodes_end.insert(current);
+            [[unlikely]]
+            if (current == start || visited_nodes.contains(current)) {  //this need to be edited
+                found = true;
+                middle = current;
+                break;
+            }
+            for (auto& e : current->computed_edges_end) {
+                Node* next = e->start;
+                if (visited_nodes_end.contains(next)) {
+                    continue;
+                }
+                if (!e->vis(method)) {
+                    continue;
+                }
+                float new_distance = cur_dis + (key == 0 ? e->getTravelTimeF(method) : e->getDistanceF(method));
+                if (!details_map_end.contains(next) || new_distance < details_map_end[next].distance) {
+                    details_map_end[next] = {new_distance, current, e};
+                    if (key == 0)
+                        pq_heuristic_end.push({get_heuristic_time(new_distance, next, start), next, new_distance});
+                    else
+                        pq_heuristic_end.push({get_heuristic_distance(new_distance, next, start), next, new_distance});
+                }
+            }
+        }
+    }
+    p.done_ms();
+
+    if (found) {
+        if (middle == nullptr) {
+            //this should not happen
+            return;
+        }
+        float dis = 0;
+        travel_time = details_map[middle].distance + details_map_end[middle].distance;
+        Node* current = middle;
+        while (current != start) {
+            Node* parent = details_map[current].parent;
+            path.push_back(details_map[current].edge);
+            dis += details_map[current].edge->distance;
+            current = parent;
+        }
+        std::reverse(path.begin(), path.end());
+        current = middle;
+        while (current != end) {
+            Node* parent = details_map_end[current].parent;
+            path.push_back(details_map_end[current].edge);
+            dis += details_map_end[current].edge->distance;
+            current = parent;
+        }
+        distance = dis;
+    }
+}
+
+boost::unordered_set<Node*> BidirectionalHODPF::get_visited_nodes_end() {
+    return visited_nodes_end;
+}
+
+std::vector<Node*> BidirectionalHODPF::get_convex_hull_of_visited_nodes_end() {
+    return get_convex_hull_of(std::vector<Node*>(visited_nodes_end.begin(), visited_nodes_end.end()));
 }

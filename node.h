@@ -37,18 +37,19 @@ public:
  */
 class Node {
 public:
-    uint64_t id;                                   //unique id
-    double lat;                                    //latitude
-    double lon;                                    //longitude
-    bool road;                                     //is a start of a road, false if only end of a one-way road
-    bool pedestrian;                               //is a pedestrian node
-    int level;                                     //minimum appearance level of the node
-    bool bus_stop = false;                         //is a bus stop
-    bool virtual_node = false;                     //is a virtual node
-    char *name = nullptr;                          //name of the node
-    std::multiset<EdgePtr> edges;                  //edges connected to the node
-    std::vector<ComputedEdge *> computed_edges;    //Computed edges starting from the node
-    std::unordered_map<uint64_t, Node *> vpoints;  //virtual point for relation
+    uint64_t id;                                     //unique id
+    double lat;                                      //latitude
+    double lon;                                      //longitude
+    bool road;                                       //is a start of a road, false if only end of a one-way road
+    bool pedestrian;                                 //is a pedestrian node
+    int level;                                       //minimum appearance level of the node
+    bool bus_stop = false;                           //is a bus stop
+    bool virtual_node = false;                       //is a virtual node
+    char *name = nullptr;                            //name of the node
+    std::multiset<EdgePtr> edges;                    //edges connected to the node
+    std::vector<ComputedEdge *> computed_edges;      //Computed edges starting from the node
+    std::vector<ComputedEdge *> computed_edges_end;  //Computed edges ending at the node
+    std::unordered_map<uint64_t, Node *> vpoints;    //virtual point for relation
 
     Node(uint64_t id, double lat, double lon);            //constructor
     Node();                                               //default constructor
