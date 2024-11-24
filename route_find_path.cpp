@@ -81,10 +81,10 @@ void init_route_find_path(crow::SimpleApp& app) {
         std::unordered_set<uint64_t> node_ids;
         for (auto e : path) {
             json je;
-            je["start"] = e->start->node->id;
-            node_ids.insert(e->start->node->id);
-            je["end"] = e->end->node->id;
-            node_ids.insert(e->end->node->id);
+            je["start"] = e->start->id;
+            node_ids.insert(e->start->id);
+            je["end"] = e->end->id;
+            node_ids.insert(e->end->id);
             je["distance"] = e->distance;
             je["method"] = e->methodUsed;
             if (e->name != nullptr) {

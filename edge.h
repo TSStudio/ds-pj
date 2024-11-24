@@ -5,6 +5,7 @@
 #include <cstdint>
 
 class NodePtr;
+class Node;
 class allowance {
 public:
     bool pedestrian;
@@ -149,8 +150,8 @@ public:
  */
 class ComputedEdge {
 public:
-    NodePtr *start;
-    NodePtr *end;
+    Node *start;
+    Node *end;
     allowance allow;
     double speed_limit;
     char *name;

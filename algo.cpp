@@ -79,7 +79,7 @@ void DijkstraPathFinder::find_path() {
             break;
         }
         for (auto e : current->computed_edges) {
-            Node* next = e->end->node;
+            Node* next = e->end;
             if (visited_nodes.contains(next)) {
                 continue;
             }
@@ -164,7 +164,7 @@ void HeuristicOptimizedDijkstraPathFinder::find_path() {
             break;
         }
         for (auto& e : current->computed_edges) {
-            Node* next = e->end->node;
+            Node* next = e->end;
             if (visited_nodes.contains(next)) {
                 continue;
             }

@@ -24,8 +24,8 @@ double EdgePtr::distance() const {
 }
 
 ComputedEdge::ComputedEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit, char *name, double forceTime) : speed_limit(speed_limit), name(name), forceTime(forceTime) {
-    this->start = new NodePtr(start);
-    this->end = new NodePtr(end);
+    this->start = start.node;
+    this->end = end.node;
     this->allow = allow;
     distance = start.distance(end);
     distance_f = distance;
