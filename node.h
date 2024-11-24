@@ -43,6 +43,7 @@ public:
     bool road;                                     //is a start of a road, false if only end of a one-way road
     bool pedestrian;                               //is a pedestrian node
     int level;                                     //minimum appearance level of the node
+    bool bus_stop = false;                         //is a bus stop
     bool virtual_node = false;                     //is a virtual node
     char *name = nullptr;                          //name of the node
     std::multiset<EdgePtr> edges;                  //edges connected to the node

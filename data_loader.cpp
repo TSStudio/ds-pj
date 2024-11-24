@@ -68,8 +68,8 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                     _transport_stops.insert(_n);
                     break;
                 }
-                if (strcmp(_child.attribute("k").as_string(), "highway") == 0 && strcmp(_child.attribute("v").as_string(), "bus_stop") == 0) {
-                    _transport_stops.insert(_n);
+                if (strcmp(_child.attribute("k").as_string(), "public_transport") == 0 && strcmp(_child.attribute("v").as_string(), "stop_position") == 0) {
+                    _n->bus_stop = true;
                     break;
                 }
             }
