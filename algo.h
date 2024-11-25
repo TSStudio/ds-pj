@@ -12,6 +12,7 @@
 #include <boost/unordered_set.hpp>
 #include <boost/unordered_map.hpp>
 #include <boost/heap/priority_queue.hpp>
+#include <ankerl/unordered_dense.h>
 
 #define BATCH_SIZE_MASK 0x10
 
@@ -50,12 +51,14 @@ protected:
     float travel_time;
     int method;
     int key;
-    boost::unordered_set<Node*> visited_nodes;
+    //boost::unordered_set<Node*> visited_nodes;
+    ankerl::unordered_dense::set<Node*, ankerl::unordered_dense::hash<Node*>> visited_nodes;
     std::vector<ComputedEdge*> path;
     // boost::unordered_map<Node*, float> distance_map;
     // boost::unordered_map<Node*, Node*> parent_map;
     // boost::unordered_map<Node*, ComputedEdge*> edge_map;
-    boost::unordered_map<Node*, NodeDetails> details_map;
+    //boost::unordered_map<Node*, NodeDetails> details_map;
+    ankerl::unordered_dense::map<Node*, NodeDetails, ankerl::unordered_dense::hash<Node*>> details_map;
 
 public:
     DijkstraPathFinder(Node* start, Node* end, int method, int key);
@@ -63,7 +66,7 @@ public:
     std::vector<ComputedEdge*> get_path();
     float get_distance();
     float get_travel_time();
-    boost::unordered_set<Node*> get_visited_nodes();
+    ankerl::unordered_dense::set<Node*, ankerl::unordered_dense::hash<Node*>> get_visited_nodes();
     std::vector<Node*> get_convex_hull_of_visited_nodes();
     std::vector<Node*> get_convex_hull_of(std::vector<Node*> v_nodes_unsorted);
     virtual ~DijkstraPathFinder() = default;
@@ -96,16 +99,19 @@ private:
     // boost::unordered_map<Node*, float> distance_map_end;
     // boost::unordered_map<Node*, Node*> parent_map_end;
     // boost::unordered_map<Node*, ComputedEdge*> edge_map_end;
-    boost::unordered_map<Node*, NodeDetails> details_map_end;
+    // boost::unordered_map<Node*, NodeDetails> details_map_end;
+    // boost::unordered_map<Node*, NodeDetails, boost::hash<Node*>> details_map_end;
+    ankerl::unordered_dense::map<Node*, NodeDetails, ankerl::unordered_dense::hash<Node*>> details_map_end;
     float distance_end;
     float travel_time_end;
     std::vector<ComputedEdge*> path_end;
-    boost::unordered_set<Node*> visited_nodes_end;
+    // boost::unordered_set<Node*> visited_nodes_end;
+    ankerl::unordered_dense::set<Node*, ankerl::unordered_dense::hash<Node*>> visited_nodes_end;
 
 public:
     BidirectionalHODPF(Node* start, Node* end, int method, int key, float heuristicFactor);
     void find_path() override;
-    boost::unordered_set<Node*> get_visited_nodes_end();
+    ankerl::unordered_dense::set<Node*, ankerl::unordered_dense::hash<Node*>> get_visited_nodes_end();
     std::vector<Node*> get_convex_hull_of_visited_nodes_end();
 };
 

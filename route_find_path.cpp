@@ -69,8 +69,9 @@ void init_route_find_path(crow::SimpleApp& app) {
         }
         // DijkstraPathFinder dpf(nodes[start], nodes[end], mtd);
         // dpf.find_path();
-
+        Progress p(1);
         dpf->find_path();
+        p.done_ms();
 
         auto path = dpf->get_path();
         auto distance = dpf->get_distance();
@@ -80,6 +81,7 @@ void init_route_find_path(crow::SimpleApp& app) {
         j["travel_time"] = travel_time;
         j["path"] = json::array();
         j["heuristic_factor"] = heuristic_factor;
+        j["pathfinding_time"] = p.used_microseconds;
         std::unordered_set<uint64_t> node_ids;
         for (auto e : path) {
             json je;

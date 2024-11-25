@@ -16,7 +16,7 @@ float DijkstraPathFinder::get_travel_time() {
     return travel_time;
 }
 
-boost::unordered_set<Node*> DijkstraPathFinder::get_visited_nodes() {
+ankerl::unordered_dense::set<Node*, ankerl::unordered_dense::hash<Node*>> DijkstraPathFinder::get_visited_nodes() {
     return visited_nodes;
 }
 
@@ -67,7 +67,6 @@ std::vector<Node*> DijkstraPathFinder::get_convex_hull_of(std::vector<Node*> v_n
 }
 
 void DijkstraPathFinder::find_path() {
-    Progress p(1);
     details_map[start] = {0, nullptr, nullptr};
     pq.push({0, start});
     while (!pq.empty()) {
@@ -100,7 +99,6 @@ void DijkstraPathFinder::find_path() {
             }
         }
     }
-    p.done_ms();
 
     if (found) {
         float dis = 0;
@@ -154,7 +152,6 @@ constexpr float HeuristicOptimizedDijkstraPathFinder::get_avg_speed(int method) 
 }
 
 void HeuristicOptimizedDijkstraPathFinder::find_path() {
-    Progress p(1);
     avgSpeed = get_avg_speed(method);
     details_map[start] = {0, nullptr, nullptr};
     pq_heuristic.push({0, start, 0});
@@ -189,7 +186,6 @@ void HeuristicOptimizedDijkstraPathFinder::find_path() {
             }
         }
     }
-    p.done_ms();
 
     if (found) {
         float dis = 0;
@@ -213,7 +209,6 @@ BidirectionalHODPF::BidirectionalHODPF(Node* start, Node* end, int method, int k
 }
 
 void BidirectionalHODPF::find_path() {
-    Progress p(1);
     avgSpeed = get_avg_speed(method);
     details_map[start] = {0, nullptr, nullptr};
     details_map_end[end] = {0, nullptr, nullptr};
@@ -263,7 +258,7 @@ void BidirectionalHODPF::find_path() {
             }
             visited_nodes_end.insert(current);
             [[unlikely]]
-            if (current == start || visited_nodes.contains(current)) {  //this need to be edited
+            if (current == start || visited_nodes.contains(current)) {
                 found = true;
                 middle = current;
                 break;
@@ -287,7 +282,6 @@ void BidirectionalHODPF::find_path() {
             }
         }
     }
-    p.done_ms();
 
     if (found) {
         if (middle == nullptr) {
@@ -315,7 +309,7 @@ void BidirectionalHODPF::find_path() {
     }
 }
 
-boost::unordered_set<Node*> BidirectionalHODPF::get_visited_nodes_end() {
+ankerl::unordered_dense::set<Node*, ankerl::unordered_dense::hash<Node*>> BidirectionalHODPF::get_visited_nodes_end() {
     return visited_nodes_end;
 }
 

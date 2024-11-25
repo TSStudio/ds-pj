@@ -9,6 +9,7 @@
 
 class Progress {
 public:
+    uint64_t used_microseconds = 0;
     Progress(uint64_t total) : total(total), current(0) {
         start = std::chrono::system_clock::now();
     }
@@ -50,11 +51,13 @@ public:
     void done() {
         auto now = std::chrono::system_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - start);
+        used_microseconds = duration.count() * 1000;
         std::println("Finished in {:.2f}s!", duration.count() / 1000.0);
     }
     void done_ms() {
         auto now = std::chrono::system_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(now - start);
+        used_microseconds = duration.count();
         std::println("Finished in {:.2f}ms!", duration.count() / 1000.0);
     }
 
