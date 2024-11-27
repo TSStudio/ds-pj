@@ -31,7 +31,7 @@ ComputedEdge::ComputedEdge(NodePtr start, NodePtr end, allowance allow, double s
     distance_f = distance;
 }
 
-bool ComputedEdge::vis(int method) {
+bool ComputedEdge::vis(int method) noexcept(true) {
     if (method & 1 && allow.pedestrian) {
         return true;
     } else if (method & 2 && allow.bicycle) {
@@ -49,7 +49,7 @@ bool ComputedEdge::vis(int method) {
     }
 }
 
-double ComputedEdge::getTravelTime(int method) {
+double ComputedEdge::getTravelTime(int method) noexcept(true) {
     methodUsed = 1;
     [[unlikely]]
     if (forceTime > 1)
@@ -67,7 +67,7 @@ double ComputedEdge::getTravelTime(int method) {
         return distance / speed;
     }
     if (method & 8 && allow.bus) {
-        speed = 0.4 * speed_limit;
+        speed = 4.9;
         methodUsed = 8;
         return distance / speed;
     }
@@ -87,7 +87,7 @@ double ComputedEdge::getTravelTime(int method) {
     return 1e18;
 }
 
-float ComputedEdge::getTravelTimeF(int method) {
+float ComputedEdge::getTravelTimeF(int method) noexcept(true) {
     methodUsed = 1;
     [[unlikely]]
     if (forceTime > 1)
@@ -105,7 +105,7 @@ float ComputedEdge::getTravelTimeF(int method) {
         return distance / speed;
     }
     if (method & 8 && allow.bus) {
-        speed = 0.4 * speed_limit;
+        speed = 4.9;
         methodUsed = 8;
         return distance / speed;
     }
@@ -125,11 +125,11 @@ float ComputedEdge::getTravelTimeF(int method) {
     return 1e18;
 }
 
-double ComputedEdge::getDistance(int method) {
+double ComputedEdge::getDistance(int method) noexcept(true) {
     if (vis(method)) return distance;
     return 1e18;
 }
-float ComputedEdge::getDistanceF(int method) {
+float ComputedEdge::getDistanceF(int method) noexcept(true) {
     if (vis(method)) return distance;
     return 1e18;
 }

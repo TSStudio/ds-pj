@@ -51,16 +51,16 @@ public:
     std::vector<ComputedEdge *> computed_edges_end;  //Computed edges ending at the node
     std::unordered_map<uint64_t, Node *> vpoints;    //virtual point for relation
 
-    Node(uint64_t id, double lat, double lon);            //constructor
-    Node();                                               //default constructor
-    bool operator==(const Node &other) const;             //equality operator
-    bool operator<(const Node &other) const;              //less than operator
-    double distance(const Node &other) const;             //distance to another node
-    float distanceF(const Node &other) const;             //distance to another node
-    float approxDistanceF(const Node &other) const;       //approximate distance to another node
-    double distance(double lat, double lon) const;        //distance to a point
-    float distanceF(double lat, double lon) const;        //distance to a point
-    float approxDistanceF(double lat, double lon) const;  //approximate distance to a point
+    Node(uint64_t id, double lat, double lon);                           //constructor
+    Node();                                                              //default constructor
+    bool operator==(const Node &other) const;                            //equality operator
+    bool operator<(const Node &other) const;                             //less than operator
+    double distance(const Node &other) const noexcept(true);             //distance to another node
+    float distanceF(const Node &other) const noexcept(true);             //distance to another node
+    float approxDistanceF(const Node &other) const noexcept(true);       //approximate distance to another node
+    double distance(double lat, double lon) const noexcept(true);        //distance to a point
+    float distanceF(double lat, double lon) const noexcept(true);        //distance to a point
+    float approxDistanceF(double lat, double lon) const noexcept(true);  //approximate distance to a point
 
     void push_relation(uint64_t relation_id, Node *n, allowance allow, double speed_limit, char *name);  //push a relation
 };

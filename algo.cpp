@@ -119,15 +119,15 @@ HeuristicOptimizedDijkstraPathFinder::HeuristicOptimizedDijkstraPathFinder(Node*
     pq_heuristic.reserve(1000);
 }
 
-constexpr float HeuristicOptimizedDijkstraPathFinder::get_heuristic_time(float _distance, Node* middle, Node* end) {
+constexpr float HeuristicOptimizedDijkstraPathFinder::get_heuristic_time(float _distance, Node* middle, Node* end) noexcept(true) {
     return _distance + heuristicFactor * (middle->distanceF(*end)) / avgSpeed;
 }
 
-constexpr float HeuristicOptimizedDijkstraPathFinder::get_heuristic_distance(float _distance, Node* middle, Node* end) {
+constexpr float HeuristicOptimizedDijkstraPathFinder::get_heuristic_distance(float _distance, Node* middle, Node* end) noexcept(true) {
     return _distance + heuristicFactor * middle->distanceF(*end);
 }
 
-constexpr float HeuristicOptimizedDijkstraPathFinder::get_avg_speed(int method) {
+constexpr float HeuristicOptimizedDijkstraPathFinder::get_avg_speed(int method) noexcept(true) {
     float speed = 0;  //m/s
     if (method & 1) {
         if (method & 8)
@@ -142,7 +142,7 @@ constexpr float HeuristicOptimizedDijkstraPathFinder::get_avg_speed(int method) 
         speed = 15;
     }
     if (method & 8) {
-        speed = 7;
+        speed = 4.9;  //bus avg 4.9 m/s
     }
     if (method & 16) {
         speed = 10;

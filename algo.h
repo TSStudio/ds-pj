@@ -14,7 +14,7 @@
 #include <boost/heap/priority_queue.hpp>
 #include <ankerl/unordered_dense.h>
 
-#define BATCH_SIZE_MASK 0x10
+#define BATCH_SIZE_MASK 0x08
 
 struct heapElement {
     float first;
@@ -81,9 +81,9 @@ protected:
     float heuristicFactor;
     float avgSpeed;
     boost::heap::priority_queue<heapElementHeuristic> pq_heuristic;
-    constexpr float get_heuristic_time(float distance, Node* middle, Node* end);
-    constexpr float get_heuristic_distance(float distance, Node* middle, Node* end);
-    constexpr static float get_avg_speed(int method);
+    constexpr float get_heuristic_time(float distance, Node* middle, Node* end) noexcept(true);
+    constexpr float get_heuristic_distance(float distance, Node* middle, Node* end) noexcept(true);
+    constexpr static float get_avg_speed(int method) noexcept(true);
 
 public:
     /**
