@@ -1,10 +1,10 @@
 #include "data_loader.h"
 
 extern std::unordered_map<uint64_t, Node *> nodes;
-extern std::unordered_map<uint64_t, Way *> ways;
 extern QuadTreeNode *root;
 
 bool data_init_all(char **__filepath, unsigned int _file_count) {
+    std::unordered_map<uint64_t, Way *> ways;
     std::unordered_set<Node *> _transport_stops;
     uint64_t *_node_count = new uint64_t[_file_count];
     uint64_t *_way_count = new uint64_t[_file_count];
@@ -369,6 +369,10 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
         _link_cache_json_file << _link_cache_json.dump();
         _link_cache_json_file.close();
         std::println("[DATA_INIT][META] Link cache file created.");
+    }
+
+    for (auto w : ways) {
+        delete w.second;
     }
 
     delete[] _node_count;
