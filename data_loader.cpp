@@ -65,12 +65,12 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             nodes[_id] = _n;
             for (pugi::xml_node _child : _node.children("tag")) {
                 if (strcmp(_child.attribute("k").as_string(), "railway") == 0 && strcmp(_child.attribute("v").as_string(), "stop") == 0) {
+                    _n->bus_stop = true;
                     _transport_stops.insert(_n);
                     break;
                 }
                 if (strcmp(_child.attribute("k").as_string(), "public_transport") == 0 && strcmp(_child.attribute("v").as_string(), "stop_position") == 0) {
                     _n->bus_stop = true;
-                    break;
                 }
             }
             _node_counter++;
@@ -257,7 +257,7 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                             continue;
                         }
                         //_start.node->computed_edges.push_back(new ComputedEdge(_start, _end, {false, false, false, _type & 8 ? true : false, _type & 16 ? true : false}, _type & 8 ? 50 : 80, _route_name));
-                        _start.node->push_relation(_id, _end.node, {false, false, false, _type & 8 ? true : false, _type & 16 ? true : false, false}, _type & 8 ? 60 : 80, _route_name);
+                        _start.node->push_relation(_id, _end.node, {false, false, false, _type & 8 ? true : false, _type & 16 ? true : false, false}, _type == 8 ? 60 : 80, _route_name);
                         _start = _end;
                     }
 
