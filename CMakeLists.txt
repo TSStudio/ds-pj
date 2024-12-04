@@ -14,7 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g3")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-set(CMAKE_CXX_FLAGS_RELEASELOCAL "-O3 -march=native")
+set(CMAKE_CXX_FLAGS_RELEASELOCAL "-O3 -march=native --ffast-math -funroll-loops -malign-double -minline-all-stringops -flto -fuse-linker-plugin")
 
 aux_source_directory(. SRC_LIST)
 add_executable(server ${SRC_LIST})
