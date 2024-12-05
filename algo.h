@@ -16,6 +16,10 @@
 
 #define BATCH_SIZE_MASK 0x08
 
+enum zoneFilterMode { ALL,
+                      BLACKLIST,
+                      WHITELIST };
+
 struct heapElement {
     float first;
     Node* second;
@@ -37,6 +41,17 @@ struct NodeDetails {
     float distance;
     Node* parent;
     ComputedEdge* edge;
+};
+
+struct coord {
+    double x;
+    double y;
+};
+
+class Zone {
+public:
+    std::vector<coord> points;
+    bool isIn(coord p);
 };
 
 class DijkstraPathFinder {
@@ -90,11 +105,11 @@ public:
  * @param key: 0 for time, 1 for distance
  */
     HeuristicOptimizedDijkstraPathFinder(Node* start, Node* end, int method, int key, float heuristicFactor);
-    void find_path() override;
+    virtual void find_path() override;
 };
 
 class BidirectionalHODPF : public HeuristicOptimizedDijkstraPathFinder {
-private:
+protected:
     boost::heap::priority_queue<heapElementHeuristic> pq_heuristic_end;
     // boost::unordered_map<Node*, float> distance_map_end;
     // boost::unordered_map<Node*, Node*> parent_map_end;
@@ -110,9 +125,19 @@ private:
 
 public:
     BidirectionalHODPF(Node* start, Node* end, int method, int key, float heuristicFactor);
-    void find_path() override;
+    virtual void find_path() override;
     ankerl::unordered_dense::set<Node*, ankerl::unordered_dense::hash<Node*>> get_visited_nodes_end();
     std::vector<Node*> get_convex_hull_of_visited_nodes_end();
+};
+
+class ZonePathFinder : public BidirectionalHODPF {
+private:
+    Zone zone_;
+    zoneFilterMode mode_;
+
+public:
+    ZonePathFinder(Node* start, Node* end, int method, int key, float heuristicFactor, Zone zone, zoneFilterMode mode);
+    virtual void find_path() override;
 };
 
 #endif

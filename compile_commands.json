@@ -1,73 +1,79 @@
 [
 {
   "directory": "/home/tmysam/ds-pj",
-  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/algo.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/algo.cpp.o -c /home/tmysam/ds-pj/algo.cpp",
+  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/algo.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/algo.cpp.o -c /home/tmysam/ds-pj/algo.cpp",
   "file": "/home/tmysam/ds-pj/algo.cpp",
   "output": "CMakeFiles/server.dir/algo.cpp.o"
 },
 {
   "directory": "/home/tmysam/ds-pj",
-  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/data_loader.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/data_loader.cpp.o -c /home/tmysam/ds-pj/data_loader.cpp",
+  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/data_loader.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/data_loader.cpp.o -c /home/tmysam/ds-pj/data_loader.cpp",
   "file": "/home/tmysam/ds-pj/data_loader.cpp",
   "output": "CMakeFiles/server.dir/data_loader.cpp.o"
 },
 {
   "directory": "/home/tmysam/ds-pj",
-  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/edge.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/edge.cpp.o -c /home/tmysam/ds-pj/edge.cpp",
+  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/edge.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/edge.cpp.o -c /home/tmysam/ds-pj/edge.cpp",
   "file": "/home/tmysam/ds-pj/edge.cpp",
   "output": "CMakeFiles/server.dir/edge.cpp.o"
 },
 {
   "directory": "/home/tmysam/ds-pj",
-  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/main.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/main.cpp.o -c /home/tmysam/ds-pj/main.cpp",
+  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/main.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/main.cpp.o -c /home/tmysam/ds-pj/main.cpp",
   "file": "/home/tmysam/ds-pj/main.cpp",
   "output": "CMakeFiles/server.dir/main.cpp.o"
 },
 {
   "directory": "/home/tmysam/ds-pj",
-  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/node.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/node.cpp.o -c /home/tmysam/ds-pj/node.cpp",
+  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/node.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/node.cpp.o -c /home/tmysam/ds-pj/node.cpp",
   "file": "/home/tmysam/ds-pj/node.cpp",
   "output": "CMakeFiles/server.dir/node.cpp.o"
 },
 {
   "directory": "/home/tmysam/ds-pj",
-  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/quad_tree.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/quad_tree.cpp.o -c /home/tmysam/ds-pj/quad_tree.cpp",
+  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/quad_tree.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/quad_tree.cpp.o -c /home/tmysam/ds-pj/quad_tree.cpp",
   "file": "/home/tmysam/ds-pj/quad_tree.cpp",
   "output": "CMakeFiles/server.dir/quad_tree.cpp.o"
 },
 {
   "directory": "/home/tmysam/ds-pj",
-  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/route_find_nearest_node.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/route_find_nearest_node.cpp.o -c /home/tmysam/ds-pj/route_find_nearest_node.cpp",
+  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/route_find_nearest_node.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/route_find_nearest_node.cpp.o -c /home/tmysam/ds-pj/route_find_nearest_node.cpp",
   "file": "/home/tmysam/ds-pj/route_find_nearest_node.cpp",
   "output": "CMakeFiles/server.dir/route_find_nearest_node.cpp.o"
 },
 {
   "directory": "/home/tmysam/ds-pj",
-  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/route_find_path.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/route_find_path.cpp.o -c /home/tmysam/ds-pj/route_find_path.cpp",
+  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/route_find_path.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/route_find_path.cpp.o -c /home/tmysam/ds-pj/route_find_path.cpp",
   "file": "/home/tmysam/ds-pj/route_find_path.cpp",
   "output": "CMakeFiles/server.dir/route_find_path.cpp.o"
 },
 {
   "directory": "/home/tmysam/ds-pj",
-  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/route_nodes.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/route_nodes.cpp.o -c /home/tmysam/ds-pj/route_nodes.cpp",
+  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/route_nodes.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/route_nodes.cpp.o -c /home/tmysam/ds-pj/route_nodes.cpp",
   "file": "/home/tmysam/ds-pj/route_nodes.cpp",
   "output": "CMakeFiles/server.dir/route_nodes.cpp.o"
 },
 {
   "directory": "/home/tmysam/ds-pj",
-  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/routes.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/routes.cpp.o -c /home/tmysam/ds-pj/routes.cpp",
+  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/routes.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/routes.cpp.o -c /home/tmysam/ds-pj/routes.cpp",
   "file": "/home/tmysam/ds-pj/routes.cpp",
   "output": "CMakeFiles/server.dir/routes.cpp.o"
 },
 {
   "directory": "/home/tmysam/ds-pj",
-  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/shared.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/shared.cpp.o -c /home/tmysam/ds-pj/shared.cpp",
+  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/shared.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/shared.cpp.o -c /home/tmysam/ds-pj/shared.cpp",
   "file": "/home/tmysam/ds-pj/shared.cpp",
   "output": "CMakeFiles/server.dir/shared.cpp.o"
 },
 {
   "directory": "/home/tmysam/ds-pj",
-  "command": "/usr/bin/g++-14 -I/home/tmysam/ds-pj/pugixml/src -Wall -Wextra -g3 -std=gnu++23 -fPIC -o pugixml/CMakeFiles/pugixml-static.dir/src/pugixml.cpp.o -c /home/tmysam/ds-pj/pugixml/src/pugixml.cpp",
+  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/utils.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/utils.cpp.o -c /home/tmysam/ds-pj/utils.cpp",
+  "file": "/home/tmysam/ds-pj/utils.cpp",
+  "output": "CMakeFiles/server.dir/utils.cpp.o"
+},
+{
+  "directory": "/home/tmysam/ds-pj",
+  "command": "/usr/bin/g++-14 -DPUGIXML_COMPACT -I/home/tmysam/ds-pj/pugixml/src -Wall -Wextra -g3 -std=gnu++23 -fPIC -o pugixml/CMakeFiles/pugixml-static.dir/src/pugixml.cpp.o -c /home/tmysam/ds-pj/pugixml/src/pugixml.cpp",
   "file": "/home/tmysam/ds-pj/pugixml/src/pugixml.cpp",
   "output": "pugixml/CMakeFiles/pugixml-static.dir/src/pugixml.cpp.o"
 }

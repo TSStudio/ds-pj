@@ -68,4 +68,9 @@ private:
     int last_prog = 0;
     std::chrono::_V2::system_clock::time_point start;
 };
+
+class Base64 {
+public:
+    static std::string decode(const std::string& str);
+};
 #endif

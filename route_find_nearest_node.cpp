@@ -1,7 +1,6 @@
 #include "routes.h"
 
 extern QuadTreeNode* root;
-extern std::unordered_map<uint64_t, Node*> nodes;
 
 void init_route_find_nearest_node(crow::SimpleApp& app) {
     CROW_ROUTE(app, "/find_nearest_node")

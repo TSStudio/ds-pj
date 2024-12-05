@@ -22,7 +22,7 @@ void load_default() {
     // strcpy(default_filepath[3], "data/anhui.osm");
 }
 
-int main(int argc, char* argv[]) {
+auto main(int argc, char* argv[]) -> int {
     std::println("[MAIN] Initializing...");
     bool result = false;
     if (argc > 1) {

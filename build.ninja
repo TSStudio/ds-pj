@@ -50,7 +50,7 @@ cmake_ninja_workdir = /home/tmysam/ds-pj/
 build cmake_object_order_depends_target_server: phony || cmake_object_order_depends_target_pugixml-static
 
 build CMakeFiles/server.dir/algo.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/ds-pj/algo.cpp || cmake_object_order_depends_target_server
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/algo.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/algo.cpp.o.ddi
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
@@ -59,17 +59,19 @@ build CMakeFiles/server.dir/algo.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/algo.cpp.o.ddi.i
 
 build CMakeFiles/server.dir/algo.cpp.o: CXX_COMPILER__server_scanned_Debug /home/tmysam/ds-pj/algo.cpp | CMakeFiles/server.dir/algo.cpp.o.modmap || cmake_object_order_depends_target_server CMakeFiles/server.dir/CXX.dd
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/algo.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/algo.cpp.o.modmap
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
+  TARGET_COMPILE_PDB = CMakeFiles/server.dir/
+  TARGET_PDB = server.pdb
   dyndep = CMakeFiles/server.dir/CXX.dd
 
 build CMakeFiles/server.dir/data_loader.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/ds-pj/data_loader.cpp || cmake_object_order_depends_target_server
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/data_loader.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/data_loader.cpp.o.ddi
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
@@ -78,17 +80,19 @@ build CMakeFiles/server.dir/data_loader.cpp.o.ddi: CXX_SCAN__server_Debug /home/
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/data_loader.cpp.o.ddi.i
 
 build CMakeFiles/server.dir/data_loader.cpp.o: CXX_COMPILER__server_scanned_Debug /home/tmysam/ds-pj/data_loader.cpp | CMakeFiles/server.dir/data_loader.cpp.o.modmap || cmake_object_order_depends_target_server CMakeFiles/server.dir/CXX.dd
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/data_loader.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/data_loader.cpp.o.modmap
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
+  TARGET_COMPILE_PDB = CMakeFiles/server.dir/
+  TARGET_PDB = server.pdb
   dyndep = CMakeFiles/server.dir/CXX.dd
 
 build CMakeFiles/server.dir/edge.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/ds-pj/edge.cpp || cmake_object_order_depends_target_server
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/edge.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/edge.cpp.o.ddi
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
@@ -97,17 +101,19 @@ build CMakeFiles/server.dir/edge.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/edge.cpp.o.ddi.i
 
 build CMakeFiles/server.dir/edge.cpp.o: CXX_COMPILER__server_scanned_Debug /home/tmysam/ds-pj/edge.cpp | CMakeFiles/server.dir/edge.cpp.o.modmap || cmake_object_order_depends_target_server CMakeFiles/server.dir/CXX.dd
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/edge.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/edge.cpp.o.modmap
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
+  TARGET_COMPILE_PDB = CMakeFiles/server.dir/
+  TARGET_PDB = server.pdb
   dyndep = CMakeFiles/server.dir/CXX.dd
 
 build CMakeFiles/server.dir/main.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/ds-pj/main.cpp || cmake_object_order_depends_target_server
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/main.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/main.cpp.o.ddi
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
@@ -116,17 +122,19 @@ build CMakeFiles/server.dir/main.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/main.cpp.o.ddi.i
 
 build CMakeFiles/server.dir/main.cpp.o: CXX_COMPILER__server_scanned_Debug /home/tmysam/ds-pj/main.cpp | CMakeFiles/server.dir/main.cpp.o.modmap || cmake_object_order_depends_target_server CMakeFiles/server.dir/CXX.dd
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/main.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/main.cpp.o.modmap
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
+  TARGET_COMPILE_PDB = CMakeFiles/server.dir/
+  TARGET_PDB = server.pdb
   dyndep = CMakeFiles/server.dir/CXX.dd
 
 build CMakeFiles/server.dir/node.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/ds-pj/node.cpp || cmake_object_order_depends_target_server
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/node.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/node.cpp.o.ddi
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
@@ -135,17 +143,19 @@ build CMakeFiles/server.dir/node.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/node.cpp.o.ddi.i
 
 build CMakeFiles/server.dir/node.cpp.o: CXX_COMPILER__server_scanned_Debug /home/tmysam/ds-pj/node.cpp | CMakeFiles/server.dir/node.cpp.o.modmap || cmake_object_order_depends_target_server CMakeFiles/server.dir/CXX.dd
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/node.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/node.cpp.o.modmap
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
+  TARGET_COMPILE_PDB = CMakeFiles/server.dir/
+  TARGET_PDB = server.pdb
   dyndep = CMakeFiles/server.dir/CXX.dd
 
 build CMakeFiles/server.dir/quad_tree.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/ds-pj/quad_tree.cpp || cmake_object_order_depends_target_server
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/quad_tree.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/quad_tree.cpp.o.ddi
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
@@ -154,17 +164,19 @@ build CMakeFiles/server.dir/quad_tree.cpp.o.ddi: CXX_SCAN__server_Debug /home/tm
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/quad_tree.cpp.o.ddi.i
 
 build CMakeFiles/server.dir/quad_tree.cpp.o: CXX_COMPILER__server_scanned_Debug /home/tmysam/ds-pj/quad_tree.cpp | CMakeFiles/server.dir/quad_tree.cpp.o.modmap || cmake_object_order_depends_target_server CMakeFiles/server.dir/CXX.dd
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/quad_tree.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/quad_tree.cpp.o.modmap
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
+  TARGET_COMPILE_PDB = CMakeFiles/server.dir/
+  TARGET_PDB = server.pdb
   dyndep = CMakeFiles/server.dir/CXX.dd
 
 build CMakeFiles/server.dir/route_find_nearest_node.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/ds-pj/route_find_nearest_node.cpp || cmake_object_order_depends_target_server
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/route_find_nearest_node.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/route_find_nearest_node.cpp.o.ddi
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
@@ -173,17 +185,19 @@ build CMakeFiles/server.dir/route_find_nearest_node.cpp.o.ddi: CXX_SCAN__server_
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/route_find_nearest_node.cpp.o.ddi.i
 
 build CMakeFiles/server.dir/route_find_nearest_node.cpp.o: CXX_COMPILER__server_scanned_Debug /home/tmysam/ds-pj/route_find_nearest_node.cpp | CMakeFiles/server.dir/route_find_nearest_node.cpp.o.modmap || cmake_object_order_depends_target_server CMakeFiles/server.dir/CXX.dd
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/route_find_nearest_node.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/route_find_nearest_node.cpp.o.modmap
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
+  TARGET_COMPILE_PDB = CMakeFiles/server.dir/
+  TARGET_PDB = server.pdb
   dyndep = CMakeFiles/server.dir/CXX.dd
 
 build CMakeFiles/server.dir/route_find_path.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/ds-pj/route_find_path.cpp || cmake_object_order_depends_target_server
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/route_find_path.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/route_find_path.cpp.o.ddi
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
@@ -192,17 +206,19 @@ build CMakeFiles/server.dir/route_find_path.cpp.o.ddi: CXX_SCAN__server_Debug /h
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/route_find_path.cpp.o.ddi.i
 
 build CMakeFiles/server.dir/route_find_path.cpp.o: CXX_COMPILER__server_scanned_Debug /home/tmysam/ds-pj/route_find_path.cpp | CMakeFiles/server.dir/route_find_path.cpp.o.modmap || cmake_object_order_depends_target_server CMakeFiles/server.dir/CXX.dd
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/route_find_path.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/route_find_path.cpp.o.modmap
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
+  TARGET_COMPILE_PDB = CMakeFiles/server.dir/
+  TARGET_PDB = server.pdb
   dyndep = CMakeFiles/server.dir/CXX.dd
 
 build CMakeFiles/server.dir/route_nodes.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/ds-pj/route_nodes.cpp || cmake_object_order_depends_target_server
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/route_nodes.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/route_nodes.cpp.o.ddi
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
@@ -211,17 +227,19 @@ build CMakeFiles/server.dir/route_nodes.cpp.o.ddi: CXX_SCAN__server_Debug /home/
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/route_nodes.cpp.o.ddi.i
 
 build CMakeFiles/server.dir/route_nodes.cpp.o: CXX_COMPILER__server_scanned_Debug /home/tmysam/ds-pj/route_nodes.cpp | CMakeFiles/server.dir/route_nodes.cpp.o.modmap || cmake_object_order_depends_target_server CMakeFiles/server.dir/CXX.dd
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/route_nodes.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/route_nodes.cpp.o.modmap
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
+  TARGET_COMPILE_PDB = CMakeFiles/server.dir/
+  TARGET_PDB = server.pdb
   dyndep = CMakeFiles/server.dir/CXX.dd
 
 build CMakeFiles/server.dir/routes.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/ds-pj/routes.cpp || cmake_object_order_depends_target_server
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/routes.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/routes.cpp.o.ddi
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
@@ -230,17 +248,19 @@ build CMakeFiles/server.dir/routes.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysa
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/routes.cpp.o.ddi.i
 
 build CMakeFiles/server.dir/routes.cpp.o: CXX_COMPILER__server_scanned_Debug /home/tmysam/ds-pj/routes.cpp | CMakeFiles/server.dir/routes.cpp.o.modmap || cmake_object_order_depends_target_server CMakeFiles/server.dir/CXX.dd
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/routes.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/routes.cpp.o.modmap
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
+  TARGET_COMPILE_PDB = CMakeFiles/server.dir/
+  TARGET_PDB = server.pdb
   dyndep = CMakeFiles/server.dir/CXX.dd
 
 build CMakeFiles/server.dir/shared.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/ds-pj/shared.cpp || cmake_object_order_depends_target_server
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/shared.cpp.o.ddi.d
   DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/shared.cpp.o.ddi
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
@@ -249,16 +269,39 @@ build CMakeFiles/server.dir/shared.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysa
   PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/shared.cpp.o.ddi.i
 
 build CMakeFiles/server.dir/shared.cpp.o: CXX_COMPILER__server_scanned_Debug /home/tmysam/ds-pj/shared.cpp | CMakeFiles/server.dir/shared.cpp.o.modmap || cmake_object_order_depends_target_server CMakeFiles/server.dir/CXX.dd
-  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/shared.cpp.o.d
   DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/shared.cpp.o.modmap
   FLAGS = -Wall -Wextra -g3 -std=gnu++23
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
+  TARGET_COMPILE_PDB = CMakeFiles/server.dir/
+  TARGET_PDB = server.pdb
   dyndep = CMakeFiles/server.dir/CXX.dd
 
-build CMakeFiles/server.dir/CXX.dd | /home/tmysam/ds-pj/CMakeFiles/server.dir/CXXModules.json CMakeFiles/server.dir/algo.cpp.o.modmap CMakeFiles/server.dir/data_loader.cpp.o.modmap CMakeFiles/server.dir/edge.cpp.o.modmap CMakeFiles/server.dir/main.cpp.o.modmap CMakeFiles/server.dir/node.cpp.o.modmap CMakeFiles/server.dir/quad_tree.cpp.o.modmap CMakeFiles/server.dir/route_find_nearest_node.cpp.o.modmap CMakeFiles/server.dir/route_find_path.cpp.o.modmap CMakeFiles/server.dir/route_nodes.cpp.o.modmap CMakeFiles/server.dir/routes.cpp.o.modmap CMakeFiles/server.dir/shared.cpp.o.modmap: CXX_DYNDEP__server_Debug CMakeFiles/server.dir/algo.cpp.o.ddi CMakeFiles/server.dir/data_loader.cpp.o.ddi CMakeFiles/server.dir/edge.cpp.o.ddi CMakeFiles/server.dir/main.cpp.o.ddi CMakeFiles/server.dir/node.cpp.o.ddi CMakeFiles/server.dir/quad_tree.cpp.o.ddi CMakeFiles/server.dir/route_find_nearest_node.cpp.o.ddi CMakeFiles/server.dir/route_find_path.cpp.o.ddi CMakeFiles/server.dir/route_nodes.cpp.o.ddi CMakeFiles/server.dir/routes.cpp.o.ddi CMakeFiles/server.dir/shared.cpp.o.ddi | /home/tmysam/ds-pj/CMakeFiles/server.dir/CXXDependInfo.json
+build CMakeFiles/server.dir/utils.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/ds-pj/utils.cpp || cmake_object_order_depends_target_server
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
+  DEP_FILE = CMakeFiles/server.dir/utils.cpp.o.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/utils.cpp.o.ddi
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
+  INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
+  OBJ_FILE = CMakeFiles/server.dir/utils.cpp.o
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/utils.cpp.o.ddi.i
+
+build CMakeFiles/server.dir/utils.cpp.o: CXX_COMPILER__server_scanned_Debug /home/tmysam/ds-pj/utils.cpp | CMakeFiles/server.dir/utils.cpp.o.modmap || cmake_object_order_depends_target_server CMakeFiles/server.dir/CXX.dd
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
+  DEP_FILE = CMakeFiles/server.dir/utils.cpp.o.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/utils.cpp.o.modmap
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
+  INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
+  OBJECT_DIR = CMakeFiles/server.dir
+  OBJECT_FILE_DIR = CMakeFiles/server.dir
+  TARGET_COMPILE_PDB = CMakeFiles/server.dir/
+  TARGET_PDB = server.pdb
+  dyndep = CMakeFiles/server.dir/CXX.dd
+
+build CMakeFiles/server.dir/CXX.dd | /home/tmysam/ds-pj/CMakeFiles/server.dir/CXXModules.json CMakeFiles/server.dir/algo.cpp.o.modmap CMakeFiles/server.dir/data_loader.cpp.o.modmap CMakeFiles/server.dir/edge.cpp.o.modmap CMakeFiles/server.dir/main.cpp.o.modmap CMakeFiles/server.dir/node.cpp.o.modmap CMakeFiles/server.dir/quad_tree.cpp.o.modmap CMakeFiles/server.dir/route_find_nearest_node.cpp.o.modmap CMakeFiles/server.dir/route_find_path.cpp.o.modmap CMakeFiles/server.dir/route_nodes.cpp.o.modmap CMakeFiles/server.dir/routes.cpp.o.modmap CMakeFiles/server.dir/shared.cpp.o.modmap CMakeFiles/server.dir/utils.cpp.o.modmap: CXX_DYNDEP__server_Debug CMakeFiles/server.dir/algo.cpp.o.ddi CMakeFiles/server.dir/data_loader.cpp.o.ddi CMakeFiles/server.dir/edge.cpp.o.ddi CMakeFiles/server.dir/main.cpp.o.ddi CMakeFiles/server.dir/node.cpp.o.ddi CMakeFiles/server.dir/quad_tree.cpp.o.ddi CMakeFiles/server.dir/route_find_nearest_node.cpp.o.ddi CMakeFiles/server.dir/route_find_path.cpp.o.ddi CMakeFiles/server.dir/route_nodes.cpp.o.ddi CMakeFiles/server.dir/routes.cpp.o.ddi CMakeFiles/server.dir/shared.cpp.o.ddi CMakeFiles/server.dir/utils.cpp.o.ddi | /home/tmysam/ds-pj/CMakeFiles/server.dir/CXXDependInfo.json
 
 
 # =============================================================================
@@ -268,14 +311,15 @@ build CMakeFiles/server.dir/CXX.dd | /home/tmysam/ds-pj/CMakeFiles/server.dir/CX
 #############################################
 # Link the executable server
 
-build server: CXX_EXECUTABLE_LINKER__server_Debug CMakeFiles/server.dir/algo.cpp.o CMakeFiles/server.dir/data_loader.cpp.o CMakeFiles/server.dir/edge.cpp.o CMakeFiles/server.dir/main.cpp.o CMakeFiles/server.dir/node.cpp.o CMakeFiles/server.dir/quad_tree.cpp.o CMakeFiles/server.dir/route_find_nearest_node.cpp.o CMakeFiles/server.dir/route_find_path.cpp.o CMakeFiles/server.dir/route_nodes.cpp.o CMakeFiles/server.dir/routes.cpp.o CMakeFiles/server.dir/shared.cpp.o | /usr/lib/x86_64-linux-gnu/libz.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so pugixml/libpugixml.a || pugixml/libpugixml.a
+build server: CXX_EXECUTABLE_LINKER__server_Debug CMakeFiles/server.dir/algo.cpp.o CMakeFiles/server.dir/data_loader.cpp.o CMakeFiles/server.dir/edge.cpp.o CMakeFiles/server.dir/main.cpp.o CMakeFiles/server.dir/node.cpp.o CMakeFiles/server.dir/quad_tree.cpp.o CMakeFiles/server.dir/route_find_nearest_node.cpp.o CMakeFiles/server.dir/route_find_path.cpp.o CMakeFiles/server.dir/route_nodes.cpp.o CMakeFiles/server.dir/routes.cpp.o CMakeFiles/server.dir/shared.cpp.o CMakeFiles/server.dir/utils.cpp.o | /usr/lib/x86_64-linux-gnu/libz.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so pugixml/libpugixml.a || pugixml/libpugixml.a
   FLAGS = -Wall -Wextra -g3
   LINK_LIBRARIES = /usr/lib/x86_64-linux-gnu/libz.so  /usr/lib/x86_64-linux-gnu/libssl.so  /usr/lib/x86_64-linux-gnu/libcrypto.so  pugixml/libpugixml.a
   OBJECT_DIR = CMakeFiles/server.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/server.dir/
   TARGET_FILE = server
-  TARGET_PDB = server.dbg
+  TARGET_PDB = server.pdb
 
 
 #############################################
@@ -525,11 +569,14 @@ build pugixml/ContinuousSubmit: phony pugixml/CMakeFiles/ContinuousSubmit
 build cmake_object_order_depends_target_pugixml-static: phony || .
 
 build pugixml/CMakeFiles/pugixml-static.dir/src/pugixml.cpp.o: CXX_COMPILER__pugixml-static_unscanned_Debug /home/tmysam/ds-pj/pugixml/src/pugixml.cpp || cmake_object_order_depends_target_pugixml-static
+  DEFINES = -DPUGIXML_COMPACT
   DEP_FILE = pugixml/CMakeFiles/pugixml-static.dir/src/pugixml.cpp.o.d
   FLAGS = -Wall -Wextra -g3 -std=gnu++23 -fPIC
   INCLUDES = -I/home/tmysam/ds-pj/pugixml/src
   OBJECT_DIR = pugixml/CMakeFiles/pugixml-static.dir
   OBJECT_FILE_DIR = pugixml/CMakeFiles/pugixml-static.dir/src
+  TARGET_COMPILE_PDB = pugixml/CMakeFiles/pugixml-static.dir/pugixml-static.pdb
+  TARGET_PDB = pugixml/libpugixml.pdb
 
 
 # =============================================================================
@@ -544,8 +591,9 @@ build pugixml/libpugixml.a: CXX_STATIC_LIBRARY_LINKER__pugixml-static_Debug pugi
   OBJECT_DIR = pugixml/CMakeFiles/pugixml-static.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = pugixml/CMakeFiles/pugixml-static.dir/pugixml-static.pdb
   TARGET_FILE = pugixml/libpugixml.a
-  TARGET_PDB = pugixml.a.dbg
+  TARGET_PDB = pugixml/libpugixml.pdb
 
 
 #############################################
@@ -1000,14 +1048,14 @@ build pugixml/all: phony pugixml/libpugixml.a
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /usr/lib/cmake/Crow/CrowConfig.cmake /usr/lib/cmake/Crow/CrowTargets.cmake /usr/lib/cmake/Crow/Findasio.cmake /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfigVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.83.0/boost_headers-config-version.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.83.0/boost_headers-config.cmake /usr/local/lib/cmake/unordered_dense/unordered_denseConfig.cmake /usr/local/lib/cmake/unordered_dense/unordered_denseConfigVersion.cmake /usr/local/lib/cmake/unordered_dense/unordered_denseTargets.cmake /usr/share/cmake-3.30/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/share/cmake-3.30/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.30/Modules/CMakeDependentOption.cmake /usr/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake /usr/share/cmake-3.30/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.30/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.30/Modules/CTest.cmake /usr/share/cmake-3.30/Modules/CTestTargets.cmake /usr/share/cmake-3.30/Modules/CTestUseLaunchers.cmake /usr/share/cmake-3.30/Modules/CheckCXXSourceCompiles.cmake /usr/share/cmake-3.30/Modules/CheckIncludeFileCXX.cmake /usr/share/cmake-3.30/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.30/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.30/Modules/Compiler/GNU.cmake /usr/share/cmake-3.30/Modules/DartConfiguration.tcl.in /usr/share/cmake-3.30/Modules/ExternalProject.cmake /usr/share/cmake-3.30/Modules/ExternalProject/shared_internal_commands.cmake /usr/share/cmake-3.30/Modules/FindOpenSSL.cmake /usr/share/cmake-3.30/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.30/Modules/FindPackageMessage.cmake /usr/share/cmake-3.30/Modules/FindPkgConfig.cmake /usr/share/cmake-3.30/Modules/FindThreads.cmake /usr/share/cmake-3.30/Modules/FindZLIB.cmake /usr/share/cmake-3.30/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.30/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.30/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.30/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake-3.30/Modules/Platform/Linux.cmake /usr/share/cmake-3.30/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.30/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake-3.30/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.30.2/CMakeCXXCompiler.cmake CMakeFiles/3.30.2/CMakeSystem.cmake CMakeLists.txt nlohmann_json/CMakeLists.txt nlohmann_json/cmake/config.cmake.in nlohmann_json/cmake/nlohmann_jsonConfigVersion.cmake.in nlohmann_json/cmake/pkg-config.pc.in pugixml/CMakeLists.txt pugixml/scripts/pugixml-config.cmake.in pugixml/scripts/pugixml.pc.in
+build build.ninja: RERUN_CMAKE | /usr/lib/cmake/Crow/CrowConfig.cmake /usr/lib/cmake/Crow/CrowTargets.cmake /usr/lib/cmake/Crow/Findasio.cmake /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfigVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.83.0/boost_headers-config-version.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.83.0/boost_headers-config.cmake /usr/local/lib/cmake/unordered_dense/unordered_denseConfig.cmake /usr/local/lib/cmake/unordered_dense/unordered_denseConfigVersion.cmake /usr/local/lib/cmake/unordered_dense/unordered_denseTargets.cmake /usr/share/cmake-3.30/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/share/cmake-3.30/Modules/CMakeCXXCompiler.cmake.in /usr/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp /usr/share/cmake-3.30/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.30/Modules/CMakeCompilerIdDetection.cmake /usr/share/cmake-3.30/Modules/CMakeDependentOption.cmake /usr/share/cmake-3.30/Modules/CMakeDetermineCXXCompiler.cmake /usr/share/cmake-3.30/Modules/CMakeDetermineCompiler.cmake /usr/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake /usr/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake /usr/share/cmake-3.30/Modules/CMakeDetermineCompilerSupport.cmake /usr/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake /usr/share/cmake-3.30/Modules/CMakeFindBinUtils.cmake /usr/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake /usr/share/cmake-3.30/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.30/Modules/CMakeNinjaFindMake.cmake /usr/share/cmake-3.30/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.30/Modules/CMakeParseImplicitIncludeInfo.cmake /usr/share/cmake-3.30/Modules/CMakeParseImplicitLinkInfo.cmake /usr/share/cmake-3.30/Modules/CMakeParseLibraryArchitecture.cmake /usr/share/cmake-3.30/Modules/CMakeSystem.cmake.in /usr/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake /usr/share/cmake-3.30/Modules/CMakeTestCompilerCommon.cmake /usr/share/cmake-3.30/Modules/CTest.cmake /usr/share/cmake-3.30/Modules/CTestTargets.cmake /usr/share/cmake-3.30/Modules/CTestUseLaunchers.cmake /usr/share/cmake-3.30/Modules/CheckCXXSourceCompiles.cmake /usr/share/cmake-3.30/Modules/CheckIncludeFileCXX.cmake /usr/share/cmake-3.30/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.30/Modules/Compiler/ADSP-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/ARMCC-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/ARMClang-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/AppleClang-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Borland-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.30/Modules/Compiler/Clang-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /usr/share/cmake-3.30/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Cray-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/CrayClang-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/GHS-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.30/Modules/Compiler/GNU-FindBinUtils.cmake /usr/share/cmake-3.30/Modules/Compiler/GNU.cmake /usr/share/cmake-3.30/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/IAR-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /usr/share/cmake-3.30/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Intel-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/MSVC-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/NVHPC-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/OrangeC-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/PGI-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/PathScale-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/SCO-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/TI-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/TIClang-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Tasking-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Watcom-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/DartConfiguration.tcl.in /usr/share/cmake-3.30/Modules/ExternalProject.cmake /usr/share/cmake-3.30/Modules/ExternalProject/shared_internal_commands.cmake /usr/share/cmake-3.30/Modules/FindOpenSSL.cmake /usr/share/cmake-3.30/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.30/Modules/FindPackageMessage.cmake /usr/share/cmake-3.30/Modules/FindPkgConfig.cmake /usr/share/cmake-3.30/Modules/FindThreads.cmake /usr/share/cmake-3.30/Modules/FindZLIB.cmake /usr/share/cmake-3.30/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.30/Modules/Internal/CMakeDetermineLinkerId.cmake /usr/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.30/Modules/Internal/FeatureTesting.cmake /usr/share/cmake-3.30/Modules/Platform/Linux-Determine-CXX.cmake /usr/share/cmake-3.30/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.30/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.30/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake-3.30/Modules/Platform/Linux.cmake /usr/share/cmake-3.30/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.30/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake-3.30/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.30.2/CMakeCXXCompiler.cmake CMakeFiles/3.30.2/CMakeSystem.cmake CMakeLists.txt nlohmann_json/CMakeLists.txt nlohmann_json/cmake/config.cmake.in nlohmann_json/cmake/nlohmann_jsonConfigVersion.cmake.in nlohmann_json/cmake/pkg-config.pc.in pugixml/CMakeLists.txt pugixml/scripts/pugixml-config.cmake.in pugixml/scripts/pugixml.pc.in
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /usr/lib/cmake/Crow/CrowConfig.cmake /usr/lib/cmake/Crow/CrowTargets.cmake /usr/lib/cmake/Crow/Findasio.cmake /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfigVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.83.0/boost_headers-config-version.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.83.0/boost_headers-config.cmake /usr/local/lib/cmake/unordered_dense/unordered_denseConfig.cmake /usr/local/lib/cmake/unordered_dense/unordered_denseConfigVersion.cmake /usr/local/lib/cmake/unordered_dense/unordered_denseTargets.cmake /usr/share/cmake-3.30/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/share/cmake-3.30/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.30/Modules/CMakeDependentOption.cmake /usr/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake /usr/share/cmake-3.30/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.30/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.30/Modules/CTest.cmake /usr/share/cmake-3.30/Modules/CTestTargets.cmake /usr/share/cmake-3.30/Modules/CTestUseLaunchers.cmake /usr/share/cmake-3.30/Modules/CheckCXXSourceCompiles.cmake /usr/share/cmake-3.30/Modules/CheckIncludeFileCXX.cmake /usr/share/cmake-3.30/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.30/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.30/Modules/Compiler/GNU.cmake /usr/share/cmake-3.30/Modules/DartConfiguration.tcl.in /usr/share/cmake-3.30/Modules/ExternalProject.cmake /usr/share/cmake-3.30/Modules/ExternalProject/shared_internal_commands.cmake /usr/share/cmake-3.30/Modules/FindOpenSSL.cmake /usr/share/cmake-3.30/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.30/Modules/FindPackageMessage.cmake /usr/share/cmake-3.30/Modules/FindPkgConfig.cmake /usr/share/cmake-3.30/Modules/FindThreads.cmake /usr/share/cmake-3.30/Modules/FindZLIB.cmake /usr/share/cmake-3.30/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.30/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.30/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.30/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake-3.30/Modules/Platform/Linux.cmake /usr/share/cmake-3.30/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.30/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake-3.30/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.30.2/CMakeCXXCompiler.cmake CMakeFiles/3.30.2/CMakeSystem.cmake CMakeLists.txt nlohmann_json/CMakeLists.txt nlohmann_json/cmake/config.cmake.in nlohmann_json/cmake/nlohmann_jsonConfigVersion.cmake.in nlohmann_json/cmake/pkg-config.pc.in pugixml/CMakeLists.txt pugixml/scripts/pugixml-config.cmake.in pugixml/scripts/pugixml.pc.in: phony
+build /usr/lib/cmake/Crow/CrowConfig.cmake /usr/lib/cmake/Crow/CrowTargets.cmake /usr/lib/cmake/Crow/Findasio.cmake /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfig.cmake /usr/lib/x86_64-linux-gnu/cmake/Boost-1.83.0/BoostConfigVersion.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.83.0/boost_headers-config-version.cmake /usr/lib/x86_64-linux-gnu/cmake/boost_headers-1.83.0/boost_headers-config.cmake /usr/local/lib/cmake/unordered_dense/unordered_denseConfig.cmake /usr/local/lib/cmake/unordered_dense/unordered_denseConfigVersion.cmake /usr/local/lib/cmake/unordered_dense/unordered_denseTargets.cmake /usr/share/cmake-3.30/Modules/BasicConfigVersion-SameMajorVersion.cmake.in /usr/share/cmake-3.30/Modules/CMakeCXXCompiler.cmake.in /usr/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp /usr/share/cmake-3.30/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.30/Modules/CMakeCompilerIdDetection.cmake /usr/share/cmake-3.30/Modules/CMakeDependentOption.cmake /usr/share/cmake-3.30/Modules/CMakeDetermineCXXCompiler.cmake /usr/share/cmake-3.30/Modules/CMakeDetermineCompiler.cmake /usr/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake /usr/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake /usr/share/cmake-3.30/Modules/CMakeDetermineCompilerSupport.cmake /usr/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake /usr/share/cmake-3.30/Modules/CMakeFindBinUtils.cmake /usr/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake /usr/share/cmake-3.30/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.30/Modules/CMakeNinjaFindMake.cmake /usr/share/cmake-3.30/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.30/Modules/CMakeParseImplicitIncludeInfo.cmake /usr/share/cmake-3.30/Modules/CMakeParseImplicitLinkInfo.cmake /usr/share/cmake-3.30/Modules/CMakeParseLibraryArchitecture.cmake /usr/share/cmake-3.30/Modules/CMakeSystem.cmake.in /usr/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.30/Modules/CMakeTestCXXCompiler.cmake /usr/share/cmake-3.30/Modules/CMakeTestCompilerCommon.cmake /usr/share/cmake-3.30/Modules/CTest.cmake /usr/share/cmake-3.30/Modules/CTestTargets.cmake /usr/share/cmake-3.30/Modules/CTestUseLaunchers.cmake /usr/share/cmake-3.30/Modules/CheckCXXSourceCompiles.cmake /usr/share/cmake-3.30/Modules/CheckIncludeFileCXX.cmake /usr/share/cmake-3.30/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.30/Modules/Compiler/ADSP-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/ARMCC-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/ARMClang-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/AppleClang-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Borland-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.30/Modules/Compiler/Clang-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /usr/share/cmake-3.30/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Cray-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/CrayClang-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/GHS-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.30/Modules/Compiler/GNU-FindBinUtils.cmake /usr/share/cmake-3.30/Modules/Compiler/GNU.cmake /usr/share/cmake-3.30/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/IAR-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /usr/share/cmake-3.30/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Intel-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/MSVC-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/NVHPC-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/OrangeC-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/PGI-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/PathScale-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/SCO-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/TI-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/TIClang-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Tasking-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/Watcom-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /usr/share/cmake-3.30/Modules/DartConfiguration.tcl.in /usr/share/cmake-3.30/Modules/ExternalProject.cmake /usr/share/cmake-3.30/Modules/ExternalProject/shared_internal_commands.cmake /usr/share/cmake-3.30/Modules/FindOpenSSL.cmake /usr/share/cmake-3.30/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.30/Modules/FindPackageMessage.cmake /usr/share/cmake-3.30/Modules/FindPkgConfig.cmake /usr/share/cmake-3.30/Modules/FindThreads.cmake /usr/share/cmake-3.30/Modules/FindZLIB.cmake /usr/share/cmake-3.30/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.30/Modules/Internal/CMakeDetermineLinkerId.cmake /usr/share/cmake-3.30/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.30/Modules/Internal/FeatureTesting.cmake /usr/share/cmake-3.30/Modules/Platform/Linux-Determine-CXX.cmake /usr/share/cmake-3.30/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.30/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.30/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake-3.30/Modules/Platform/Linux.cmake /usr/share/cmake-3.30/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.30/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake-3.30/Modules/WriteBasicConfigVersionFile.cmake CMakeCache.txt CMakeFiles/3.30.2/CMakeCXXCompiler.cmake CMakeFiles/3.30.2/CMakeSystem.cmake CMakeLists.txt nlohmann_json/CMakeLists.txt nlohmann_json/cmake/config.cmake.in nlohmann_json/cmake/nlohmann_jsonConfigVersion.cmake.in nlohmann_json/cmake/pkg-config.pc.in pugixml/CMakeLists.txt pugixml/scripts/pugixml-config.cmake.in pugixml/scripts/pugixml.pc.in: phony
 
 
 #############################################

@@ -6,8 +6,19 @@ extern std::unordered_map<uint64_t, Node*> nodes;
 void init_route_find_path(crow::SimpleApp& app) {
     CROW_ROUTE(app, "/find_path")
     ([](const crow::request& req) {
+        //check if prefetch request
+        if (req.method == crow::HTTPMethod::OPTIONS) {
+            auto res = crow::response(200);
+            res.add_header("Access-Control-Allow-Origin", "*");
+            res.add_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
+            res.add_header("Access-Control-Allow-Headers", "Content-Type");
+            return res;
+        }
+        auto errres = crow::response(400);
+        errres.add_header("Access-Control-Allow-Origin", "*");
         bool heuristic = false;
         bool view_search_range = false;
+        zoneFilterMode zoneFilter = ALL;
         float heuristic_factor = 1.0;
         auto param = req.get_body_params();
         char* id_start = param.get("start");
@@ -16,6 +27,7 @@ void init_route_find_path(crow::SimpleApp& app) {
         char* heuristic_factor_str = param.get("heuristic_factor");
         char* view_search_range_str = param.get("view_search_range");
         char* key_str = param.get("key");
+        char* zoneWbList_str = param.get("zoonWbList");
         if (id_start == nullptr) {
             id_start = req.url_params.get("start");
         }
@@ -34,6 +46,27 @@ void init_route_find_path(crow::SimpleApp& app) {
         if (key_str == nullptr) {
             key_str = req.url_params.get("key");
         }
+        if (zoneWbList_str == nullptr) {
+            zoneWbList_str = req.url_params.get("zoneWBList");
+        }
+        Zone z_;
+        if (zoneWbList_str != nullptr) {
+            std::stod(zoneWbList_str) == 1 ? zoneFilter = WHITELIST : zoneFilter = BLACKLIST;
+            //param zone is base64 encoded json array [[lat, lon], [lat, lon], ...]
+            char* zone = param.get("zone");
+            if (zone == nullptr) {
+                zone = req.url_params.get("zone");
+            }
+            if (zone == nullptr) {
+                return errres;
+            }
+            std::string zone_str = Base64::decode(zone);
+            json j = json::parse(zone_str);
+            for (auto& p : j) {
+                z_.points.push_back({p[0], p[1]});
+            }
+        }
+
         if (heuristic_factor_str != nullptr) {
             heuristic = true;
             heuristic_factor = std::stof(heuristic_factor_str);
@@ -42,7 +75,7 @@ void init_route_find_path(crow::SimpleApp& app) {
             view_search_range = true;
         }
         if (id_start == nullptr || id_end == nullptr) {
-            return crow::response(400);
+            return errres;
         }
         int mtd = 0;
         if (method == nullptr) {
@@ -57,13 +90,17 @@ void init_route_find_path(crow::SimpleApp& app) {
         uint64_t start = std::stoull(id_start);
         uint64_t end = std::stoull(id_end);
         if (!nodes.contains(start) || !nodes.contains(end)) {
-            return crow::response(400);
+            return errres;
         }
         DijkstraPathFinder* dpf;
         if (heuristic) {
             //dpf = new HeuristicOptimizedDijkstraPathFinder(nodes[start], nodes[end], mtd, key, heuristic_factor);
             //use BidirectionalHODPF
-            dpf = new BidirectionalHODPF(nodes[start], nodes[end], mtd, key, heuristic_factor);
+            if (zoneFilter == ALL) {
+                dpf = new BidirectionalHODPF(nodes[start], nodes[end], mtd, key, heuristic_factor);
+            } else {
+                dpf = new ZonePathFinder(nodes[start], nodes[end], mtd, key, heuristic_factor, z_, zoneFilter);
+            }
         } else {
             dpf = new DijkstraPathFinder(nodes[start], nodes[end], mtd, key);
         }

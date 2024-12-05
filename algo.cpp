@@ -1,12 +1,37 @@
 #include "algo.h"
 
+bool Zone::isIn(coord p) {
+    int n = points.size();
+    int count = 0;
+    for (int i = 0; i < n; i++) {
+        coord p1 = points[i];
+        coord p2 = points[(i + 1) % n];
+        if (p1.y == p2.y) {
+            if (p.y == p1.y) {
+                if (std::min(p1.x, p2.x) <= p.x && p.x <= std::max(p1.x, p2.x)) {
+                    return true;
+                }
+            }
+            continue;
+        }
+        if (p.y < std::min(p1.y, p2.y) || p.y > std::max(p1.y, p2.y)) {
+            continue;
+        }
+        float x = (p.y - p1.y) * (p2.x - p1.x) / (p2.y - p1.y) + p1.x;
+        if (x > p.x) {
+            count++;
+        }
+    }
+    return count % 2 == 1;
+}
+
 DijkstraPathFinder::DijkstraPathFinder(Node* start, Node* end, int method, int key) : start(start), end(end), found(false), distance(1e18), travel_time(1e18), method(method), key(key) {
     pq.reserve(1000);
     details_map.reserve(1000);
     visited_nodes.reserve(1000);
     path.reserve(1000);
 }
-std::vector<ComputedEdge*> DijkstraPathFinder::get_path() {
+auto DijkstraPathFinder::get_path() -> std::vector<ComputedEdge*> {
     return path;
 }
 float DijkstraPathFinder::get_distance() {
@@ -16,15 +41,15 @@ float DijkstraPathFinder::get_travel_time() {
     return travel_time;
 }
 
-ankerl::unordered_dense::set<Node*, ankerl::unordered_dense::hash<Node*>> DijkstraPathFinder::get_visited_nodes() {
+auto DijkstraPathFinder::get_visited_nodes() -> ankerl::unordered_dense::set<Node*, ankerl::unordered_dense::hash<Node*>> {
     return visited_nodes;
 }
 
-std::vector<Node*> DijkstraPathFinder::get_convex_hull_of_visited_nodes() {
+auto DijkstraPathFinder::get_convex_hull_of_visited_nodes() -> std::vector<Node*> {
     return get_convex_hull_of(std::vector<Node*>(visited_nodes.begin(), visited_nodes.end()));
 }
 
-std::vector<Node*> DijkstraPathFinder::get_convex_hull_of(std::vector<Node*> v_nodes_unsorted) {
+auto DijkstraPathFinder::get_convex_hull_of(std::vector<Node*> v_nodes_unsorted) -> std::vector<Node*> {
     std::vector<Node*> v_nodes_sorted;
     for (auto node : v_nodes_unsorted) {
         v_nodes_sorted.push_back(node);
@@ -309,10 +334,131 @@ void BidirectionalHODPF::find_path() {
     }
 }
 
-ankerl::unordered_dense::set<Node*, ankerl::unordered_dense::hash<Node*>> BidirectionalHODPF::get_visited_nodes_end() {
+auto BidirectionalHODPF::get_visited_nodes_end() -> ankerl::unordered_dense::set<Node*, ankerl::unordered_dense::hash<Node*>> {
     return visited_nodes_end;
 }
 
-std::vector<Node*> BidirectionalHODPF::get_convex_hull_of_visited_nodes_end() {
+auto BidirectionalHODPF::get_convex_hull_of_visited_nodes_end() -> std::vector<Node*> {
     return get_convex_hull_of(std::vector<Node*>(visited_nodes_end.begin(), visited_nodes_end.end()));
+}
+
+ZonePathFinder::ZonePathFinder(Node* start, Node* end, int method, int key, float heuristicFactor, Zone zone, zoneFilterMode mode) : BidirectionalHODPF(start, end, method, key, heuristicFactor), zone_(zone), mode_(mode) {}
+
+void ZonePathFinder::find_path() {
+    avgSpeed = get_avg_speed(method);
+    details_map[start] = {0, nullptr, nullptr};
+    details_map_end[end] = {0, nullptr, nullptr};
+    pq_heuristic.push({0, start, 0});
+    pq_heuristic_end.push({0, end, 0});
+    int i = 0;
+    Node* middle = nullptr;
+    while (!pq_heuristic.empty() && !pq_heuristic_end.empty()) {
+        i++;
+        if (i & BATCH_SIZE_MASK) {
+            Node* current = pq_heuristic.top().second;
+            float cur_dis = pq_heuristic.top().third;
+            pq_heuristic.pop();
+            if (visited_nodes.contains(current)) {
+                continue;
+            }
+            visited_nodes.insert(current);
+            [[unlikely]]
+            if (current == end || visited_nodes_end.contains(current)) {
+                found = true;
+                middle = current;
+                break;
+            }
+            for (auto& e : current->computed_edges) {
+                Node* next = e->end;
+                if (visited_nodes.contains(next)) {
+                    continue;
+                }
+                if (!e->vis(method)) {
+                    continue;
+                }
+                if (mode_ == zoneFilterMode::BLACKLIST) {
+                    if (zone_.isIn({next->lat, next->lon})) {
+                        continue;
+                    }
+                } else if (mode_ == zoneFilterMode::WHITELIST) {
+                    if (!zone_.isIn({next->lat, next->lon})) {
+                        continue;
+                    }
+                }
+                float new_distance = cur_dis + (key == 0 ? e->getTravelTimeF(method) : e->getDistanceF(method));
+                if (!details_map.contains(next) || new_distance < details_map[next].distance) {
+                    details_map[next] = {new_distance, current, e};
+                    if (key == 0)
+                        pq_heuristic.push({get_heuristic_time(new_distance, next, end), next, new_distance});
+                    else
+                        pq_heuristic.push({get_heuristic_distance(new_distance, next, end), next, new_distance});
+                }
+            }
+        } else {
+            Node* current = pq_heuristic_end.top().second;
+            float cur_dis = pq_heuristic_end.top().third;
+            pq_heuristic_end.pop();
+            if (visited_nodes_end.contains(current)) {
+                continue;
+            }
+            visited_nodes_end.insert(current);
+            [[unlikely]]
+            if (current == start || visited_nodes.contains(current)) {
+                found = true;
+                middle = current;
+                break;
+            }
+            for (auto& e : current->computed_edges_end) {
+                Node* next = e->start;
+                if (visited_nodes_end.contains(next)) {
+                    continue;
+                }
+                if (!e->vis(method)) {
+                    continue;
+                }
+                if (mode_ == zoneFilterMode::BLACKLIST) {
+                    if (zone_.isIn({next->lat, next->lon})) {
+                        continue;
+                    }
+                } else if (mode_ == zoneFilterMode::WHITELIST) {
+                    if (!zone_.isIn({next->lat, next->lon})) {
+                        continue;
+                    }
+                }
+                float new_distance = cur_dis + (key == 0 ? e->getTravelTimeF(method) : e->getDistanceF(method));
+                if (!details_map_end.contains(next) || new_distance < details_map_end[next].distance) {
+                    details_map_end[next] = {new_distance, current, e};
+                    if (key == 0)
+                        pq_heuristic_end.push({get_heuristic_time(new_distance, next, start), next, new_distance});
+                    else
+                        pq_heuristic_end.push({get_heuristic_distance(new_distance, next, start), next, new_distance});
+                }
+            }
+        }
+    }
+
+    if (found) {
+        if (middle == nullptr) {
+            //this should not happen
+            return;
+        }
+        float dis = 0;
+        travel_time = details_map[middle].distance + details_map_end[middle].distance;
+        Node* current = middle;
+        while (current != start) {
+            Node* parent = details_map[current].parent;
+            path.push_back(details_map[current].edge);
+            dis += details_map[current].edge->distance;
+            current = parent;
+        }
+        std::reverse(path.begin(), path.end());
+        current = middle;
+        while (current != end) {
+            Node* parent = details_map_end[current].parent;
+            path.push_back(details_map_end[current].edge);
+            dis += details_map_end[current].edge->distance;
+            current = parent;
+        }
+        distance = dis;
+    }
 }

@@ -1,18 +1,20 @@
 #ifndef DATA_LOADER_H
 #define DATA_LOADER_H
+#include <cstring>
 #include <iostream>
 #include <fstream>
 #include <print>
-#include "pugixml.hpp"
 #include <unordered_map>
 #include <unordered_set>
+
+#include "nlohmann/json.hpp"
+#include "pugixml.hpp"
+
 #include "node.h"
 #include "way.h"
 #include "quad_tree.h"
 #include "edge.h"
-#include "cstring"
 #include "utils.h"
-#include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
 
