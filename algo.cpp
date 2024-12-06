@@ -4,8 +4,8 @@ bool Zone::isIn(coord p) {
     int n = points.size();
     int count = 0;
     for (int i = 0; i < n; i++) {
-        coord p1 = points[i];
-        coord p2 = points[(i + 1) % n];
+        const coord& p1 = points[i];
+        const coord& p2 = points[(i + 1) % n];
         if (p1.y == p2.y) {
             if (p.y == p1.y) {
                 if (std::min(p1.x, p2.x) <= p.x && p.x <= std::max(p1.x, p2.x)) {
@@ -17,7 +17,7 @@ bool Zone::isIn(coord p) {
         if (p.y < std::min(p1.y, p2.y) || p.y > std::max(p1.y, p2.y)) {
             continue;
         }
-        float x = (p.y - p1.y) * (p2.x - p1.x) / (p2.y - p1.y) + p1.x;
+        double x = (p.y - p1.y) * (p2.x - p1.x) / (p2.y - p1.y) + p1.x;
         if (x > p.x) {
             count++;
         }
@@ -257,7 +257,7 @@ void BidirectionalHODPF::find_path() {
                 middle = current;
                 break;
             }
-            for (auto& e : current->computed_edges) {
+            for (const auto& e : current->computed_edges) {
                 Node* next = e->end;
                 if (visited_nodes.contains(next)) {
                     continue;
@@ -265,7 +265,9 @@ void BidirectionalHODPF::find_path() {
                 if (!e->vis(method)) {
                     continue;
                 }
-                float new_distance = cur_dis + (key == 0 ? e->getTravelTimeF(method) : e->getDistanceF(method));
+                float ddis = key == 0 ? e->getTravelTimeF(method) : e->getDistanceF(method);
+                if (!e->lastGetSuccess) continue;
+                float new_distance = cur_dis + ddis;
                 if (!details_map.contains(next) || new_distance < details_map[next].distance) {
                     details_map[next] = {new_distance, current, e};
                     if (key == 0)
@@ -288,15 +290,14 @@ void BidirectionalHODPF::find_path() {
                 middle = current;
                 break;
             }
-            for (auto& e : current->computed_edges_end) {
+            for (const auto& e : current->computed_edges_end) {
                 Node* next = e->start;
                 if (visited_nodes_end.contains(next)) {
                     continue;
                 }
-                if (!e->vis(method)) {
-                    continue;
-                }
-                float new_distance = cur_dis + (key == 0 ? e->getTravelTimeF(method) : e->getDistanceF(method));
+                float ddis = key == 0 ? e->getTravelTimeF(method) : e->getDistanceF(method);
+                if (!e->lastGetSuccess) continue;
+                float new_distance = cur_dis + ddis;
                 if (!details_map_end.contains(next) || new_distance < details_map_end[next].distance) {
                     details_map_end[next] = {new_distance, current, e};
                     if (key == 0)

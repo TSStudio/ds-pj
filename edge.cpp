@@ -52,29 +52,35 @@ bool ComputedEdge::vis(int method) noexcept(true) {
 double ComputedEdge::getTravelTime(int method) noexcept(true) {
     methodUsed = 1;
     [[unlikely]]
-    if (forceTime > 1)
+    if (forceTime > 1) {
+        lastGetSuccess = true;
         return forceTime;
+    }
     double speed = 0;  //m/s
     [[likely]]
     if (method & 4 && allow.car) {
         speed = 0.9 * speed_limit;
         methodUsed = 4;
-        return distance / speed;
+        lastGetSuccess = true;
+        return distance * (1.0 / speed);
     }
     if (method & 16 && allow.subway) {
         speed = 0.5 * speed_limit;
         methodUsed = 16;
-        return distance / speed;
+        lastGetSuccess = true;
+        return distance * (1.0 / speed);
     }
     if (method & 8 && allow.bus) {
         speed = 4.9;
         methodUsed = 8;
-        return distance / speed;
+        lastGetSuccess = true;
+        return distance * (1.0 / speed);
     }
     if (method & 2 && allow.bicycle) {
         speed = 3;
         methodUsed = 2;
-        return distance / speed;
+        lastGetSuccess = true;
+        return distance * (1.0 / speed);
     }
     if (method & 1 && allow.pedestrian) {
         if (method & 8)
@@ -82,37 +88,45 @@ double ComputedEdge::getTravelTime(int method) noexcept(true) {
         else
             speed = 1.2;
         methodUsed = 1;
-        return distance / speed;
+        lastGetSuccess = true;
+        return distance * (1.0 / speed);
     }
+    lastGetSuccess = false;
     return 1e18;
 }
 
 float ComputedEdge::getTravelTimeF(int method) noexcept(true) {
     methodUsed = 1;
     [[unlikely]]
-    if (forceTime > 1)
+    if (forceTime > 1) {
+        lastGetSuccess = true;
         return forceTime;
+    }
     float speed = 0;  //m/s
     [[likely]]
     if (method & 4 && allow.car) {
         speed = 0.9 * speed_limit;
         methodUsed = 4;
-        return distance / speed;
+        lastGetSuccess = true;
+        return distance * (1.0 / speed);
     }
     if (method & 16 && allow.subway) {
         speed = 0.5 * speed_limit;
         methodUsed = 16;
-        return distance / speed;
+        lastGetSuccess = true;
+        return distance * (1.0 / speed);
     }
     if (method & 8 && allow.bus) {
         speed = 4.9;
         methodUsed = 8;
-        return distance / speed;
+        lastGetSuccess = true;
+        return distance * (1.0 / speed);
     }
     if (method & 2 && allow.bicycle) {
         speed = 3;
         methodUsed = 2;
-        return distance / speed;
+        lastGetSuccess = true;
+        return distance * (1.0 / speed);
     }
     if (method & 1 && allow.pedestrian) {
         if (method & 8)
@@ -120,17 +134,27 @@ float ComputedEdge::getTravelTimeF(int method) noexcept(true) {
         else
             speed = 1.2;
         methodUsed = 1;
-        return distance / speed;
+        lastGetSuccess = true;
+        return distance * (1.0 / speed);
     }
+    lastGetSuccess = false;
     return 1e18;
 }
 
 double ComputedEdge::getDistance(int method) noexcept(true) {
-    if (vis(method)) return distance;
+    if (vis(method)) {
+        lastGetSuccess = true;
+        return distance;
+    }
+    lastGetSuccess = false;
     return 1e18;
 }
 float ComputedEdge::getDistanceF(int method) noexcept(true) {
-    if (vis(method)) return distance;
+    if (vis(method)) {
+        lastGetSuccess = true;
+        return distance;
+    }
+    lastGetSuccess = false;
     return 1e18;
 }
 

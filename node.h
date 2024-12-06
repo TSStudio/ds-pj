@@ -8,6 +8,10 @@
 #define PI_D 3.14159265358979323846
 #define PI_F 3.14159265358979323846f
 
+#define PI_DIV_180 0.0174532925199433L
+#define PI_DIV_180_D 0.0174532925199433
+#define PI_DIV_180_F 0.0174532925199433f
+
 #include <cstdint>
 #include <cmath>
 #include <vector>

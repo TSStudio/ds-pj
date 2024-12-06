@@ -159,6 +159,7 @@ public:
     double distance;
     float distance_f;
     int methodUsed;
+    bool lastGetSuccess = false;
     ComputedEdge(NodePtr start, NodePtr end, allowance allow, double speed_limit, char *name, double forceTime = 0);
     double getTravelTime(int method) noexcept(true);  //bit 0: pedestrian, bit 1: bicycle, bit 2: car, bit 3: bus, bit 4: subway
     float getTravelTimeF(int method) noexcept(true);
