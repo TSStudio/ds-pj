@@ -220,6 +220,25 @@ build CMakeFiles/server.dir/route_nodes.cpp.o: CXX_COMPILER__server_scanned_Debu
   OBJECT_FILE_DIR = CMakeFiles/server.dir
   dyndep = CMakeFiles/server.dir/CXX.dd
 
+build CMakeFiles/server.dir/route_salesman.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/ds-pj/route_salesman.cpp || cmake_object_order_depends_target_server
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
+  DEP_FILE = CMakeFiles/server.dir/route_salesman.cpp.o.ddi.d
+  DYNDEP_INTERMEDIATE_FILE = CMakeFiles/server.dir/route_salesman.cpp.o.ddi
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
+  INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
+  OBJ_FILE = CMakeFiles/server.dir/route_salesman.cpp.o
+  PREPROCESSED_OUTPUT_FILE = CMakeFiles/server.dir/route_salesman.cpp.o.ddi.i
+
+build CMakeFiles/server.dir/route_salesman.cpp.o: CXX_COMPILER__server_scanned_Debug /home/tmysam/ds-pj/route_salesman.cpp | CMakeFiles/server.dir/route_salesman.cpp.o.modmap || cmake_object_order_depends_target_server CMakeFiles/server.dir/CXX.dd
+  DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
+  DEP_FILE = CMakeFiles/server.dir/route_salesman.cpp.o.d
+  DYNDEP_MODULE_MAP_FILE = CMakeFiles/server.dir/route_salesman.cpp.o.modmap
+  FLAGS = -Wall -Wextra -g3 -std=gnu++23
+  INCLUDES = -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include
+  OBJECT_DIR = CMakeFiles/server.dir
+  OBJECT_FILE_DIR = CMakeFiles/server.dir
+  dyndep = CMakeFiles/server.dir/CXX.dd
+
 build CMakeFiles/server.dir/routes.cpp.o.ddi: CXX_SCAN__server_Debug /home/tmysam/ds-pj/routes.cpp || cmake_object_order_depends_target_server
   DEFINES = -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT
   DEP_FILE = CMakeFiles/server.dir/routes.cpp.o.ddi.d
@@ -277,7 +296,7 @@ build CMakeFiles/server.dir/utils.cpp.o: CXX_COMPILER__server_scanned_Debug /hom
   OBJECT_FILE_DIR = CMakeFiles/server.dir
   dyndep = CMakeFiles/server.dir/CXX.dd
 
-build CMakeFiles/server.dir/CXX.dd | /home/tmysam/ds-pj/CMakeFiles/server.dir/CXXModules.json CMakeFiles/server.dir/algo.cpp.o.modmap CMakeFiles/server.dir/data_loader.cpp.o.modmap CMakeFiles/server.dir/edge.cpp.o.modmap CMakeFiles/server.dir/main.cpp.o.modmap CMakeFiles/server.dir/node.cpp.o.modmap CMakeFiles/server.dir/quad_tree.cpp.o.modmap CMakeFiles/server.dir/route_find_nearest_node.cpp.o.modmap CMakeFiles/server.dir/route_find_path.cpp.o.modmap CMakeFiles/server.dir/route_nodes.cpp.o.modmap CMakeFiles/server.dir/routes.cpp.o.modmap CMakeFiles/server.dir/shared.cpp.o.modmap CMakeFiles/server.dir/utils.cpp.o.modmap: CXX_DYNDEP__server_Debug CMakeFiles/server.dir/algo.cpp.o.ddi CMakeFiles/server.dir/data_loader.cpp.o.ddi CMakeFiles/server.dir/edge.cpp.o.ddi CMakeFiles/server.dir/main.cpp.o.ddi CMakeFiles/server.dir/node.cpp.o.ddi CMakeFiles/server.dir/quad_tree.cpp.o.ddi CMakeFiles/server.dir/route_find_nearest_node.cpp.o.ddi CMakeFiles/server.dir/route_find_path.cpp.o.ddi CMakeFiles/server.dir/route_nodes.cpp.o.ddi CMakeFiles/server.dir/routes.cpp.o.ddi CMakeFiles/server.dir/shared.cpp.o.ddi CMakeFiles/server.dir/utils.cpp.o.ddi | /home/tmysam/ds-pj/CMakeFiles/server.dir/CXXDependInfo.json
+build CMakeFiles/server.dir/CXX.dd | /home/tmysam/ds-pj/CMakeFiles/server.dir/CXXModules.json CMakeFiles/server.dir/algo.cpp.o.modmap CMakeFiles/server.dir/data_loader.cpp.o.modmap CMakeFiles/server.dir/edge.cpp.o.modmap CMakeFiles/server.dir/main.cpp.o.modmap CMakeFiles/server.dir/node.cpp.o.modmap CMakeFiles/server.dir/quad_tree.cpp.o.modmap CMakeFiles/server.dir/route_find_nearest_node.cpp.o.modmap CMakeFiles/server.dir/route_find_path.cpp.o.modmap CMakeFiles/server.dir/route_nodes.cpp.o.modmap CMakeFiles/server.dir/route_salesman.cpp.o.modmap CMakeFiles/server.dir/routes.cpp.o.modmap CMakeFiles/server.dir/shared.cpp.o.modmap CMakeFiles/server.dir/utils.cpp.o.modmap: CXX_DYNDEP__server_Debug CMakeFiles/server.dir/algo.cpp.o.ddi CMakeFiles/server.dir/data_loader.cpp.o.ddi CMakeFiles/server.dir/edge.cpp.o.ddi CMakeFiles/server.dir/main.cpp.o.ddi CMakeFiles/server.dir/node.cpp.o.ddi CMakeFiles/server.dir/quad_tree.cpp.o.ddi CMakeFiles/server.dir/route_find_nearest_node.cpp.o.ddi CMakeFiles/server.dir/route_find_path.cpp.o.ddi CMakeFiles/server.dir/route_nodes.cpp.o.ddi CMakeFiles/server.dir/route_salesman.cpp.o.ddi CMakeFiles/server.dir/routes.cpp.o.ddi CMakeFiles/server.dir/shared.cpp.o.ddi CMakeFiles/server.dir/utils.cpp.o.ddi | /home/tmysam/ds-pj/CMakeFiles/server.dir/CXXDependInfo.json
 
 
 # =============================================================================
@@ -287,7 +306,7 @@ build CMakeFiles/server.dir/CXX.dd | /home/tmysam/ds-pj/CMakeFiles/server.dir/CX
 #############################################
 # Link the executable server
 
-build server: CXX_EXECUTABLE_LINKER__server_Debug CMakeFiles/server.dir/algo.cpp.o CMakeFiles/server.dir/data_loader.cpp.o CMakeFiles/server.dir/edge.cpp.o CMakeFiles/server.dir/main.cpp.o CMakeFiles/server.dir/node.cpp.o CMakeFiles/server.dir/quad_tree.cpp.o CMakeFiles/server.dir/route_find_nearest_node.cpp.o CMakeFiles/server.dir/route_find_path.cpp.o CMakeFiles/server.dir/route_nodes.cpp.o CMakeFiles/server.dir/routes.cpp.o CMakeFiles/server.dir/shared.cpp.o CMakeFiles/server.dir/utils.cpp.o | /usr/lib/x86_64-linux-gnu/libz.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so pugixml/libpugixml.a || pugixml/libpugixml.a
+build server: CXX_EXECUTABLE_LINKER__server_Debug CMakeFiles/server.dir/algo.cpp.o CMakeFiles/server.dir/data_loader.cpp.o CMakeFiles/server.dir/edge.cpp.o CMakeFiles/server.dir/main.cpp.o CMakeFiles/server.dir/node.cpp.o CMakeFiles/server.dir/quad_tree.cpp.o CMakeFiles/server.dir/route_find_nearest_node.cpp.o CMakeFiles/server.dir/route_find_path.cpp.o CMakeFiles/server.dir/route_nodes.cpp.o CMakeFiles/server.dir/route_salesman.cpp.o CMakeFiles/server.dir/routes.cpp.o CMakeFiles/server.dir/shared.cpp.o CMakeFiles/server.dir/utils.cpp.o | /usr/lib/x86_64-linux-gnu/libz.so /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib/x86_64-linux-gnu/libcrypto.so pugixml/libpugixml.a || pugixml/libpugixml.a
   FLAGS = -Wall -Wextra -g3
   LINK_LIBRARIES = /usr/lib/x86_64-linux-gnu/libz.so  /usr/lib/x86_64-linux-gnu/libssl.so  /usr/lib/x86_64-linux-gnu/libcrypto.so  pugixml/libpugixml.a
   OBJECT_DIR = CMakeFiles/server.dir

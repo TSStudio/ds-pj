@@ -463,3 +463,114 @@ void ZonePathFinder::find_path() {
         distance = dis;
     }
 }
+
+namespace Salesman {
+PathFinder::PathFinder(std::vector<Node*> nodes, int method, int key, float heuristicFactor) : nodes_(nodes), method_(method), key_(key), heuristicFactor_(heuristicFactor) {}
+
+std::vector<Result> PathFinder::find_path() {
+    for (auto begin : nodes_) {
+        for (auto end : nodes_) {
+            if (begin == end) continue;
+            if (result_map.contains({begin, end})) continue;
+            BidirectionalHODPF bidirectionalHODPF(begin, end, method_, key_, heuristicFactor_);
+            bidirectionalHODPF.find_path();
+            Result result;
+            result.distance_ = bidirectionalHODPF.get_distance();
+            result.path_ = bidirectionalHODPF.get_path();
+            result_map[{begin, end}] = result;
+        }
+    }
+    std::vector<Node*> Remaining;
+    for (int i = 1; i < static_cast<int>(nodes_.size()); i++) {
+        Remaining.push_back(nodes_[i]);
+    }
+    dfs(Remaining, 0, {nodes_[0]});
+    std::vector<Result> results;
+    for (auto it = current_optimal_result.begin(); it != current_optimal_result.end(); it++) {
+        Result result;
+        result.distance_ = 0;
+        if (it != current_optimal_result.end() - 1) {
+            result = result_map[{*it, *(it + 1)}];
+        } else {
+            result = result_map[{*it, current_optimal_result.front()}];
+        }
+        results.push_back(result);
+    }
+    return results;
+}
+
+std::vector<Result> PathFinder::find_path_no_return() {
+    for (auto begin : nodes_) {
+        for (auto end : nodes_) {
+            if (begin == end) continue;
+            if (result_map.contains({begin, end})) continue;
+            BidirectionalHODPF bidirectionalHODPF(begin, end, method_, key_, heuristicFactor_);
+            bidirectionalHODPF.find_path();
+            Result result;
+            result.distance_ = bidirectionalHODPF.get_distance();
+            result.path_ = bidirectionalHODPF.get_path();
+            result_map[{begin, end}] = result;
+        }
+    }
+    Node* dummy_node = new Node();
+    for (auto n : nodes_) {
+        result_map[{n, dummy_node}].distance_ = 0;
+        result_map[{dummy_node, n}].distance_ = 0;
+    }
+    std::vector<Node*> Remaining;
+    for (int i = 0; i < static_cast<int>(nodes_.size()); i++) {
+        Remaining.push_back(nodes_[i]);
+    }
+    dfs(Remaining, 0, {dummy_node});
+    //find the dummy node in the path
+    std::vector<Node*> rt;
+    auto it = std::find(current_optimal_result.begin(), current_optimal_result.end(), dummy_node);
+    for (auto i = it + 1; i != current_optimal_result.end(); i++) {
+        rt.push_back(*i);
+    }
+    for (auto i = current_optimal_result.begin(); i != it; i++) {
+        rt.push_back(*i);
+    }
+    std::vector<Result> results;
+    for (auto it = rt.begin(); it != rt.end(); it++) {
+        Result result;
+        result.distance_ = 0;
+        if (it != rt.end() - 1) {
+            result = result_map[{*it, *(it + 1)}];
+        } else {
+            result = result_map[{*it, rt.front()}];
+        }
+        results.push_back(result);
+    }
+    return results;
+}
+
+void PathFinder::dfs(std::vector<Node*> Remaining, float cur_distance, std::vector<Node*> cur_path) {
+    if (cur_distance > current_optimal_distance) return;
+    if (Remaining.empty()) {
+        //add the distance from the last node to the first node
+        cur_distance += result_map[{cur_path.back(), cur_path.front()}].distance_;
+        if (cur_distance < current_optimal_distance) {
+            current_optimal_distance = cur_distance;
+            current_optimal_result = cur_path;
+        }
+        return;
+    }
+    for (auto node : Remaining) {
+        std::vector<Node*> newRemaining;
+        for (auto n : Remaining) {
+            if (n != node) {
+                newRemaining.push_back(n);
+            }
+        }
+        std::vector<Node*> newCurPath = cur_path;
+        newCurPath.push_back(node);
+        float newCurDistance = cur_distance;
+        if (!cur_path.empty()) {
+            newCurDistance += result_map[{cur_path.back(), node}].distance_;
+        }
+        dfs(newRemaining, newCurDistance, newCurPath);
+    }
+}
+
+}  // namespace Salesman

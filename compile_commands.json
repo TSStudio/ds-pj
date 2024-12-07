@@ -55,6 +55,12 @@
 },
 {
   "directory": "/home/tmysam/ds-pj",
+  "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/route_salesman.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/route_salesman.cpp.o -c /home/tmysam/ds-pj/route_salesman.cpp",
+  "file": "/home/tmysam/ds-pj/route_salesman.cpp",
+  "output": "CMakeFiles/server.dir/route_salesman.cpp.o"
+},
+{
+  "directory": "/home/tmysam/ds-pj",
   "command": "/usr/bin/g++-14 -DASIO_STANDALONE -DCROW_ENABLE_COMPRESSION -DCROW_ENABLE_SSL -DPUGIXML_COMPACT -I/home/tmysam/ds-pj/pugixml/src -I/home/tmysam/ds-pj/nlohmann_json/include -Wall -Wextra -g3 -std=gnu++23 -fmodules-ts -fmodule-mapper=CMakeFiles/server.dir/routes.cpp.o.modmap -MD -fdeps-format=p1689r5 -x c++ -o CMakeFiles/server.dir/routes.cpp.o -c /home/tmysam/ds-pj/routes.cpp",
   "file": "/home/tmysam/ds-pj/routes.cpp",
   "output": "CMakeFiles/server.dir/routes.cpp.o"

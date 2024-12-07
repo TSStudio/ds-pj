@@ -140,4 +140,35 @@ public:
     virtual void find_path() override;
 };
 
+namespace Salesman {
+
+typedef std::vector<ComputedEdge*> Path;
+typedef std::pair<Node*, Node*> mat_key_type;
+
+class Result {
+public:
+    float distance_;
+    Path path_;
+};
+
+class PathFinder {
+private:
+    std::vector<Node*> nodes_;
+    int method_;
+    int key_;
+    float heuristicFactor_;
+    ankerl::unordered_dense::map<mat_key_type, Result, ankerl::unordered_dense::hash<mat_key_type>> result_map;
+
+    std::vector<Node*> current_optimal_result;
+    float current_optimal_distance = 1e13;
+
+    void dfs(std::vector<Node*> Remaining, float cur_distance, std::vector<Node*> cur_path);
+
+public:
+    PathFinder(std::vector<Node*> nodes, int method, int key, float heuristicFactor);
+    std::vector<Result> find_path();
+    std::vector<Result> find_path_no_return();
+};
+}  // namespace Salesman
+
 #endif
