@@ -96,6 +96,10 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             int _appear_level_min = 999;
             std::string _highway;
             char *_highway_ty = nullptr;
+            uint8_t _direction = 3;  // &1 = forward, &2 = backward
+            double _speed_limit = 0;
+            char *_name = nullptr;
+            bool _bicycle = true, _foot = true;
             for (pugi::xml_node _tag : _way.children("tag")) {
                 if (strcmp(_tag.attribute("k").as_string(), "highway") == 0) {
                     _highway = _tag.attribute("v").as_string();
@@ -103,11 +107,24 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                     _appear_level_min = EdgeUtil::getLevel(_tag.attribute("v").as_string());
                     _highway_ty = new char[strlen(_tag.attribute("v").as_string()) + 1];
                     strcpy(_highway_ty, _tag.attribute("v").as_string());
-                    break;
                 }
-            }
-            short _direction = 3;  // &1 = forward, &2 = backward
-            for (pugi::xml_node _tag : _way.children("tag")) {
+                if (strcmp(_tag.attribute("k").as_string(), "bicycle") == 0) {
+                    if (strcmp(_tag.attribute("v").as_string(), "no") == 0) {
+                        _bicycle = false;
+                    }
+                }
+                if (strcmp(_tag.attribute("k").as_string(), "foot") == 0) {
+                    if (strcmp(_tag.attribute("v").as_string(), "no") == 0) {
+                        _foot = false;
+                    }
+                }
+                if (strcmp(_tag.attribute("k").as_string(), "name") == 0) {
+                    _name = new char[strlen(_tag.attribute("v").as_string()) + 1];
+                    strcpy(_name, _tag.attribute("v").as_string());
+                }
+                if (strcmp(_tag.attribute("k").as_string(), "maxspeed") == 0) {
+                    _speed_limit = std::stod(_tag.attribute("v").as_string()) / 3.6;
+                }
                 if (strcmp(_tag.attribute("k").as_string(), "oneway") == 0) {
                     if (strcmp(_tag.attribute("v").as_string(), "yes") == 0) {
                         _direction = 1;
@@ -116,25 +133,16 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
                     }
                 }
             }
-            double _speed_limit = 0;
-            for (pugi::xml_node _tag : _way.children("tag")) {
-                if (strcmp(_tag.attribute("k").as_string(), "maxspeed") == 0) {
-                    _speed_limit = std::stod(_tag.attribute("v").as_string()) / 3.6;
-                    break;
-                }
-            }
-            char *_name = nullptr;
-            for (pugi::xml_node _tag : _way.children("tag")) {
-                if (strcmp(_tag.attribute("k").as_string(), "name") == 0) {
-                    _name = new char[strlen(_tag.attribute("v").as_string()) + 1];
-                    strcpy(_name, _tag.attribute("v").as_string());
-                    break;
-                }
-            }
             if (_speed_limit == 0) {
                 _speed_limit = EdgeUtil::getDefaultSpeedLimit(_highway);
             }
             allowance _allow = EdgeUtil::getAllowance(_highway);
+            if (!_bicycle) {
+                _allow.bicycle = false;
+            }
+            if (!_foot) {
+                _allow.pedestrian = false;
+            }
             NodePtr _start, _end, _rstart;
             uint64_t _nd_counter = 0;
             for (pugi::xml_node _nd : _way.children("nd")) {
