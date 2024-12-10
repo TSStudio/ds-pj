@@ -108,6 +108,10 @@ public:
     virtual void find_path() override;
 };
 
+/**
+ * @brief Class representing a bidirectional A* path finder
+ * @details This class is a subclass of HeuristicOptimizedDijkstraPathFinder, which means it will run with a order of "expected-"distance-increasing. It will run from both start and end node, and stop when the two paths meet.
+ */
 class BidirectionalHODPF : public HeuristicOptimizedDijkstraPathFinder {
 protected:
     boost::heap::priority_queue<heapElementHeuristic> pq_heuristic_end;
@@ -130,6 +134,10 @@ public:
     std::vector<Node*> get_convex_hull_of_visited_nodes_end();
 };
 
+/**
+ * @brief Class representing a zone path finder
+ * @details This class is a subclass of BidirectionalHODPF, which means it will run with a order of "expected-"distance-increasing. It will run from both start and end node, and stop when the two paths meet. It will also filter the nodes with the zone.
+ */
 class ZonePathFinder : public BidirectionalHODPF {
 private:
     Zone zone_;
@@ -140,14 +148,26 @@ public:
     virtual void find_path() override;
 };
 
+/**
+ * @brief Namespace representing a path finder for salesman problem
+ */
 namespace Salesman {
 
 typedef std::vector<ComputedEdge*> Path;
 typedef std::pair<Node*, Node*> mat_key_type;
 
+/**
+ * @brief Class representing a result of salesman problem
+ */
 class Result {
 public:
+    /**
+     * @brief distance of the path
+     */
     float distance_;
+    /**
+     * @brief path of the result
+     */
     Path path_;
 };
 

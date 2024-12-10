@@ -63,15 +63,26 @@ bool data_init_all(char **__filepath, unsigned int _file_count) {
             Node *_n = new Node(_id, _lat, _lon);
             _n->name = _name;
             nodes[_id] = _n;
+            bool _isStopPos = false;
+            bool _isTransportStop = false;
             for (pugi::xml_node _child : _node.children("tag")) {
                 if (strcmp(_child.attribute("k").as_string(), "railway") == 0 && strcmp(_child.attribute("v").as_string(), "stop") == 0) {
-                    _n->bus_stop = true;
-                    _transport_stops.insert(_n);
+                    _isStopPos = true;
+                    _isTransportStop = true;
                     break;
                 }
                 if (strcmp(_child.attribute("k").as_string(), "public_transport") == 0 && strcmp(_child.attribute("v").as_string(), "stop_position") == 0) {
-                    _n->bus_stop = true;
+                    _isStopPos = true;
                 }
+                if (strcmp(_child.attribute("k").as_string(), "subway") == 0 && strcmp(_child.attribute("v").as_string(), "yes") == 0) {
+                    _isTransportStop = true;
+                }
+            }
+            if (_isStopPos && _isTransportStop) {
+                _transport_stops.insert(_n);
+            }
+            if (_isStopPos) {
+                _n->bus_stop = true;
             }
             _node_counter++;
             if (_meta) _progress1.prog(_node_counter);
