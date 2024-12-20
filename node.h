@@ -32,7 +32,7 @@ public:
         long double lon1_rad = lon1 * PI / 180.0L;
         long double lat2_rad = lat2 * PI / 180.0L;
         long double lon2_rad = lon2 * PI / 180.0L;
-        return (double)(EARTH_RADIUS * acosl(sinl(lat1_rad) * sinl(lat2_rad) + cosl(lat1_rad) * cosl(lat2_rad) * cosl(lon1_rad - lon2_rad)));
+        return static_cast<double>(EARTH_RADIUS * acosl(sinl(lat1_rad) * sinl(lat2_rad) + cosl(lat1_rad) * cosl(lat2_rad) * cosl(lon1_rad - lon2_rad)));
     }
 };
 

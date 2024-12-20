@@ -70,7 +70,7 @@ auto DijkstraPathFinder::get_convex_hull_of(std::vector<Node*> v_nodes_unsorted)
 
     // CAUTION UNDEFINED BEHAVIOR
     // converting size_t to int
-    for (int i = 0; i < (int)n; ++i) {
+    for (int i = 0; i < static_cast<int>(n); ++i) {
         while (convex_hull.size() >= 2 && cross(convex_hull[convex_hull.size() - 2], convex_hull.back(), v_nodes_sorted[i]) <= 0) {
             convex_hull.pop_back();
         }
@@ -81,7 +81,7 @@ auto DijkstraPathFinder::get_convex_hull_of(std::vector<Node*> v_nodes_unsorted)
     for (int i = n - 1, t = convex_hull.size() + 1; i >= 0; --i) {
         // CAUTION UNDEFINED BEHAVIOR
         // converting size_t to int
-        while ((int)convex_hull.size() >= t && cross(convex_hull[convex_hull.size() - 2], convex_hull.back(), v_nodes_sorted[i]) <= 0) {
+        while (static_cast<int>(convex_hull.size()) >= t && cross(convex_hull[convex_hull.size() - 2], convex_hull.back(), v_nodes_sorted[i]) <= 0) {
             convex_hull.pop_back();
         }
         convex_hull.push_back(v_nodes_sorted[i]);

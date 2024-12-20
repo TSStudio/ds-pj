@@ -17,38 +17,38 @@ double Node::distance(const Node &other) const noexcept(true) {
     long double lon1 = lon * PI_DIV_180;
     long double lat2 = other.lat * PI_DIV_180;
     long double lon2 = other.lon * PI_DIV_180;
-    return (double)(EARTH_RADIUS * acosl(sinl(lat1) * sinl(lat2) + cosl(lat1) * cosl(lat2) * cosl(lon1 - lon2)));
+    return static_cast<double>(EARTH_RADIUS * acosl(sinl(lat1) * sinl(lat2) + cosl(lat1) * cosl(lat2) * cosl(lon1 - lon2)));
 }
 float Node::distanceF(const Node &other) const noexcept(true) {
     double lat1 = lat * PI_DIV_180_D;
     double lon1 = lon * PI_DIV_180_D;
     double lat2 = other.lat * PI_DIV_180_D;
     double lon2 = other.lon * PI_DIV_180_D;
-    return (float)(EARTH_RADIUS_D * acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(lon1 - lon2)));
+    return static_cast<float>(EARTH_RADIUS_D * acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(lon1 - lon2)));
 }
 float Node::approxDistanceF(const Node &other) const noexcept(true) {
     double dx = lon - other.lon;
     double dy = lat - other.lat;
-    return (float)(sqrt(dx * dx + dy * dy) * EARTH_RADIUS_D * PI_DIV_180_D);
+    return static_cast<float>(sqrt(dx * dx + dy * dy) * EARTH_RADIUS_D * PI_DIV_180_D);
 }
 double Node::distance(double lat, double lon) const noexcept(true) {
     long double lat1 = this->lat * PI_DIV_180;
     long double lon1 = this->lon * PI_DIV_180;
     long double lat2 = lat * PI_DIV_180;
     long double lon2 = lon * PI_DIV_180;
-    return (double)(EARTH_RADIUS * acosl(sinl(lat1) * sinl(lat2) + cosl(lat1) * cosl(lat2) * cosl(lon1 - lon2)));
+    return static_cast<double>(EARTH_RADIUS * acosl(sinl(lat1) * sinl(lat2) + cosl(lat1) * cosl(lat2) * cosl(lon1 - lon2)));
 }
 float Node::distanceF(double lat, double lon) const noexcept(true) {
     double lat1 = this->lat * PI_DIV_180_D;
     double lon1 = this->lon * PI_DIV_180_D;
     double lat2 = lat * PI_DIV_180_D;
     double lon2 = lon * PI_DIV_180_D;
-    return (float)(EARTH_RADIUS_D * acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(lon1 - lon2)));
+    return static_cast<float>(EARTH_RADIUS_D * acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(lon1 - lon2)));
 }
 float Node::approxDistanceF(double lat, double lon) const noexcept(true) {
     double dx = this->lon - lon;
     double dy = this->lat - lat;
-    return (float)(sqrt(dx * dx + dy * dy) * EARTH_RADIUS_D * PI_DIV_180_D);
+    return static_cast<float>(sqrt(dx * dx + dy * dy) * EARTH_RADIUS_D * PI_DIV_180_D);
 }
 void Node::push_relation(uint64_t relation_id, Node *n, allowance allow, double speed_limit, char *name) {
     Node *virtual_point;
