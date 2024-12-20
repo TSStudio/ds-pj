@@ -11,3 +11,9 @@ compile_commands.json
 talk1.md
 link_cache.json
 boost_1_86_0/
+.ninja_deps
+.ninja_log
+build.ninja
+compile_commands.json 
+CopyOfCmakeCache.txt
+talk1.md

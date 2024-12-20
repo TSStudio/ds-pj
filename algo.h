@@ -12,6 +12,7 @@
 #include <boost/unordered_set.hpp>
 #include <boost/unordered_map.hpp>
 #include <boost/heap/priority_queue.hpp>
+#include <boost/heap/fibonacci_heap.hpp>
 #include <ankerl/unordered_dense.h>
 
 #define BATCH_SIZE_MASK 0x08
@@ -37,6 +38,9 @@ struct heapElementHeuristic {
     }
 };
 
+typedef boost::heap::fibonacci_heap<heapElement> pq_type;
+typedef boost::heap::fibonacci_heap<heapElementHeuristic> pq_heuristic_type;
+
 struct NodeDetails {
     float distance;
     Node* parent;
@@ -56,7 +60,7 @@ public:
 
 class DijkstraPathFinder {
 private:
-    boost::heap::priority_queue<heapElement> pq;
+    pq_type pq;
 
 protected:
     Node* start;
@@ -72,7 +76,7 @@ protected:
     // boost::unordered_map<Node*, float> distance_map;
     // boost::unordered_map<Node*, Node*> parent_map;
     // boost::unordered_map<Node*, ComputedEdge*> edge_map;
-    //boost::unordered_map<Node*, NodeDetails> details_map;
+    // boost::unordered_map<Node*, NodeDetails> details_map;
     ankerl::unordered_dense::map<Node*, NodeDetails, ankerl::unordered_dense::hash<Node*>> details_map;
 
 public:
@@ -95,7 +99,7 @@ class HeuristicOptimizedDijkstraPathFinder : public DijkstraPathFinder {
 protected:
     float heuristicFactor;
     float avgSpeed;
-    boost::heap::priority_queue<heapElementHeuristic> pq_heuristic;
+    pq_heuristic_type pq_heuristic;
     constexpr float get_heuristic_time(float distance, Node* middle, Node* end) noexcept(true);
     constexpr float get_heuristic_distance(float distance, Node* middle, Node* end) noexcept(true);
     constexpr static float get_avg_speed(int method) noexcept(true);
@@ -114,7 +118,7 @@ public:
  */
 class BidirectionalHODPF : public HeuristicOptimizedDijkstraPathFinder {
 protected:
-    boost::heap::priority_queue<heapElementHeuristic> pq_heuristic_end;
+    pq_heuristic_type pq_heuristic_end;
     // boost::unordered_map<Node*, float> distance_map_end;
     // boost::unordered_map<Node*, Node*> parent_map_end;
     // boost::unordered_map<Node*, ComputedEdge*> edge_map_end;

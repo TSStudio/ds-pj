@@ -45,8 +45,8 @@ public:
             double eta = (total - current) / itps;
             std::print("({:.2f} it/s), ETA: {:.2f}s", itps, eta);
         }
-        std::cout << "\r";
-        std::cout.flush();
+        std::print("\r");
+        std::flush(std::cout);
     }
     void done() {
         auto now = std::chrono::system_clock::now();

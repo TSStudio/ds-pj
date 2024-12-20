@@ -26,7 +26,7 @@ bool Zone::isIn(coord p) {
 }
 
 DijkstraPathFinder::DijkstraPathFinder(Node* start, Node* end, int method, int key) : start(start), end(end), found(false), distance(1e18), travel_time(1e18), method(method), key(key) {
-    pq.reserve(1000);
+    //pq.reserve(1000);
     details_map.reserve(1000);
     visited_nodes.reserve(1000);
     path.reserve(1000);
@@ -141,7 +141,7 @@ void DijkstraPathFinder::find_path() {
 }
 
 HeuristicOptimizedDijkstraPathFinder::HeuristicOptimizedDijkstraPathFinder(Node* start, Node* end, int method, int key, float heuristicFactor) : DijkstraPathFinder(start, end, method, key), heuristicFactor(heuristicFactor) {
-    pq_heuristic.reserve(1000);
+    //pq_heuristic.reserve(1000);
 }
 
 constexpr float HeuristicOptimizedDijkstraPathFinder::get_heuristic_time(float _distance, Node* middle, Node* end) noexcept(true) {
@@ -230,7 +230,7 @@ void HeuristicOptimizedDijkstraPathFinder::find_path() {
 BidirectionalHODPF::BidirectionalHODPF(Node* start, Node* end, int method, int key, float heuristicFactor) : HeuristicOptimizedDijkstraPathFinder(start, end, method, key, heuristicFactor) {
     details_map_end.reserve(1000);
     visited_nodes_end.reserve(1000);
-    pq_heuristic_end.reserve(1000);
+    //pq_heuristic_end.reserve(1000);
 }
 
 void BidirectionalHODPF::find_path() {
