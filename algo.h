@@ -130,6 +130,8 @@ protected:
     std::vector<ComputedEdge*> path_end;
     // boost::unordered_set<Node*> visited_nodes_end;
     ankerl::unordered_dense::set<Node*, ankerl::unordered_dense::hash<Node*>> visited_nodes_end;
+    float curMu = 1e13;
+    Node* middle = nullptr;
 
 public:
     BidirectionalHODPF(Node* start, Node* end, int method, int key, float heuristicFactor);

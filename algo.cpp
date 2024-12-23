@@ -241,6 +241,11 @@ void BidirectionalHODPF::find_path() {
     pq_heuristic_end.push({0, end, 0});
     int i = 0;
     Node* middle = nullptr;
+    float prt;
+    if (key == 0)
+        prt = (start->distanceF(*end)) / avgSpeed;
+    else
+        prt = start->distanceF(*end);
     while (!pq_heuristic.empty() && !pq_heuristic_end.empty()) {
         i++;
         if (i & BATCH_SIZE_MASK) {
@@ -254,8 +259,10 @@ void BidirectionalHODPF::find_path() {
             [[unlikely]]
             if (current == end || visited_nodes_end.contains(current)) {
                 found = true;
-                middle = current;
-                break;
+                if (details_map[current].distance + details_map_end[current].distance < curMu) {
+                    curMu = details_map[current].distance + details_map_end[current].distance;
+                    middle = current;
+                }
             }
             for (const auto& e : current->computed_edges) {
                 Node* next = e->end;
@@ -287,8 +294,10 @@ void BidirectionalHODPF::find_path() {
             [[unlikely]]
             if (current == start || visited_nodes.contains(current)) {
                 found = true;
-                middle = current;
-                break;
+                if (details_map[current].distance + details_map_end[current].distance < curMu) {
+                    curMu = details_map[current].distance + details_map_end[current].distance;
+                    middle = current;
+                }
             }
             for (const auto& e : current->computed_edges_end) {
                 Node* next = e->start;
@@ -306,6 +315,9 @@ void BidirectionalHODPF::find_path() {
                         pq_heuristic_end.push({get_heuristic_distance(new_distance, next, start), next, new_distance});
                 }
             }
+        }
+        if (curMu + prt < pq_heuristic.top().first + pq_heuristic_end.top().first) {
+            break;
         }
     }
 
